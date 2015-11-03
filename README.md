@@ -21,3 +21,15 @@ The idea, in essence, is to combine the availability toggle of Uber/Lyft’s
 would be meant for people who have some spare time (e.g. “2 hour break between
 classes...anyone want to chat over some coffee?”) and would like to meet other
 available people around them.
+
+Setup Development Environment
+
+Install Node.js
+	Download and install from nodejs.org
+
+Install Cordova and Ionic
+	- Open terminal: sudo npm-install -g cordova ionic
+
+Clone this repo: git clone https://github.com/michaeljng/meetmeapp.git
+
+In project directory run: ionic serve
