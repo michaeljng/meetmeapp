@@ -7,8 +7,10 @@
 			</tr>
 			<tr>
 				<td>Nickname:</td>
-				<td>{{nickName}}</td>
+				<td><input id="nickName" ng-model="nickName" ng-change="updateNickname()"></td>
 			</tr>
 		</table>
+
+		<button ng-click="logout()">Logout</button>
 	</content>
 </view>
