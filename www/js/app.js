@@ -18,7 +18,7 @@ angular.module('meetme', ['ionic', 'meetme.controllers', 'meetme.services', 'ngO
   //   });
   // })
 
-  .config(function ($stateProvider, $urlRouterProvider) {
+.config(function ($stateProvider, $urlRouterProvider) {
 
         // Ionic uses AngularUI Router which uses the concept of states
         // Learn more here: https://github.com/angular-ui/ui-router
@@ -26,55 +26,49 @@ angular.module('meetme', ['ionic', 'meetme.controllers', 'meetme.services', 'ngO
         // Each state's controller can be found in controllers.js
         $stateProvider
 
-            .state('logged-out', {
-                url: '/home',
-                templateUrl: 'templates/logged-out.html',
-                controller: 'LoginController'
-            })
+        .state('logged-out', {
+          url: '/home',
+          templateUrl: 'templates/logged-out.html',
+          controller: 'LoginController'
+        })
 
-            .state('logged-in', {
-                url: '/logged-in/:userId',
-                templateUrl: 'templates/logged-in.html',
-                controller: 'MainController'
-            })
+        .state('logged-in', {
+          url: '/logged-in/:userId',
+          templateUrl: 'templates/logged-in.html',
+          controller: 'MainController'
+        })
 
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/home');
 
-    })
+})
 
-    .controller('LoginController', function ($scope, $state, ngFB, ParseService) {
+.controller('LoginController', function ($scope, $state, ngFB, FacebookService, ParseService) {
 
-      ngFB.init({appId: '1652380235023803'});
-   
-      if (ngFB.getLoginStatus().$$state.value.status == 'connected') {
-        $state.go('logged-in');
+  if (FacebookService.loginStatus() == 'connected') {
+    $state.go('logged-in');
+  }
+
+  $scope.doLogin = function() {
+    ngFB.login({scope: 'public_profile,email'}).then(
+      function (response) {
+       if (response.status === 'connected') {
+
+        FacebookService.userId(function(id) {
+          ParseService.get('Users', {"facebookId":id}, function(results) { 
+
+            if (results.length == 0) {
+              ParseService.create('Users', {"facebookId":user.id})
+            }
+
+            $state.go('logged-in');
+          });
+        });
+      } else {
+        alert('Facebook login failed');
       }
+    }
+    );  
+  }
 
-      $scope.doLogin = function() {
-        ngFB.login({scope: 'public_profile,email'}).then(
-                    function (response) {
-                         if (response.status === 'connected') {
-                          ngFB.api({
-                  path: '/me',
-                  param: {fields: 'id'}
-                }).then (
-                  function(user) {
-                    ParseService.get('Users', {"facebookId":user.id}, function(results) { 
-
-                      if (results.length == 0) {
-                        ParseService.create('Users', {"facebookId":user.id})
-                      }
-
-                      $state.go('logged-in');
-                    });
-                });
-                          
-                        } else {
-                            alert('Facebook login failed');
-                        }
-                    }
-            );  
-      }
-
-    })
+})
