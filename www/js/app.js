@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('meetme', ['ionic', 'meetme.controllers', 'meetme.services', 'ngOpenFB'])
+angular.module('meetme', ['ionic', 'meetme.controllers', 'meetme.services', 'meetme.userController', 'ngOpenFB'])
 
   // .run(function($ionicPlatform) {
   //   $ionicPlatform.ready(function() {
@@ -33,9 +33,9 @@ angular.module('meetme', ['ionic', 'meetme.controllers', 'meetme.services', 'ngO
         })
 
         .state('logged-in', {
-          url: '/logged-in/:userId',
-          templateUrl: 'templates/logged-in.html',
-          controller: 'MainController'
+          url: '/logged-in',
+          templateUrl: 'templates/user-profile.html',
+          controller: 'UserController'
         })
 
         // if none of the above states are matched, use this as the fallback
@@ -54,7 +54,7 @@ angular.module('meetme', ['ionic', 'meetme.controllers', 'meetme.services', 'ngO
       if (response.status === 'connected') {
 
         FacebookService.userId(function(id) {
-          ParseService.get('Users', {"facebookId":id}, function(results) { 
+          ParseService.get('Users', {"facebookId":id}, function(results) {
 
             if (results.length == 0) {
               ParseService.create('Users', {"facebookId":user.id})

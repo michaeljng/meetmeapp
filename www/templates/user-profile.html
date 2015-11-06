@@ -1,0 +1,31 @@
+<view title="user-profile">
+  <content has-header="true">
+    <table>
+      <tr>
+        <td>Name:</td>
+        <td>{{fbName}}</td>
+      </tr>
+      <tr>
+        <td>Nickname:</td>
+        <td><input id="nickName" ng-model="nickName"></td>
+      </tr>
+      <tr>
+        <td>Location:</td>
+        <td><input id="location" ng-model="userLocation"></td>
+      </tr>
+      <tr>
+        <td>Age:</td>
+        <td><input id="age" ng-model="userAge" type="number"></td>
+      </tr>
+      <tr>
+        <td>Description:</td>
+        <td><textarea id="description" ng-model="userDescription" cols="40" rows="5"></textarea></td>
+      </tr>
+      <tr>
+        <td><button ng-click="saveProfile()">Save</button></td>
+      </tr>
+    </table>
+
+    <button ng-click="logout()">Logout</button>
+  </content>
+</view>
