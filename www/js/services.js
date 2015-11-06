@@ -78,7 +78,7 @@ angular.module('meetme.services', [])
 		logout: function() {
 			ngFB.logout();
 		},
-		
+
 		login: function(callback) {
 			ngFB.login({scope: 'public_profile,email'}).then(
 				function(response) {
@@ -91,7 +91,7 @@ angular.module('meetme.services', [])
 			return ngFB.getLoginStatus().$$state.value.status;
 		},
 
-		getFields: function(fields, callback) {
+		getUserFields: function(fields, callback) {
 			ngFB.api({
 				path: '/me',
 				param: {fields: fields}
