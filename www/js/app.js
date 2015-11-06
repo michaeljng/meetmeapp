@@ -41,18 +41,17 @@ angular.module('meetme', ['ionic', 'meetme.controllers', 'meetme.services', 'ngO
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/home');
 
-})
+      })
 
-.controller('LoginController', function ($scope, $state, ngFB, FacebookService, ParseService) {
+.controller('LoginController', function ($scope, $state, FacebookService, ParseService) {
 
   if (FacebookService.loginStatus() == 'connected') {
     $state.go('logged-in');
   }
 
   $scope.doLogin = function() {
-    ngFB.login({scope: 'public_profile,email'}).then(
-      function (response) {
-       if (response.status === 'connected') {
+    FacebookService.login(function(response) {
+      if (response.status === 'connected') {
 
         FacebookService.userId(function(id) {
           ParseService.get('Users', {"facebookId":id}, function(results) { 
@@ -67,8 +66,6 @@ angular.module('meetme', ['ionic', 'meetme.controllers', 'meetme.services', 'ngO
       } else {
         alert('Facebook login failed');
       }
-    }
-    );  
+    })
   }
-
-})
+  })

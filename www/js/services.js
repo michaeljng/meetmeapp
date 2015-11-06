@@ -75,6 +75,18 @@ angular.module('meetme.services', [])
 			});
 		},
 
+		logout: function() {
+			ngFB.logout();
+		},
+		
+		login: function(callback) {
+			ngFB.login({scope: 'public_profile,email'}).then(
+				function(response) {
+					callback(response);
+				}
+			);
+		},
+
 		loginStatus: function() {
 			return ngFB.getLoginStatus().$$state.value.status;
 		},

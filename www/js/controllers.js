@@ -1,6 +1,6 @@
 angular.module('meetme.controllers', [])
 
-.controller('MainController', function ($scope, $state, ngFB, FacebookService, ParseService) {
+.controller('MainController', function ($scope, $state, FacebookService, ParseService) {
 
 	$scope.fbName = '';
 	$scope.nickName = '';
@@ -24,7 +24,7 @@ angular.module('meetme.controllers', [])
 	}
 
 	$scope.logout = function() {
-		ngFB.logout();
+		FacebookService.logout();
 		$state.go('logged-out');
 	}
 })
