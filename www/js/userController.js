@@ -17,7 +17,7 @@ angular.module('meetme.userController', [])
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/profile');
 
-      })
+    })
 
 .controller('UserController', function ($scope, $state, ParseService, FacebookService) {
 
@@ -27,7 +27,7 @@ angular.module('meetme.userController', [])
 	$scope.userId = '';
 	$scope.userDescription = '';
 	$scope.userLocation = '';
-	$scope.userAge = 0;
+	$scope.userAge = '';
 
 	FacebookService.getUserFields(['name', 'id'], function(user) {
 		$scope.fbId = user.id;
@@ -36,7 +36,14 @@ angular.module('meetme.userController', [])
 		ParseService.get('Users', {"facebookId":user.id}, function(results) {
 			$scope.userId = results[0].objectId;
 			$scope.userDescription = results[0].userDescription;
-			$scope.userLocation = results[0].userLocation;
+			navigator.geolocation.getCurrentPosition(function (location) {
+				$scope.userLocation = new Parse.GeoPoint(location.coords.latitude, location.coords.longitude);
+				var latlon = location.coords.latitude + "," + location.coords.longitude;
+
+				var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=400x300&sensor=false";
+
+				document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
+			})
 			$scope.userAge = results[0].userAge;
 			$scope.nickName = results[0].nickName;
 		});
