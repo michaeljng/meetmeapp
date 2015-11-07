@@ -24,5 +24,7 @@
     "ionic-plugin-keyboard",
     "org.apache.cordova.inappbrowser"
   ],
-  "cordovaPlatforms": []
+  "cordovaPlatforms": [
+    "ios"
+  ]
 }
