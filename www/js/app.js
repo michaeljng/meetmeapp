@@ -26,28 +26,36 @@ angular.module('meetme', ['ionic', 'meetme.controllers', 'meetme.services', 'mee
         // Each state's controller can be found in controllers.js
         $stateProvider
 
-        .state('logged-out', {
+        .state('app', {
+          url: '/app',
+          templateUrl: 'templates/app.html',
+          abstract: true
+        })
+
+        .state('app.logged-out', {
           url: '/home',
           templateUrl: 'templates/logged-out.html',
           controller: 'LoginController'
         })
 
-        .state('logged-in', {
+        .state('app.logged-in', {
           url: '/logged-in',
-          templateUrl: 'templates/user-profile.html',
-          controller: 'UserController'
+          templateUrl: 'templates/logged-in.html',
+          controller: 'MainController'
         })
 
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/home');
+        $urlRouterProvider.otherwise('/app/home');
 
       })
 
 .controller('LoginController', function ($scope, $state, FacebookService, ParseService) {
 
-  if (FacebookService.loginStatus() == 'connected') {
-    $state.go('logged-in');
-  }
+  // FacebookService.loginStatus(function(status){
+  //   if (status == 'connected') {
+  //     $state.go('app.logged-in.userProfile');
+  //   }
+  // });
 
   $scope.doLogin = function() {
     FacebookService.login(function(response) {
@@ -60,7 +68,7 @@ angular.module('meetme', ['ionic', 'meetme.controllers', 'meetme.services', 'mee
               ParseService.create('Users', {"facebookId":user.id})
             }
 
-            $state.go('logged-in');
+            $state.go('app.logged-in.userProfile');
           });
         });
       } else {

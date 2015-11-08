@@ -8,14 +8,14 @@ angular.module('meetme.userController', [])
         // Each state's controller can be found in controllers.js
         $stateProvider
 
-        .state('user-profile', {
-        	url: '/profile',
-        	templateUrl: 'templates/user-profile.html',
-        	controller: 'UserController'
+        .state('app.logged-in.userProfile', {
+          url: '/userProfile',
+          templateUrl: 'templates/user-profile.html',
+          controller: 'UserController'
         })
 
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/profile');
+        $urlRouterProvider.otherwise('/userProfile');
 
     })
 
@@ -57,7 +57,8 @@ angular.module('meetme.userController', [])
 	}
 
 	$scope.logout = function() {
-		FacebookService.logout();
-		$state.go('logged-out');
+		FacebookService.logout(function() {
+			$state.go('app.logged-out');
+		});
 	}
 })

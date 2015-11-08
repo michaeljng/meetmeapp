@@ -58,7 +58,7 @@ angular.module('meetme.services', [])
 				callback(user.id);
 			},
 			function(error) {
-				$state.go('logged-out');
+				$state.go('app.logged-out');
 			});
 		},		
 
@@ -71,24 +71,33 @@ angular.module('meetme.services', [])
 				callback(user.name);
 			},
 			function(error) {
-				$state.go('logged-out');
+				$state.go('app.logged-out');
 			});
 		},
 
-		logout: function() {
-			ngFB.logout();
+		logout: function(callback) {
+			ngFB.logout().then( 
+				function () {
+					callback();
+				}
+			);
 		},
 
 		login: function(callback) {
 			ngFB.login({scope: 'public_profile,email'}).then(
 				function(response) {
 					callback(response);
+				},
+				function(error) {
+					alert("error logging into facebook");
 				}
 			);
 		},
 
-		loginStatus: function() {
-			return ngFB.getLoginStatus().$$state.value.status;
+		loginStatus: function(callback) {
+			ngFB.getLoginStatus().then(function(result) {
+				callback(result.status);
+			});
 		},
 
 		getUserFields: function(fields, callback) {
@@ -100,7 +109,7 @@ angular.module('meetme.services', [])
 				callback(user);
 			},
 			function(error) {
-				$state.go('logged-out');
+				$state.go('app.logged-out');
 			});
 		}
 
