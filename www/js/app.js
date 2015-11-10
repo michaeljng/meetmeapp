@@ -65,7 +65,7 @@ angular.module('meetme', ['ionic', 'meetme.controllers', 'meetme.services', 'mee
           ParseService.get('Users', {"facebookId":id}, function(results) {
 
             if (results.length == 0) {
-              ParseService.create('Users', {"facebookId":user.id})
+              ParseService.create('Users', {"facebookId":id})
             }
 
             $state.go('app.logged-in.userProfile');
