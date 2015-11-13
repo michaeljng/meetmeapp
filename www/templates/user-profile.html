@@ -1,31 +1,27 @@
-<view title="user-profile">
-  <content has-header="true">
-    <table>
-      <tr>
-        <td>Name:</td>
-        <td>{{fbName}}</td>
-      </tr>
-      <tr>
-        <td>Nickname:</td>
-        <td><input id="nickName" ng-model="nickName"></td>
-      </tr>
-      <tr>
-        <td>Location:</td>
-        <td><div id="mapholder" ng-model="userLocation"></div></td>
-      </tr>
-      <tr>
-        <td>Age:</td>
-        <td><input id="age" ng-model="userAge" type="number"></td>
-      </tr>
-      <tr>
-        <td>Description:</td>
-        <td><textarea id="description" ng-model="userDescription" cols="40" rows="5"></textarea></td>
-      </tr>
-      <tr>
-        <td><button ng-click="saveProfile()">Save</button></td>
-      </tr>
-    </table>
-
-    <button ng-click="logout()">Logout</button>
-  </content>
-</view>
+<ion-view title="user-profile">
+  <ion-content has-header="true">
+    <ion-list>
+      <ion-item>
+        Name: {{fbName}}
+      </ion-item>
+      <ion-item>
+        Nickname: <input id="nickName" ng-model="user.nickName">
+      </ion-item>
+      <ion-item>
+        Location: <div id="mapholder" ng-model="user.location"></div>
+      </ion-item>
+      <ion-item>
+        Age: <input id="age" ng-model="user.age" type="number">
+      </ion-item>
+      <ion-item>
+        Description: <textarea id="description" ng-model="user.description" cols="40" rows="5"></textarea>
+      </ion-item>
+      <ion-item>
+        <ion-toggle ng-model="availabilityToggle" toggle-class="toggle-calm">Availability:</ion-toggle>
+      </ion-item>
+      <ion-item>
+        <button class="button button-calm" ng-click="saveProfile()">Save</button>
+        <button class="button button-calm" ng-click="logout()">Logout</button>
+      </ion-item>
+  </ion-content>
+</ion-view>
