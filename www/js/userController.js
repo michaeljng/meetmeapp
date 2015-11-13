@@ -28,40 +28,66 @@ angular.module('meetme.userController', [])
 		id: '',
 		description: '',
 		location: '',
-		age: ''
+		age: '',
+		isAvailable: false
 	}
-	
 
-	FacebookService.getUserFields(['name', 'id'], function(user) {
-		$scope.user.fbId = user.id;
-		$scope.user.fbName = user.name;
+	$scope.reload = function() {
+		FacebookService.getUserFields(['name', 'id'], function(user) {
+			$scope.user.fbId = user.id;
+			$scope.user.fbName = user.name;
 
-		ParseService.get('Users', {"facebookId":user.id}, function(results) {
-			$scope.user.id = results[0].objectId;
-			$scope.user.description = results[0].userDescription;
-			navigator.geolocation.getCurrentPosition(function (location) {
-				$scope.user.location = new Parse.GeoPoint(location.coords.latitude, location.coords.longitude);
-				var latlon = location.coords.latitude + "," + location.coords.longitude;
+			ParseService.get('Users', {"facebookId":user.id}, function(results) {
+				$scope.user.id = results[0].objectId;
+				$scope.user.description = results[0].userDescription;
+				navigator.geolocation.getCurrentPosition(function (location) {
+					$scope.user.location = new Parse.GeoPoint(location.coords.latitude, location.coords.longitude);
+					var latlon = location.coords.latitude + "," + location.coords.longitude;
 
-				var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=350x300&sensor=false";
+					var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=350x300&sensor=false";
 
-				document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
-			})
-			$scope.user.age = results[0].userAge;
-			$scope.user.nickName = results[0].nickName;
+					document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
+				})
+				$scope.user.age = results[0].userAge;
+				$scope.user.nickName = results[0].nickName;
+				$scope.user.isAvailable = results[0].isAvailable;
+			});
 		});
-	});
+	}
+
+	$scope.reload();
+
+	$scope.handlePost = function() {
+		console.log($scope.user.id.toString());
+		if ($scope.user.isAvailable == true) {
+			ParseService.create('Posts', {"userId":$scope.user.id.toString(), "status":'A'}).then(
+				function() {
+					ParseService.update('Users', $scope.user.id.toString(), {"isAvailable":true}).then(
+						function() {
+							$scope.reload();
+						}
+					);
+				}
+			);
+		}
+		else {
+			ParseService.update('Posts', {"userId":$scope.user.id.toString(), "status":'A'}, {"status":'I'}).then(
+				function() {
+					ParseService.update('Users', $scope.user.id.toString(), {"isAvailable":false}).then(
+						function() {
+							$scope.reload();
+						}
+					);
+				}
+			);
+		}
+	}
 
 	$scope.saveProfile = function() {
 		ParseService.update('Users', $scope.user.id,{"userDescription":$scope.user.description});
 		ParseService.update('Users', $scope.user.id,{"userLocation":$scope.user.location});
 		ParseService.update('Users', $scope.user.id,{"userAge":$scope.user.age});
 		ParseService.update('Users', $scope.user.id,{"nickName":$scope.user.nickName});
-		console.log($scope.user.id);
-		console.log($scope.user.description);
-		console.log($scope.user.location);
-		console.log($scope.user.age);
-		console.log($scope.user.nickName);
 	}
 
 	$scope.logout = function() {

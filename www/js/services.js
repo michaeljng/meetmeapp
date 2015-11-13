@@ -22,7 +22,7 @@ angular.module('meetme.services', [])
 		},
 
 		create: function(className, object) {
-			$http({
+			return $http({
 				method: 'POST',
 				url: 'https://api.parse.com/1/classes/' + className,
 				data: object,
@@ -31,10 +31,20 @@ angular.module('meetme.services', [])
 		},
 
 		update: function(className, id, params) {
-			$http({
+			return $http({
 				method: 'PUT',
 				url: 'https://api.parse.com/1/classes/' + className + '/' + id,
 				data: params,
+				headers: headers
+			});
+		},
+		
+		update: function(className, queryParams, updateParams) {
+			return $http({
+				method: 'PUT',
+				url: 'https://api.parse.com/1/classes/' + className,
+				params: {"where" : queryParams},
+				data: updateParams,
 				headers: headers
 			});
 		}
