@@ -37,16 +37,6 @@ angular.module('meetme.services', [])
 				data: params,
 				headers: headers
 			});
-		},
-		
-		update: function(className, queryParams, updateParams) {
-			return $http({
-				method: 'PUT',
-				url: 'https://api.parse.com/1/classes/' + className,
-				params: {"where" : queryParams},
-				data: updateParams,
-				headers: headers
-			});
 		}
 
 

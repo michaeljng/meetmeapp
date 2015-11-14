@@ -61,11 +61,16 @@ angular.module('meetme', ['ionic', 'meetme.controllers', 'meetme.services', 'mee
     FacebookService.login(function(response) {
       if (response.status === 'connected') {
 
-        FacebookService.userId(function(id) {
-          ParseService.get('Users', {"facebookId":id}, function(results) {
+        FacebookService.getUserFields(['id','name'],function(user) {
+          ParseService.get('Users', {"facebookId":user.id}, function(results) {
 
             if (results.length == 0) {
-              ParseService.create('Users', {"facebookId":id})
+              ParseService.create('Users', {"facebookId":user.id,"facebookName":user.name});
+            }
+            else {
+              results[0].facebookId = user.id;
+              results[0].facebookName = user.name;
+              ParseService.update('Users', results[0].objectId, results[0]);
             }
 
             $state.go('app.logged-in.userProfile');

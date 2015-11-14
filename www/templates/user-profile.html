@@ -2,19 +2,19 @@
   <ion-content has-header="true">
     <ion-list>
       <ion-item>
-        Name: {{user.fbName}}
+        Name: {{user.facebookName}}
       </ion-item>
       <ion-item>
         Nickname: <input id="nickName" ng-model="user.nickName">
       </ion-item>
       <ion-item>
-        Location: <div id="mapholder" ng-model="user.location"></div>
+        Location: <div id="mapholder" ng-model="user.userLocation"></div>
       </ion-item>
       <ion-item>
-        Age: <input id="age" ng-model="user.age" type="number">
+        Age: <input id="age" ng-model="user.userAge" type="number">
       </ion-item>
       <ion-item>
-        Description: <textarea id="description" ng-model="user.description" cols="40" rows="5"></textarea>
+        Description: <textarea id="description" ng-model="user.userDescription" cols="40" rows="5"></textarea>
       </ion-item>
       <ion-item>
         <ion-toggle ng-model="user.isAvailable" toggle-class="toggle-calm" ng-change="handlePost()">Availability:</ion-toggle>
