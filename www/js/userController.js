@@ -19,7 +19,7 @@ angular.module('meetme.userController', [])
 
     })
 
-.controller('UserController', function ($scope, $state, ParseService, FacebookService) {
+.controller('UserController', function ($scope, $state, $interval, ParseService, FacebookService) {
 
 	$scope.user = null;
 	$scope.post = null;
@@ -42,13 +42,19 @@ angular.module('meetme.userController', [])
 
 	$scope.reload();
 
+	$interval(function() {
+		$scope.reload();	
+	}, 10000);
+
 	$scope.handlePost = function() {
 		if ($scope.user.isAvailable == true) {
-			ParseService.create('Posts', {"user":{"__type":"Pointer","className":"Users","objectId":$scope.user.objectId}, "status":'A'}).then(
+			ParseService.create('Posts', {"expiresAt": {"__type": "Date", "iso": moment().add(1,'minutes').format() },"status":'A',"user":{"__type":"Pointer","className":"Users","objectId":$scope.user.objectId}}).then(
 				function(response) {
 					$scope.post = response.data;
+					console.log($scope.post.objectId);
 				},
 				function(error){
+					$scope.user.isAvailable == false;
 					console.log(JSON.stringify(error));
 				}
 			);
