@@ -51,11 +51,13 @@ angular.module('meetme', ['ionic', 'meetme.controllers', 'meetme.services', 'mee
 
 .controller('LoginController', function ($scope, $state, FacebookService, ParseService) {
 
-  // FacebookService.loginStatus(function(status){
-  //   if (status == 'connected') {
-  //     $state.go('app.logged-in.userProfile');
-  //   }
-  // });
+  $scope.$on('$routeChangeSuccess', function () {
+    FacebookService.loginStatus(function(status){
+      if (status == 'connected') {
+        $state.go('app.logged-in.userProfile');
+      }
+    });
+  });
 
   $scope.doLogin = function() {
     FacebookService.login(function(response) {

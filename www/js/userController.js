@@ -46,9 +46,14 @@ angular.module('meetme.userController', [])
 		$scope.reload();	
 	}, 10000);
 
-	$scope.handlePost = function() {
+	$scope.toggleAvailable = function() {
 		if ($scope.user.isAvailable == true) {
-			ParseService.create('Posts', {"expiresAt": {"__type": "Date", "iso": moment().add(1,'minutes').format() },"status":'A',"user":{"__type":"Pointer","className":"Users","objectId":$scope.user.objectId}}).then(
+			ParseService.create('Posts', {"status"	 :'A',
+										  "expiresAt": {"__type": "Date", 
+										  				"iso": moment().add(10,'seconds').format() },
+										  "user"	 : {"__type":"Pointer",
+										  		  	    "className":"Users",
+										  		  	    "objectId":$scope.user.objectId} }).then(
 				function(response) {
 					$scope.post = response.data;
 					console.log($scope.post.objectId);
