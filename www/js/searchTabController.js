@@ -26,6 +26,12 @@ angular.module('meetme.searchTabController', [])
           controller: 'AvailableSearchController'
         })
 
+        .state('app.logged-in.search-tab.user-detail', {
+          url: '/user-detail/:userId',
+          templateUrl: 'templates/user-profile.html',
+          controller: 'UserController'
+        })
+
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/unavailable');
 
@@ -34,6 +40,12 @@ angular.module('meetme.searchTabController', [])
 .controller('UnavailableSearchController', function ($scope, $state, $stateParams, ParseService) {
 
   $scope.userId = $stateParams.userId;
+
+  ParseService.getById('Users', $stateParams.userId, function(user) {
+      if (user.isAvailable == true) {
+        $state.go('app.logged-in.search-tab.available', {'postId':user.activePost.objectId,'userId':$stateParams.userId});
+      }
+  });
 
 	$scope.setAvailable = function() {
     ParseService.create('Posts', {"status"   :'A',
@@ -55,7 +67,7 @@ angular.module('meetme.searchTabController', [])
   $scope.user;
 
   $scope.reload = function() {
-    ParseService.get('Users', {"isAvailable":true}, function(results) {
+    ParseService.get('Users', {"isAvailable":true, "objectId": {"$ne":$stateParams.userId}}, function(results) {
         $scope.matchedUsers = results;
     });
     ParseService.getById('Users', $stateParams.userId, function(user) {
@@ -80,5 +92,9 @@ angular.module('meetme.searchTabController', [])
       }
     );
   }
+
+  // $scope.showDetails = function(user) {
+  //   $state.go('app.logged-in.search-tab.available.user-detail', {'userId':$stateParams.userId});
+  // }
 
 })
