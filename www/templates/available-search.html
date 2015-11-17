@@ -1,7 +1,7 @@
 <ion-view title="user-profile">
 	<ion-content class="has-header has-footer">
 		<ion-list ng-repeat="matchedUser in matchedUsers">	
-			<a class="item item-thumbnail-left" href="#/app/logged-in/search-tab/user-detail/{{matchedUser.objectId}}?isAdmin=false">
+			<a class="item item-thumbnail-left" href="#/app/logged-in/search-tab/user-detail/{{matchedUser.objectId}}">
 				<img src="http://graph.facebook.com/{{matchedUser.facebookId}}/picture?width=270&height=270"/>
 				<h2>{{matchedUser.facebookName}}</h2>
 				<p>User summary and stuffs</p>

@@ -24,15 +24,27 @@ angular.module('meetme.userController', [])
 	$scope.user = null;
 	$scope.post = null;
 
+	$scope.editable = false;
+	$scope.editing = false;
+
 	$scope.reload = function() {
 		ParseService.getById('Users', $stateParams.userId, function(user) {
+
 				$scope.user = user;
 
-				var latlon = $scope.user.userLocation.latitude + "," + $scope.user.userLocation.longitude;
-				var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=350x300&sensor=false";
+				if ($scope.user.userLocation) {
+					var latlon = $scope.user.userLocation.latitude + "," + $scope.user.userLocation.longitude;
+					var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=350x300&sensor=false";
 
-				document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
+					document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
+				}
 
+				FacebookService.userId(function(userId) {
+					if (userId == $scope.user.facebookId) {
+						$scope.editable = true;
+						$("#editButton").toggle();
+					}
+				});
 				// navigator.geolocation.getCurrentPosition(function (location) {
 				// 	$scope.user.userLocation = new Parse.GeoPoint(location.coords.latitude, location.coords.longitude);
 				// 	var latlon = location.coords.latitude + "," + location.coords.longitude;
@@ -42,6 +54,7 @@ angular.module('meetme.userController', [])
 				// 	document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
 				// })
 		});
+		
 	}
 
 	$scope.reload();

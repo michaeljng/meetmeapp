@@ -27,7 +27,7 @@ angular.module('meetme.searchTabController', [])
         })
 
         .state('app.logged-in.search-tab.user-detail', {
-          url: '/user-detail/:userId?idAdmin',
+          url: '/user-detail/:userId',
           templateUrl: 'templates/user-profile.html',
           controller: 'UserController'
         })
