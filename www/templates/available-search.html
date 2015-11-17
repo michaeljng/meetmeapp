@@ -1,11 +1,14 @@
 <ion-view title="user-profile">
 	<ion-content class="has-header has-footer">
-		<ion-list ng-repeat="matchedUser in matchedUsers">
-			<h3>{{matchedUser.facebookName}}</h3>
+		<ion-list ng-repeat="matchedUser in matchedUsers">	
+			<a class="item item-thumbnail-left" href='#'>
+				<img src="http://graph.facebook.com/{{matchedUser.facebookId}}/picture?width=270&height=270"/>
+				<h2>{{matchedUser.facebookName}}</h2>
+				<p>User summary and stuffs</p>
+			</a>
 		</ion-list>
-
 		<div>
 			<button ng-click="setUnavailable()">Unavailable</button>
 		</div>
-	</ion-content>
+	</ion-"http://graph.facebook.com/{{user.id}}/picture?width=270&height=270"ntent>
 </ion-view >
