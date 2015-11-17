@@ -55,7 +55,7 @@ angular.module('meetme.searchTabController', [])
   $scope.user;
 
   $scope.reload = function() {
-    ParseService.get('Users', {"isAvailable":true}, function(results) {
+    ParseService.get('Users', {"isAvailable":true, "objectId": {"$ne":$stateParams.userId}}, function(results) {
         $scope.matchedUsers = results;
     });
     ParseService.getById('Users', $stateParams.userId, function(user) {
