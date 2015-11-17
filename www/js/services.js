@@ -27,7 +27,7 @@ angular.module('meetme.services', [])
 				url: 'https://api.parse.com/1/classes/' + className + "/" + id,
 				headers: headers
 			}).then( function successCallback(response) {
-				callback(response.data.results[0]);
+				callback(response.data);
 			}, function errorCallback(response) {
 			    // called asynchronously if an error occurs
 			    // or server returns response with an error status.

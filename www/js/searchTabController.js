@@ -58,7 +58,7 @@ angular.module('meetme.searchTabController', [])
     ParseService.get('Users', {"isAvailable":true}, function(results) {
         $scope.matchedUsers = results;
     });
-    ParseService.getById('Users', {"objectId":$stateParams.userId}, function(user) {
+    ParseService.getById('Users', $stateParams.userId, function(user) {
         $scope.user = user;
 
         if ($scope.user.isAvailable == false) {
