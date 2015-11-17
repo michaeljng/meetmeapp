@@ -21,21 +21,44 @@ angular.module('meetme.services', [])
 			});
 		},
 
-		create: function(className, object) {
-			return $http({
+		getById: function(className, id, callback) {
+			$http({
+				method: 'GET',
+				url: 'https://api.parse.com/1/classes/' + className + "/" + id,
+				headers: headers
+			}).then( function successCallback(response) {
+				callback(response.data.results[0]);
+			}, function errorCallback(response) {
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+			});
+		},
+
+		create: function(className, object, callback) {
+			$http({
 				method: 'POST',
 				url: 'https://api.parse.com/1/classes/' + className,
 				data: object,
 				headers: headers
+			}).then( function successCallback(response) {
+				callback(response);
+			}, function errorCallback(response) {
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
 			});
 		},
 
-		update: function(className, id, params) {
-			return $http({
+		update: function(className, id, params, callback) {
+			$http({
 				method: 'PUT',
 				url: 'https://api.parse.com/1/classes/' + className + '/' + id,
 				data: params,
 				headers: headers
+			}).then( function successCallback(response) {
+				callback(response);
+			}, function errorCallback(response) {
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
 			});
 		}
 

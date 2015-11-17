@@ -3,7 +3,12 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('meetme', ['ionic', 'meetme.controllers', 'meetme.services', 'meetme.userController', 'ngOpenFB'])
+angular.module('meetme', ['ionic', 
+                          'meetme.controllers', 
+                          'meetme.services', 
+                          'meetme.userController', 
+                          'meetme.searchTabController', 
+                          'ngOpenFB'])
 
   // .run(function($ionicPlatform) {
   //   $ionicPlatform.ready(function() {
@@ -54,7 +59,7 @@ angular.module('meetme', ['ionic', 'meetme.controllers', 'meetme.services', 'mee
   $scope.$on('$routeChangeSuccess', function () {
     FacebookService.loginStatus(function(status){
       if (status == 'connected') {
-        $state.go('app.logged-in.userProfile');
+        $state.go('app.logged-in.search-tab.unavailable');
       }
     });
   });
@@ -66,16 +71,27 @@ angular.module('meetme', ['ionic', 'meetme.controllers', 'meetme.services', 'mee
         FacebookService.getUserFields(['id','name'],function(user) {
           ParseService.get('Users', {"facebookId":user.id}, function(results) {
 
+            var changeState = function(userId) {
+              console.log(userId);
+              $state.go('app.logged-in.search-tab.unavailable', {"userId":userId});
+            }
+
             if (results.length == 0) {
-              ParseService.create('Users', {"facebookId":user.id,"facebookName":user.name});
+              ParseService.create('Users', {"facebookId":user.id,"facebookName":user.name}, function(response) {
+                    changeState(response.config.data.objectId);
+                  }
+              );
             }
             else {
               results[0].facebookId = user.id;
               results[0].facebookName = user.name;
-              ParseService.update('Users', results[0].objectId, results[0]);
+              
+              ParseService.update('Users', results[0].objectId, results[0], function(response) {
+                    changeState(response.config.data.objectId);
+                  }
+              );
             }
 
-            $state.go('app.logged-in.userProfile');
           });
         });
       } else {
