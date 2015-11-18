@@ -3,11 +3,12 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('meetme', ['ionic', 
-                          'meetme.controllers', 
-                          'meetme.services', 
-                          'meetme.userController', 
-                          'meetme.searchTabController', 
+angular.module('meetme', ['ionic',
+                          'meetme.controllers',
+                          'meetme.services',
+                          'meetme.userController',
+                          'meetme.searchTabController',
+                          'meetme.userTabController',
                           'ngOpenFB'])
 
   // .run(function($ionicPlatform) {
@@ -84,7 +85,7 @@ angular.module('meetme', ['ionic',
             else {
               results[0].facebookId = user.id;
               results[0].facebookName = user.name;
-              
+
               ParseService.update('Users', results[0].objectId, results[0], function(response) {
                 changeState(response.config.data.objectId);
               });

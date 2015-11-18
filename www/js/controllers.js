@@ -8,7 +8,7 @@ angular.module('meetme.controllers', [])
 
 	// FacebookService.userId(function(id) {
 	// 	$scope.userId = id;
-	// 	ParseService.get('Users', {"facebookId":id}, function(results) { 
+	// 	ParseService.get('Users', {"facebookId":id}, function(results) {
 	// 		$scope.nickName = results[0].nickName;
 	// 		$scope.userId = results[0].objectId;
 	// 	});
@@ -27,4 +27,21 @@ angular.module('meetme.controllers', [])
 	// 	FacebookService.logout();
 	// 	$state.go('logged-out');
 	// }
+
+	FacebookService.userId(function(id) {
+		$scope.userId = id;
+		ParseService.get('Users', {"facebookId":id}, function(results) {
+			$scope.userId = results[0].objectId;
+		});
+	})
+
+	$scope.goHomepage = function() {
+		ParseService.getById('Users', $scope.userId, function(user) {
+			if (user.isAvailable == true) {
+				$state.go('app.logged-in.search-tab.available', {'postId':user.activePost.objectId,'userId':$scope.userId});
+			} else {
+				$state.go('app.logged-in.search-tab.unavailable', {'userId':$scope.userId});
+			}
+		});
+	}
 })
