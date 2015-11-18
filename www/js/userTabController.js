@@ -48,7 +48,6 @@ angular.module('meetme.userTabController', [])
   if ($scope.user.userLocation) {
     var latlon = $scope.user.userLocation.latitude + "," + $scope.user.userLocation.longitude;
     var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=350x300&sensor=false";
-
     document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
   }
 
@@ -56,6 +55,9 @@ angular.module('meetme.userTabController', [])
     $scope.editable = true;
     $("#editButton").toggle();
   }
+
+  $scope.showNotification('John Smith');
+  $scope.showInvitation('John Smith');
 
   $scope.saveProfile = function() {
     ParseService.update('Users',$scope.user.objectId,$scope.user, function() {

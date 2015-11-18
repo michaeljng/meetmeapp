@@ -14,6 +14,23 @@
 		<button ng-click="logout()">Logout</button>
 	</content>
 </view> -->
+
+<div class="bar bar-subheader" id="sub-notification">
+	<div class="inviter"></div>
+	<div class="invite-time">Invitation ends in 60 seconds.</div>
+	<br/><button class="button button-calm" id="invite-button" ng-click="closeNotification()">No, thanks.</button>
+	<button class="button button-calm" id="invite-button" ng-click="closeNotification()">Let's meet up!</button>
+</div>
+
+<div class="bar" id="significant-notification">
+	<div class="padding" id="sig-lightbox">
+		<div class="inviter"></div>
+		<div class="invite-time">This invitation expires in: 60 seconds.</div>
+		<br/><button class="button button-calm" id="invite-button" ng-click="closeInvitation()">See Profile</button>
+		<br/><button class="button button-calm" id="invite-button" ng-click="closeInvitation()">Decline Invitation</button>
+	</div>
+</div>
+
 <div ui-view>
 </div>
 

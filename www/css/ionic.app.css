@@ -1,7 +1,34 @@
 @charset "UTF-8";
-.newdivname {
+#invite-button {
+  margin: 10px;
+  position: static; }
+
+.inviter {
+  color: #666; }
+
+.invite-time {
+  color: #333; }
+
+#significant-notification {
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+  height: 86%;
+  margin-top: 44px; }
+
+#sig-lightbox {
+  background-color: #FFF;
+  margin: auto;
+  margin-top: 40%;
+  text-align: center;
+  width: 90%; }
+
+#sub-notification {
+  display: none;
+  text-align: center; }
+
+#sub-notification .title {
   color: #666;
-  background-color: #DDD; }
+  height: 122px; }
 
 /*!
   Ionicons, v2.0.1
