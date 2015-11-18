@@ -78,18 +78,16 @@ angular.module('meetme', ['ionic',
 
             if (results.length == 0) {
               ParseService.create('Users', {"facebookId":user.id,"facebookName":user.name}, function(response) {
-                    changeState(response.data.objectId);
-                  }
-              );
+                changeState(response.data.objectId);
+              });
             }
             else {
               results[0].facebookId = user.id;
               results[0].facebookName = user.name;
               
               ParseService.update('Users', results[0].objectId, results[0], function(response) {
-                    changeState(response.data.objectId);
-                  }
-              );
+                changeState(response.config.data.objectId);
+              });
             }
 
           });
