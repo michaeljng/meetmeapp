@@ -78,7 +78,7 @@ angular.module('meetme', ['ionic',
 
             if (results.length == 0) {
               ParseService.create('Users', {"facebookId":user.id,"facebookName":user.name}, function(response) {
-                    changeState(response.config.data.objectId);
+                    changeState(response.data.objectId);
                   }
               );
             }
@@ -87,7 +87,7 @@ angular.module('meetme', ['ionic',
               results[0].facebookName = user.name;
               
               ParseService.update('Users', results[0].objectId, results[0], function(response) {
-                    changeState(response.config.data.objectId);
+                    changeState(response.data.objectId);
                   }
               );
             }
