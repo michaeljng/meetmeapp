@@ -61,7 +61,7 @@ angular.module('meetme.searchTabController', [])
 
 })
 
-.controller('AvailableSearchController', function ($scope, $state, $interval, $stateParams, ParseService) {
+.controller('AvailableSearchController', function ($scope, $state, $interval, $stateParams, ParseService, PushService) {
   
   $scope.matchedUsers = [];
   $scope.user;
@@ -93,8 +93,8 @@ angular.module('meetme.searchTabController', [])
     );
   }
 
-  // $scope.showDetails = function(user) {
-  //   $state.go('app.logged-in.search-tab.available.user-detail', {'userId':$stateParams.userId});
-  // }
+  $scope.sendNotification = function(user) {
+    PushService.sendNotificationToUser(user,user.facebookName + " poked you!");
+  }
 
 })

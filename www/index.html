@@ -10,9 +10,15 @@
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ionic-platform-web-client/dist/ionic.io.bundle.min.js"></script>
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <script src="lib/angular-websocket/angular-websocket.js"></script>
+    <script src="lib/ionic-service-core/ionic-core.js"></script>
+    <script src="lib/ionic-service-push/ionic-push.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
+    <!-- Cordova is bootstrapped by ionic-platform-web-client, uncomment this if you remove ionic-platform-web-client... -->
+<!-- <script src="cordova.js"></script> -->
 
     <script src="lib/openfb.js"></script>
     <script src="lib/ngopenfb.js"></script>
@@ -46,6 +52,6 @@
              back-button-type="button-icon"
              back-button-icon="ion-ios7-arrow-back"></nav-bar>
  -->
-    <div ui-view></div>
+    <div ui-view=""></div>
   </body>
 </html>

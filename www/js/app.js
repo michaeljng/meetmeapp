@@ -3,23 +3,43 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('meetme', ['ionic', 
-                          'meetme.controllers', 
-                          'meetme.services', 
-                          'meetme.userController', 
-                          'meetme.searchTabController', 
-                          'ngOpenFB'])
+angular.module('meetme', ['ionic',
+  'ngCordova',
+  'ionic.service.core',
+  'ionic.service.push', 
+  'meetme.controllers', 
+  'meetme.services', 
+  'meetme.userController', 
+  'meetme.searchTabController', 
+  'ngOpenFB'])
+
+
+
+  .config(['$ionicAppProvider', function($ionicAppProvider) {
+    $ionicAppProvider.identify({
+      app_id: '6db3367a',
+      api_key: 'c155dc86fcdf2dd071b86943d69f01429d2f0d0bcf62b8cb',
+      dev_push: true
+    })
+  }])
 
   // .run(function($ionicPlatform) {
   //   $ionicPlatform.ready(function() {
+  //     var push = new Ionic.Push({
+  //       "debug": true
+  //     });
+
+  //     push.register(function(token) {
+  //       console.log("Device token:",token.token);
+  //     });
   //     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
   //     // for form inputs)
-  //     if(window.cordova && window.cordova.plugins.Keyboard) {
-  //       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-  //     }
-  //     if(window.StatusBar) {
-  //       StatusBar.styleDefault();
-  //     }
+  //     // if(window.cordova && window.cordova.plugins.Keyboard) {
+  //     //   cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+  //     // }
+  //     // if(window.StatusBar) {
+  //     //   StatusBar.styleDefault();
+  //     // }
   //   });
   // })
 
@@ -54,7 +74,9 @@ angular.module('meetme', ['ionic',
 
       })
 
-.controller('LoginController', function ($scope, $state, FacebookService, ParseService) {
+.controller('LoginController', function ($scope, $state, $ionicUser, $ionicPush, $rootScope, FacebookService, ParseService) {
+
+  $scope.userId;
 
   $scope.$on('$routeChangeSuccess', function () {
     FacebookService.loginStatus(function(status){
@@ -71,14 +93,17 @@ angular.module('meetme', ['ionic',
         FacebookService.getUserFields(['id','name'],function(user) {
           ParseService.get('Users', {"facebookId":user.id}, function(results) {
 
-            var changeState = function(userId) {
-              console.log(userId);
-              $state.go('app.logged-in.search-tab.unavailable', {"userId":userId});
+            var finishLogin = function() {
+              console.log( $scope.userId);
+              $scope.identifyUser($scope.userId);
+              $scope.pushRegister();
+              $state.go('app.logged-in.search-tab.unavailable', {"userId": $scope.userId});
             }
 
             if (results.length == 0) {
               ParseService.create('Users', {"facebookId":user.id,"facebookName":user.name}, function(response) {
-                changeState(response.data.objectId);
+                $scope.userId = response.data.objectId;
+                finishLogin();
               });
             }
             else {
@@ -86,7 +111,8 @@ angular.module('meetme', ['ionic',
               results[0].facebookName = user.name;
               
               ParseService.update('Users', results[0].objectId, results[0], function(response) {
-                changeState(response.config.data.objectId);
+                $scope.userId = response.config.data.objectId;
+                finishLogin();
               });
             }
 
@@ -96,5 +122,50 @@ angular.module('meetme', ['ionic',
         alert('Facebook login failed');
       }
     })
-  }
-  })
+}
+
+$scope.identifyUser = function(userId) {
+ var user = $ionicUser.get();
+ if(!user.user_id) {
+   // Set your user_id here, or generate a random one.
+   user.user_id = userId
+   
+   // // Metadata
+   // angular.extend(user, {
+   // name: 'Simon',
+   // bio: 'Author of Devdactic'
+   // });
+
+   // Identify your user with the Ionic User Service
+   $ionicUser.identify(user).then(function(){
+    $scope.identified = true;
+    console.log('Identified user ' + user.name + '\n ID ' + user.user_id);
+  });
+ }
+}
+
+ $scope.pushRegister = function() {
+   console.log('Ionic Push: Registering user');
+   
+   // Register with the Ionic Push service.  All parameters are optional.
+   $ionicPush.register({
+     canShowAlert: true, //Can pushes show an alert on your screen?
+     canSetBadge: true, //Can pushes update app icon badges?
+     canPlaySound: true, //Can notifications play a sound?
+     canRunActionsOnWake: true, //Can run actions outside the app,
+     onNotification: function(notification) {
+       // Handle new push notifications here
+
+       // console.log(JSON.stringify(notification,null,'\t'));
+
+       return true;
+     }
+   });
+ }
+
+ $rootScope.$on('$cordovaPush:tokenReceived', function(event, data) {
+    ParseService.update('Users', $scope.userId, {"pushToken":data.token}, function(response) {
+      console.log('Ionic Push: Saved token ', data.token, data.platform);
+    });
+  });
+})

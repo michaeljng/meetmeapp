@@ -1,9 +1,33 @@
 angular.module('meetme.services', [])
 
+.factory('PushService', function ($http) {
+	var headers = {	"X-Ionic-Application-Id": "6db3367a",
+					"Authorization": "Y2E1Nzg4ODU3YjQ1NDg3ZjZhZWFmOWNiYzU3MzJlZDhkM2MzNDk0YjMyNzliNzhhOg=="}
+
+
+	return {
+
+		sendNotificationToUser: function(user, message) {
+			$http({
+				method: 'POST',
+				url: 'https://push.ionic.io/api/v1/push',
+				data: {"tokens":tokens, "notification":{"alert":message}},
+				headers: headers
+			}).then( function successCallback(response) {
+				
+			}, function errorCallback(response) {
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+			});
+		}
+	}
+})
+
+
 .factory('ParseService', function ($http) {
 
 	var headers = {	"X-Parse-Application-Id": "EvhQWhNkOQrt9FOkJaEAe3tX5qJDfq7K8NMMnpd8",
-	"X-Parse-REST-API-Key": "GPHw7mJbToX9Tyw7suXilsbkoUoSKN7wpXuTUqJK"}
+					"X-Parse-REST-API-Key": "GPHw7mJbToX9Tyw7suXilsbkoUoSKN7wpXuTUqJK"}
 
 	return {
 
