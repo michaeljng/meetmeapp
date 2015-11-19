@@ -6,15 +6,14 @@ angular.module('meetme.services', [])
 
 
 	return {
-
 		sendNotificationToUser: function(user, message) {
 			$http({
 				method: 'POST',
 				url: 'https://push.ionic.io/api/v1/push',
-				data: {"tokens":tokens, "notification":{"alert":message}},
+				data: {"tokens":[user.pushToken], "notification":{"alert":message}},
 				headers: headers
 			}).then( function successCallback(response) {
-				
+
 			}, function errorCallback(response) {
 			    // called asynchronously if an error occurs
 			    // or server returns response with an error status.
