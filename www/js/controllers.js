@@ -2,32 +2,6 @@ angular.module('meetme.controllers', [])
 
 .controller('MainController', function ($scope, $state, FacebookService, ParseService) {
 
-	// $scope.fbName = '';
-	// $scope.nickName = '';
-	// $scope.userId = '';
-
-	// FacebookService.userId(function(id) {
-	// 	$scope.userId = id;
-	// 	ParseService.get('Users', {"facebookId":id}, function(results) {
-	// 		$scope.nickName = results[0].nickName;
-	// 		$scope.userId = results[0].objectId;
-	// 	});
-	// })
-
-	// FacebookService.name(function(name) {
-	// 	$scope.fbName = name;
-	// })
-
-
-	// $scope.updateNickname = function() {
-	// 	ParseService.update('Users', $scope.userId,{"nickName":$scope.nickName});
-	// }
-
-	// $scope.logout = function() {
-	// 	FacebookService.logout();
-	// 	$state.go('logged-out');
-	// }
-
 	FacebookService.userId(function(id) {
 		$scope.userId = id;
 		ParseService.get('Users', {"facebookId":id}, function(results) {
@@ -35,13 +9,8 @@ angular.module('meetme.controllers', [])
 		});
 	})
 
-	$scope.goHomepage = function() {
-		ParseService.getById('Users', $scope.userId, function(user) {
-			if (user.isAvailable == true) {
-				$state.go('app.logged-in.search-tab.available', {'postId':user.activePost.objectId,'userId':$scope.userId});
-			} else {
-				$state.go('app.logged-in.search-tab.unavailable', {'userId':$scope.userId});
-			}
-		});
-	}
+	// $scope.goHomepage = function() {
+	// 	// 
+	// 	console.log("hello");
+	// }
 })

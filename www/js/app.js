@@ -6,7 +6,6 @@
 angular.module('meetme', ['ionic',
                           'meetme.controllers',
                           'meetme.services',
-                          'meetme.userController',
                           'meetme.searchTabController',
                           'meetme.userTabController',
                           'ngOpenFB'])
