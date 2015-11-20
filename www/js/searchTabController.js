@@ -35,11 +35,11 @@ angular.module('meetme.searchTabController', [])
           controller: 'AvailableSearchController'
         })
 
-        .state('app.logged-in.search-tab.user-detail', {
-          url: '/user-detail/:userId',
-          templateUrl: 'templates/user-profile.html',
-          controller: 'UserController'
-        })
+        // .state('app.logged-in.search-tab.user-detail', {
+        //   url: '/user-detail/:userId',
+        //   templateUrl: 'templates/user-profile.html',
+        //   controller: 'UserController'
+        // })
 
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/unavailable');
