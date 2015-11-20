@@ -21,6 +21,20 @@ angular.module('meetme.services', [])
 			});
 		},
 
+		getSingleObject: function(className, params, callback) {
+			$http({
+				method: 'GET',
+				url: 'https://api.parse.com/1/classes/' + className,
+				params: {"where" : params},
+				headers: headers
+			}).then( function successCallback(response) {
+				callback(response.data.results[0]);
+			}, function errorCallback(response) {
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+			});
+		},
+
 		getById: function(className, id, callback) {
 			$http({
 				method: 'GET',

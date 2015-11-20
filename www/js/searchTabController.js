@@ -15,9 +15,18 @@ angular.module('meetme.searchTabController', [])
         })
 
         .state('app.logged-in.search-tab.unavailable', {
-          url: '/unavailable?userId',
+          url: '/unavailable/:userId',
           templateUrl: 'templates/unavailable-search.html',
-          controller: 'UnavailableSearchController'
+          controller: 'UnavailableSearchController',
+          resolve: {
+            user: function($stateParams, $q, ParseService) {
+              var dfd = $q.defer();
+              ParseService.getById('Users', $stateParams.userId, function(user) {
+                dfd.resolve(user);
+              });
+              return dfd.promise;
+            }
+          }
         })
 
         .state('app.logged-in.search-tab.available', {
@@ -26,27 +35,27 @@ angular.module('meetme.searchTabController', [])
           controller: 'AvailableSearchController'
         })
 
-        .state('app.logged-in.search-tab.user-detail', {
-          url: '/user-detail/:userId',
-          templateUrl: 'templates/user-profile.html',
-          controller: 'UserController'
-        })
+        // .state('app.logged-in.search-tab.user-detail', {
+        //   url: '/user-detail/:userId',
+        //   templateUrl: 'templates/user-profile.html',
+        //   controller: 'UserController'
+        // })
 
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/unavailable');
 
     })
 
-.controller('UnavailableSearchController', function ($scope, $state, $stateParams, ParseService) {
+.controller('UnavailableSearchController', function ($scope, $state, user, $stateParams, ParseService) {
 
   $scope.userId = $stateParams.userId;
+  $scope.user = user;
 
-  ParseService.getById('Users', $stateParams.userId, function(user) {
-      if (user.isAvailable == true) {
-        $state.go('app.logged-in.search-tab.available', {'postId':user.activePost.objectId,'userId':$stateParams.userId});
-      }
-  });
-
+  if (user.isAvailable == true) {
+    $state.go('app.logged-in.search-tab.available', {'postId':user.activePost.objectId,'userId':$stateParams.userId});
+  }
+    
+  
 	$scope.setAvailable = function() {
     ParseService.create('Posts', {"status"   :'A',
                       "expiresAt": {"__type": "Date", 
