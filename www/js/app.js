@@ -46,7 +46,12 @@ angular.module('meetme', ['ionic',
         .state('app.logged-in', {
           url: '/logged-in',
           templateUrl: 'templates/logged-in.html',
-          controller: 'MainController'
+          controller: 'MainController',
+          resolve: {
+            currentUser: function(PreloadFunctions) {
+              return PreloadFunctions.currentUser();
+            }
+          }
         })
 
         // if none of the above states are matched, use this as the fallback
@@ -71,14 +76,9 @@ angular.module('meetme', ['ionic',
         FacebookService.getUserFields(['id','name'],function(user) {
           ParseService.get('Users', {"facebookId":user.id}, function(results) {
 
-            var changeState = function(userId) {
-              console.log(userId);
-              $state.go('app.logged-in.search-tab.unavailable', {"userId":userId});
-            }
-
             if (results.length == 0) {
               ParseService.create('Users', {"facebookId":user.id,"facebookName":user.name}, function(response) {
-                changeState(response.data.objectId);
+                $state.go('app.logged-in.search-tab.unavailable');
               });
             }
             else {
@@ -86,7 +86,7 @@ angular.module('meetme', ['ionic',
               results[0].facebookName = user.name;
 
               ParseService.update('Users', results[0].objectId, results[0], function(response) {
-                changeState(response.config.data.objectId);
+                $state.go('app.logged-in.search-tab.unavailable');
               });
             }
 
