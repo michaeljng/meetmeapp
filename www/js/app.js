@@ -4,14 +4,14 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 angular.module('meetme', ['ionic',
-  'ngCordova',
-  'ionic.service.core',
-  'ionic.service.push', 
-  'meetme.controllers', 
-  'meetme.services', 
-  'meetme.userController', 
-  'meetme.searchTabController', 
-  'ngOpenFB'])
+                          'ngCordova',
+                          'ionic.service.core',
+                          'ionic.service.push', 
+                          'meetme.controllers',
+                          'meetme.services',
+                          'meetme.searchTabController',
+                          'meetme.userTabController',
+                          'ngOpenFB'])
 
 
 
@@ -109,7 +109,7 @@ angular.module('meetme', ['ionic',
             else {
               results[0].facebookId = user.id;
               results[0].facebookName = user.name;
-              
+
               ParseService.update('Users', results[0].objectId, results[0], function(response) {
                 $scope.userId = response.config.data.objectId;
                 finishLogin();
