@@ -56,9 +56,6 @@ angular.module('meetme.userTabController', [])
     $("#editButton").toggle();
   }
 
-  $scope.showNotification('John Smith');
-  $scope.showInvitation('John Smith');
-
   $scope.saveProfile = function() {
     ParseService.update('Users',$scope.user.objectId,$scope.user, function() {
       $scope.reload();

@@ -4,24 +4,24 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 angular.module('meetme', ['ionic',
-                          'ngCordova',
-                          'ionic.service.core',
-                          'ionic.service.push',
-                          'meetme.controllers',
-                          'meetme.services',
-                          'meetme.searchTabController',
-                          'meetme.userTabController',
-                          'ngOpenFB'])
+  'ngCordova',
+  'ionic.service.core',
+  'ionic.service.push',
+  'meetme.controllers',
+  'meetme.services',
+  'meetme.searchTabController',
+  'meetme.userTabController',
+  'ngOpenFB'])
 
 
 
-  .config(['$ionicAppProvider', function($ionicAppProvider) {
-    $ionicAppProvider.identify({
-      app_id: '6db3367a',
-      api_key: 'c155dc86fcdf2dd071b86943d69f01429d2f0d0bcf62b8cb',
-      dev_push: true
-    })
-  }])
+.config(['$ionicAppProvider', function($ionicAppProvider) {
+  $ionicAppProvider.identify({
+    app_id: '6db3367a',
+    api_key: 'c155dc86fcdf2dd071b86943d69f01429d2f0d0bcf62b8cb',
+    dev_push: true
+  })
+}])
 
   // .run(function($ionicPlatform) {
   //   $ionicPlatform.ready(function() {
@@ -118,10 +118,10 @@ angular.module('meetme', ['ionic',
 
           });
         });
-      } else {
-        alert('Facebook login failed');
-      }
-    })
+} else {
+  alert('Facebook login failed');
+}
+})
 }
 
 $scope.identifyUser = function(userId) {
@@ -144,8 +144,8 @@ $scope.identifyUser = function(userId) {
  }
 }
 
- $scope.pushRegister = function() {
-   console.log('Ionic Push: Registering user');
+$scope.pushRegister = function() {
+ console.log('Ionic Push: Registering user');
 
    // Register with the Ionic Push service.  All parameters are optional.
    $ionicPush.register({
@@ -154,18 +154,47 @@ $scope.identifyUser = function(userId) {
      canPlaySound: true, //Can notifications play a sound?
      canRunActionsOnWake: true, //Can run actions outside the app,
      onNotification: function(notification) {
-       // Handle new push notifications here
-
-       // console.log(JSON.stringify(notification,null,'\t'));
-
-       return true;
-     }
-   });
+      $scope.showNotification('John Smith');
+      $scope.showInvitation('John Smith');
+      return true;
+    }
+  });
  }
 
  $rootScope.$on('$cordovaPush:tokenReceived', function(event, data) {
-    ParseService.update('Users', $scope.userId, {"pushToken":data.token}, function(response) {
-      console.log('Ionic Push: Saved token ', data.token, data.platform);
-    });
+  ParseService.update('Users', $scope.userId, {"pushToken":data.token}, function(response) {
+    console.log('Ionic Push: Saved token ', data.token, data.platform);
   });
+});
+
+ $scope.showNotification = function(userInviteName) {
+  $('#sub-notification').show();
+  $('#sub-notification').find('.inviter').html(userInviteName + ' has invited you to meet up!');
+  $('#sub-notification').animate({
+    height: "122px"
+  }, 500, function() {});
+  $('.has-header').animate({
+    top: "166px"
+  }, 500, function() {});
+}
+
+$('#sub-yes,#sub-no').click(function() {
+  $('#sub-notification').hide();
+  $('#sub-notification').animate({
+    height: "0"
+  }, 500, function() {});
+  $('.has-header').animate({
+    top: "44px"
+  }, 500, function() {});
+})
+
+$scope.showInvitation = function(userInviteName) {
+  $('#significant-notification').show();
+  $('#sig-lightbox').find('.inviter').html(userInviteName + ' has invited you to meet up!');
+}
+
+$('#sig-yes,#sig-no').click(function() {
+  $('#significant-notification').hide();
+})
+
 })
