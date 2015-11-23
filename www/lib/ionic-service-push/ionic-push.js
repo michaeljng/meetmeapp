@@ -130,8 +130,8 @@ function($http, $cordovaPush, $cordovaLocalNotification, $ionicApp, $ionicPushAc
                 }
               });
             } else {
-              console.log('$ionicPush: No device, sending alert instead.');
-              alert(resp.messages[0]);
+              // Console log when not in device
+              console.log(resp.messages[0]);
             }
           }
         }).error(function(error){

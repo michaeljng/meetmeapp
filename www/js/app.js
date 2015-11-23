@@ -6,7 +6,7 @@
 angular.module('meetme', ['ionic',
                           'ngCordova',
                           'ionic.service.core',
-                          'ionic.service.push', 
+                          'ionic.service.push',
                           'meetme.controllers',
                           'meetme.services',
                           'meetme.searchTabController',
@@ -129,7 +129,7 @@ $scope.identifyUser = function(userId) {
  if(!user.user_id) {
    // Set your user_id here, or generate a random one.
    user.user_id = userId
-   
+
    // // Metadata
    // angular.extend(user, {
    // name: 'Simon',
@@ -146,7 +146,7 @@ $scope.identifyUser = function(userId) {
 
  $scope.pushRegister = function() {
    console.log('Ionic Push: Registering user');
-   
+
    // Register with the Ionic Push service.  All parameters are optional.
    $ionicPush.register({
      canShowAlert: true, //Can pushes show an alert on your screen?
