@@ -103,7 +103,9 @@ angular.module('meetme.searchTabController', [])
   }
 
   $scope.sendNotification = function(user) {
-    PushService.sendNotificationToUser(user, {"alert": "Invitation Received:{}".format($scope.user.objectId)} );
+    // console.log(JSON.stringify(user,null,'\t'));
+    console.log("HERE");
+    PushService.sendNotificationToUser(user, {"alert": "Invitation Received:" + $scope.user.objectId} );
   }
 
 })
