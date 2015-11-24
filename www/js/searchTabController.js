@@ -103,7 +103,7 @@ angular.module('meetme.searchTabController', [])
   }
 
   $scope.sendNotification = function(user) {
-    PushService.sendNotificationToUser(user,$scope.user.facebookName + " poked you!");
+    PushService.sendNotificationToUser(user, {"alert": "Invitation Received:{}".format($scope.user.objectId)} );
   }
 
 })

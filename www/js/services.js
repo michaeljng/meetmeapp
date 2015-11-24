@@ -6,11 +6,11 @@ angular.module('meetme.services', [])
 
 
 	return {
-		sendNotificationToUser: function(user, message) {
+		sendNotificationToUser: function(user, notification) {
 			$http({
 				method: 'POST',
 				url: 'https://push.ionic.io/api/v1/push',
-				data: {"tokens":[user.pushToken], "notification":{"alert":message}},
+				data: {"tokens":[user.pushToken], "notification":notification},
 				headers: headers
 			}).then( function successCallback(response) {
 

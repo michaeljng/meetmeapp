@@ -154,8 +154,23 @@ $scope.pushRegister = function() {
      canPlaySound: true, //Can notifications play a sound?
      canRunActionsOnWake: true, //Can run actions outside the app,
      onNotification: function(notification) {
-      $scope.showNotification('John Smith');
-      $scope.showInvitation('John Smith');
+
+      var alertParams = notification.alert.split(":");
+      var notificationType = alertParams[0];
+
+      console.log(JSON.stringify(alertParams,null,'\t'));
+
+      switch (notificationType) {
+
+        case "Invitation Received":
+          var fromUserId = alertParams[1];
+          $scope.showInvitation(fromUserId);
+        default:
+
+      }
+
+      // $scope.showNotification('John Smith');
+      // $scope.showInvitation('John Smith');
       return true;
     }
   });
@@ -167,9 +182,9 @@ $scope.pushRegister = function() {
   });
 });
 
- $scope.showNotification = function(userInviteName) {
+ $scope.showNotification = function(fromUserId) {
   $('#sub-notification').show();
-  $('#sub-notification').find('.inviter').html(userInviteName + ' has invited you to meet up!');
+  $('#sub-notification').find('.inviter').html(fromUserId + ' has invited you to meet up!');
   $('#sub-notification').animate({
     height: "122px"
   }, 500, function() {});
