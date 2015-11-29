@@ -1,8 +1,8 @@
 @charset "UTF-8";
 #sub-no,
 #sub-yes,
-#sig-no,
-#sig-yes {
+#inv-no,
+#inv-yes {
   margin: 10px;
   position: static; }
 
@@ -12,13 +12,13 @@
 .invite-time {
   color: #333; }
 
-#significant-notification {
+#invitation-notification {
   background-color: rgba(0, 0, 0, 0.8);
   display: none;
   height: 86%;
   margin-top: 44px; }
 
-#sig-lightbox {
+#inv-lightbox {
   background-color: #FFF;
   margin: auto;
   margin-top: 40%;

@@ -163,8 +163,8 @@ $scope.pushRegister = function() {
       switch (notificationType) {
 
         case "Invitation Received":
-          var fromUserId = alertParams[1];
-          $scope.showInvitation(fromUserId);
+        var fromUserId = alertParams[1];
+        $scope.showInvitation(fromUserId);
         default:
 
       }
@@ -204,12 +204,16 @@ $('#sub-yes,#sub-no').click(function() {
 })
 
 $scope.showInvitation = function(userInviteName) {
-  $('#significant-notification').show();
-  $('#sig-lightbox').find('.inviter').html(userInviteName + ' has invited you to meet up!');
+  $('#invitation-notification').show();
+  $('#inv-lightbox').find('.inviter').html(userInviteName + ' has invited you to meet up!');
+  $('#inv-yes').click(function() {
+    $state.go('app.logged-in.user-tab.user-detail', {'userId':userInviteName});
+    $('#invitation-notification').hide();
+  })
 }
 
-$('#sig-yes,#sig-no').click(function() {
-  $('#significant-notification').hide();
+$('#inv-no').click(function() {
+  $('#invitation-notification').hide();
 })
 
 })
