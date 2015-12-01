@@ -66,7 +66,12 @@ angular.module('meetme', ['ionic',
         .state('app.logged-in', {
           url: '/logged-in',
           templateUrl: 'templates/logged-in.html',
-          controller: 'MainController'
+          controller: 'MainController',
+          resolve: {
+            currentUser: function(PreloadFunctions) {
+              return PreloadFunctions.currentUser();
+            }
+          }
         })
 
         // if none of the above states are matched, use this as the fallback

@@ -15,44 +15,44 @@ angular.module('meetme.searchTabController', [])
         })
 
         .state('app.logged-in.search-tab.unavailable', {
-          url: '/unavailable/:userId',
+          url: '/unavailable',
           templateUrl: 'templates/unavailable-search.html',
           controller: 'UnavailableSearchController',
           resolve: {
-            user: function($stateParams, $q, ParseService) {
-              var dfd = $q.defer();
-              ParseService.getById('Users', $stateParams.userId, function(user) {
-                dfd.resolve(user);
-              });
-              return dfd.promise;
+            currentUser: function(PreloadFunctions) {
+              return PreloadFunctions.currentUser();
             }
           }
         })
 
         .state('app.logged-in.search-tab.available', {
-          url: '/available?postId&userId',
+          url: '/available/:postId?currentUser',
           templateUrl: 'templates/available-search.html',
           controller: 'AvailableSearchController'
         })
 
-        // .state('app.logged-in.search-tab.user-detail', {
-        //   url: '/user-detail/:userId',
-        //   templateUrl: 'templates/user-profile.html',
-        //   controller: 'UserController'
-        // })
+        .state('app.logged-in.search-tab.user-detail', {
+          url: '/user-detail/:userId?currentUserId',
+          templateUrl: 'templates/user-profile.html',
+          controller: 'UserController',
+          resolve: {
+            displayUser: function(PreloadFunctions, $stateParams) {
+              return PreloadFunctions.userById($stateParams.userId);
+            }
+          }
+        })
 
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/unavailable');
 
     })
 
-.controller('UnavailableSearchController', function ($scope, $state, user, $stateParams, ParseService) {
+.controller('UnavailableSearchController', function ($scope, $state, currentUser, ParseService) {
 
-  $scope.userId = $stateParams.userId;
-  $scope.user = user;
+  $scope.currentUser = currentUser;
 
-  if (user.isAvailable == true) {
-    $state.go('app.logged-in.search-tab.available', {'postId':user.activePost.objectId,'userId':$stateParams.userId});
+  if ($scope.currentUser.isAvailable == true) {
+    $state.go('app.logged-in.search-tab.available', {'postId':$scope.currentUser.activePost.objectId,'currentUser':JSON.stringify($scope.currentUser)});
   }
     
   
@@ -62,28 +62,29 @@ angular.module('meetme.searchTabController', [])
                               "iso": moment().add(1,'minutes').format() },
                       "user"   : {"__type":"Pointer",
                                   "className":"Users",
-                                  "objectId":$scope.userId} }, function(response) {
-          $state.go('app.logged-in.search-tab.available', {'postId':response.data.objectId, 'userId':$scope.userId});
+                                  "objectId":$scope.currentUser.objectId} }, function(response) {
+          $state.go('app.logged-in.search-tab.available', {'postId':response.data.objectId, 'currentUser':JSON.stringify($scope.currentUser)});
         }
       );
 	}
 
 })
 
+
 .controller('AvailableSearchController', function ($scope, $state, $interval, $stateParams, ParseService, PushService) {
   
   $scope.matchedUsers = [];
-  $scope.user;
+  $scope.currentUser = JSON.parse($stateParams.currentUser);
 
   $scope.reload = function() {
-    ParseService.get('Users', {"isAvailable":true, "objectId": {"$ne":$stateParams.userId}}, function(results) {
+    ParseService.get('Users', {"isAvailable":true, "objectId": {"$ne":$scope.currentUser.objectId}}, function(results) {
         $scope.matchedUsers = results;
     });
-    ParseService.getById('Users', $stateParams.userId, function(user) {
-        $scope.user = user;
+    ParseService.getById('Users', $scope.currentUser.objectId, function(user) {
+        $scope.currentUser = user;
 
-        if ($scope.user.isAvailable == false) {
-          $state.go('app.logged-in.search-tab.unavailable', {'userId':$stateParams.userId});
+        if ($scope.currentUser.isAvailable == false) {
+          $state.go('app.logged-in.search-tab.unavailable', {'currentUser.objectId':$scope.currentUser.objectId});
         }
     });
   }
@@ -97,7 +98,7 @@ angular.module('meetme.searchTabController', [])
 
   $scope.setUnavailable = function() {
     ParseService.update('Posts', $stateParams.postId, {"status":'I'}, function(response){
-        $state.go('app.logged-in.search-tab.unavailable', {'userId':$stateParams.userId});
+        $state.go('app.logged-in.search-tab.unavailable');
       }
     );
   }
