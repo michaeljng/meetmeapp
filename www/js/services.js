@@ -1,7 +1,7 @@
 angular.module('meetme.services', [])
 
 
-.factory('PushService', function ($http) {
+.factory('PushService', function ($http, ParseService) {
 	var headers = {	"X-Ionic-Application-Id": "6db3367a",
 					"Authorization": "Y2E1Nzg4ODU3YjQ1NDg3ZjZhZWFmOWNiYzU3MzJlZDhkM2MzNDk0YjMyNzliNzhhOg=="}
 
@@ -18,6 +18,22 @@ angular.module('meetme.services', [])
 			}, function errorCallback(response) {
 			    // called asynchronously if an error occurs
 			    // or server returns response with an error status.
+			});
+		},
+		sendNotificationToUserId: function(userId, notification) {
+			ParseService.getById("Users", userId, function(user) {
+				console.log(JSON.stringify(user, null, '\t'));
+				$http({
+					method: 'POST',
+					url: 'https://push.ionic.io/api/v1/push',
+					data: {"tokens":[user.pushToken], "notification":notification},
+					headers: headers
+				}).then( function successCallback(response) {
+
+				}, function errorCallback(response) {
+				    // called asynchronously if an error occurs
+				    // or server returns response with an error status.
+				});
 			});
 		}
 	}
