@@ -8,6 +8,7 @@ angular.module('meetme', ['ionic',
                           'meetme.services',
                           'meetme.searchTabController',
                           'meetme.userTabController',
+                          'meetme.chatTabController',
                           'ngOpenFB'])
 
   // .run(function($ionicPlatform) {
