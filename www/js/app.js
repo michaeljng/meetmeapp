@@ -84,6 +84,8 @@ angular.module('meetme', ['ionic',
 
   $scope.userId;
 
+  $scope.inviterId = null;
+
   $scope.$on('$routeChangeSuccess', function () {
     FacebookService.loginStatus(function(status){
       if (status == 'connected') {
@@ -100,9 +102,6 @@ angular.module('meetme', ['ionic',
           ParseService.get('Users', {"facebookId":user.id}, function(results) {
 
             var finishLogin = function() {
-              console.log( $scope.userId);
-              $scope.identifyUser($scope.userId);
-              $scope.pushRegister();
               $state.go('app.logged-in.search-tab.unavailable', {"userId": $scope.userId});
             }
 
@@ -124,102 +123,10 @@ angular.module('meetme', ['ionic',
 
           });
         });
-} else {
-  alert('Facebook login failed');
-}
-})
-}
-
-$scope.identifyUser = function(userId) {
- var user = $ionicUser.get();
- if(!user.user_id) {
-   // Set your user_id here, or generate a random one.
-   user.user_id = userId
-
-   // // Metadata
-   // angular.extend(user, {
-   // name: 'Simon',
-   // bio: 'Author of Devdactic'
-   // });
-
-   // Identify your user with the Ionic User Service
-   $ionicUser.identify(user).then(function(){
-    $scope.identified = true;
-    console.log('Identified user ' + user.name + '\n ID ' + user.user_id);
-  });
- }
-}
-
-$scope.pushRegister = function() {
- console.log('Ionic Push: Registering user');
-
-   // Register with the Ionic Push service.  All parameters are optional.
-   $ionicPush.register({
-     canShowAlert: true, //Can pushes show an alert on your screen?
-     canSetBadge: true, //Can pushes update app icon badges?
-     canPlaySound: true, //Can notifications play a sound?
-     canRunActionsOnWake: true, //Can run actions outside the app,
-     onNotification: function(notification) {
-
-      var alertParams = notification.alert.split(":");
-      var notificationType = alertParams[0];
-
-      console.log(JSON.stringify(alertParams,null,'\t'));
-
-      switch (notificationType) {
-
-        case "Invitation Received":
-        var fromUserId = alertParams[1];
-        $scope.showInvitation(fromUserId);
-        default:
-
+      } else {
+        alert('Facebook login failed');
       }
-
-      // $scope.showNotification('John Smith');
-      // $scope.showInvitation('John Smith');
-      return true;
-    }
-  });
- }
-
- $rootScope.$on('$cordovaPush:tokenReceived', function(event, data) {
-  ParseService.update('Users', $scope.userId, {"pushToken":data.token}, function(response) {
-    console.log('Ionic Push: Saved token ', data.token, data.platform);
-  });
-});
-
- $scope.showNotification = function(fromUserId) {
-  $('#sub-notification').show();
-  $('#sub-notification').find('.inviter').html(fromUserId + ' has invited you to meet up!');
-  $('#sub-notification').animate({
-    height: "122px"
-  }, 500, function() {});
-  $('.has-header').animate({
-    top: "166px"
-  }, 500, function() {});
-}
-
-$('#sub-yes,#sub-no').click(function() {
-  $('#sub-notification').hide();
-  $('#sub-notification').animate({
-    height: "0"
-  }, 500, function() {});
-  $('.has-header').animate({
-    top: "44px"
-  }, 500, function() {});
-})
-
-$scope.showInvitation = function(userInviteName) {
-  $('#invitation-notification').show();
-  $('#inv-lightbox').find('.inviter').html(userInviteName + ' has invited you to meet up!');
-  $('#inv-yes').click(function() {
-    $state.go('app.logged-in.user-tab.user-detail', {'userId':userInviteName});
-    $('#invitation-notification').hide();
-  })
-}
-
-$('#inv-no').click(function() {
-  $('#invitation-notification').hide();
-})
+    })
+  }
 
 })

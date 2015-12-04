@@ -15,6 +15,15 @@
 	</content>
 </view> -->
 
+<div class="bar" id="invitation-notification">
+  <div class="padding" id="inv-lightbox">
+    <div class="inviter"></div>
+    <div class="invite-time">This invitation expires in: 60 seconds.</div>
+    <br/><button class="button button-calm invite-button" id="inv-yes" ng-click="viewProfile()">See Profile</button>
+    <br/><button class="button button-calm invite-button" id="inv-no" ng-click="declineInvitation()">Decline Invitation</button>
+  </div>
+</div>
+
 <div ui-view>
 </div>
 
