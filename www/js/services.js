@@ -155,7 +155,7 @@ angular.module('meetme.services', [])
 		    // or server returns response with an error status.
 		});
 	}
-	
+
 	return obj;
 })
 
@@ -175,7 +175,7 @@ angular.module('meetme.services', [])
 			function(error) {
 				$state.go('app.logged-out');
 			});
-		},		
+		},
 
 		name: function(callback) {
 			ngFB.api({
@@ -191,7 +191,7 @@ angular.module('meetme.services', [])
 		},
 
 		logout: function(callback) {
-			ngFB.logout().then( 
+			ngFB.logout().then(
 				function () {
 					callback();
 				}
