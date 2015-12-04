@@ -8,6 +8,7 @@ angular.module('meetme.services', [])
 
 	return {
 		sendNotificationToUser: function(user, notification) {
+			console.log(JSON.stringify(user, null, '\t'));
 			$http({
 				method: 'POST',
 				url: 'https://push.ionic.io/api/v1/push',

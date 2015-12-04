@@ -52,9 +52,6 @@ angular.module('meetme.userTabController', [])
   }
 
   $scope.sendNotification = function(user) {
-    console.log("DOING IT SENDING NOTE");/////////////////
-    console.log(user);
-    console.log($stateParams.currentUserId);
-    PushService.sendNotificationToUser($stateParams.currentUserId, {"alert": "Invitation Received:" + $stateParams.currentUserId} );
+    PushService.sendNotificationToUser(user, {"alert": "Invitation Received:" + $stateParams.currentUserId} );
   }
 })
