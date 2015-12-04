@@ -17,8 +17,10 @@ angular.module('meetme.controllers', [])
 	   $scope.reloadUserLocation();  
   	}, 120000); // 2 minutes
 
-	// $scope.goHomepage = function() {
-	// 	// 
-	// 	console.log("hello");
-	// }
+	FacebookService.userId(function(id) {
+		$scope.userId = id;
+		ParseService.get('Users', {"facebookId":id}, function(results) {
+			$scope.userId = results[0].objectId;
+		});
+	})
 })

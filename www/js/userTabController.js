@@ -24,7 +24,7 @@ angular.module('meetme.userTabController', [])
   $urlRouterProvider.otherwise('/app/home');
 })
 
-.controller('UserController', function ($scope, $state, $interval, $stateParams, displayUser, ParseService, FacebookService) {
+.controller('UserController', function ($scope, $state, $interval, $stateParams, displayUser, ParseService, PushService, FacebookService) {
 
   $scope.displayUser = displayUser;
 
@@ -34,18 +34,24 @@ angular.module('meetme.userTabController', [])
   if ($scope.displayUser.userLocation) {
     var latlon = $scope.displayUser.userLocation.latitude + "," + $scope.displayUser.userLocation.longitude;
     var img_url = "http://maps.googleapis.com/maps/api/staticmap?center="+latlon+"&zoom=14&size=350x300&sensor=false";
-
     document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
   }
 
   if ($stateParams.currentUserId == $scope.displayUser.objectId) {
     $scope.editable = true;
-    $("#editButton").toggle();
+    $("#editButton").show();
+  } else {
+    $('#ion-user-profile').css('top', '108px');
+    $("#option-notification").show();
   }
 
   $scope.saveProfile = function() {
     ParseService.updateAndRetrieve('Users',$stateParams.currentUserId,$scope.displayUser, function(user) {
       $scope.displayUser = user;
     });
+  }
+
+  $scope.sendNotification = function(user) {
+    PushService.sendNotificationToUser(user, {"alert": "Invitation Received:" + $stateParams.currentUserId} );
   }
 })

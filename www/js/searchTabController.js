@@ -54,11 +54,11 @@ angular.module('meetme.searchTabController', [])
   if ($scope.currentUser.isAvailable == true) {
     $state.go('app.logged-in.search-tab.available', {'postId':$scope.currentUser.activePost.objectId,'currentUser':JSON.stringify($scope.currentUser)});
   }
-    
-  
+
+
 	$scope.setAvailable = function() {
     ParseService.create('Posts', {"status"   :'A',
-                      "expiresAt": {"__type": "Date", 
+                      "expiresAt": {"__type": "Date",
                               "iso": moment().add(1,'minutes').format() },
                       "user"   : {"__type":"Pointer",
                                   "className":"Users",
@@ -70,8 +70,9 @@ angular.module('meetme.searchTabController', [])
 
 })
 
-.controller('AvailableSearchController', function ($scope, $state, $stateParams, $interval, ParseService) {
-  
+
+.controller('AvailableSearchController', function ($scope, $state, $interval, $stateParams, ParseService, PushService) {
+
   $scope.matchedUsers = [];
   $scope.currentUser = JSON.parse($stateParams.currentUser);
 
@@ -87,11 +88,11 @@ angular.module('meetme.searchTabController', [])
         }
     });
   }
-  
+
   $scope.reload();
 
   $interval(function() {
-    $scope.reload();  
+    $scope.reload();
   }, 5000);
 
 
@@ -101,9 +102,4 @@ angular.module('meetme.searchTabController', [])
       }
     );
   }
-
-  // $scope.showDetails = function(user) {
-  //   $state.go('app.logged-in.search-tab.available.user-detail', {'userId':$stateParams.userId});
-  // }
-
 })
