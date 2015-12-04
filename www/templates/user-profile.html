@@ -1,5 +1,10 @@
 <ion-view title="user-profile">
-  <ion-content  class="has-header has-footer">
+
+  <div class="bar bar-subheader" id="option-notification">
+    <button class="button button-calm invite-button" ng-click="sendNotification(displayUser)">Invite to meet up!</button>
+  </div>
+
+  <ion-content  class="has-header has-footer" id="ion-user-profile">
     <ion-list>
       <ion-item>
         Name: {{displayUser.facebookName}}

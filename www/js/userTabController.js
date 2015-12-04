@@ -24,7 +24,7 @@ angular.module('meetme.userTabController', [])
   $urlRouterProvider.otherwise('/app/home');
 })
 
-.controller('UserController', function ($scope, $state, $interval, $stateParams, displayUser, ParseService, FacebookService) {
+.controller('UserController', function ($scope, $state, $interval, $stateParams, displayUser, ParseService, PushService, FacebookService) {
 
   $scope.displayUser = displayUser;
 
@@ -39,12 +39,19 @@ angular.module('meetme.userTabController', [])
 
   if ($stateParams.currentUserId == $scope.displayUser.objectId) {
     $scope.editable = true;
-    $("#editButton").toggle();
+    $("#editButton").show();
+  } else {
+    $('#ion-user-profile').css('top', '108px');
+    $("#option-notification").show();
   }
 
   $scope.saveProfile = function() {
     ParseService.updateAndRetrieve('Users',$stateParams.currentUserId,$scope.displayUser, function(user) {
       $scope.displayUser = user;
     });
+  }
+
+  $scope.sendNotification = function(user) {
+    PushService.sendNotificationToUser(user, {"alert": "Invitation Received:" + $stateParams.currentUserId} );
   }
 })
