@@ -30,13 +30,13 @@ angular.module('meetme.services', [])
 			    }
 			});
 		},
-		sendNotificationToChannel: function(channelName, type, message, fromUserId) {
+		sendNotificationToChannel: function(channelName, fromUserId, type, message) {
 			pubnub.publish({
 		      channel: channelName,
 		      message: {"type":type, "fromUserId":fromUserId, "message":message}
 		    });
 		},
-		sendChatToChannel: function(channelName, message, fromUserId) {
+		sendChatToChannel: function(channelName, fromUserId, message) {
 			pubnub.publish({
 		      channel: channelName,
 		      message: {"message":message, "fromUserId":fromUserId}
