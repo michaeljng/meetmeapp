@@ -52,6 +52,6 @@ angular.module('meetme.userTabController', [])
   }
 
   $scope.sendInvitation = function(userId) {
-    PubNubService.sendNotificationToChannel(userId, "Invitation Received", "test");
+    PubNubService.sendNotificationToChannel(userId, $stateParams.currentUserId, "Invitation Received", "test");
   }
 })

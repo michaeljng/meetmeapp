@@ -1,12 +1,16 @@
 angular.module('meetme.services', [])
 
-.factory('PubNubService', function (PreloadFunctions) {
+.factory('PubNubService', function (ParseService) {
 	var pubnub = PUBNUB.init({                          
         publish_key   : 'pub-c-630fe092-7461-4246-b9ba-a6b201935fb7',
         subscribe_key : 'sub-c-a57136cc-9870-11e5-b53d-0619f8945a4f'
   	});
 
-	var currentUser = PreloadFunctions.currentUser();
+ //  	var currentUser = null;
+
+	// ParseService.getCurrentUser( function(user) {
+	// 	currentUser = user;
+	// });
 
 	return {
 
@@ -26,16 +30,16 @@ angular.module('meetme.services', [])
 			    }
 			});
 		},
-		sendNotificationToChannel: function(channelName, type, message) {
+		sendNotificationToChannel: function(channelName, type, message, fromUserId) {
 			pubnub.publish({
 		      channel: channelName,
-		      message: {"type":type, "fromUserId":currentUser.objectId, "message":message}
+		      message: {"type":type, "fromUserId":fromUserId, "message":message}
 		    });
 		},
-		sendChatToChannel: function(channelName, message) {
+		sendChatToChannel: function(channelName, message, fromUserId) {
 			pubnub.publish({
 		      channel: channelName,
-		      message: {"message":message, "fromUserId":currentUser.objectId}
+		      message: {"message":message, "fromUserId":fromUserId}
 		    });
 		}
 	}
@@ -103,7 +107,7 @@ angular.module('meetme.services', [])
 })
 
 
-.factory('ParseService', function ($http) {
+.factory('ParseService', function ($http, FacebookService) {
 
 	var headers = {	"X-Parse-Application-Id": "EvhQWhNkOQrt9FOkJaEAe3tX5qJDfq7K8NMMnpd8",
 					"X-Parse-REST-API-Key": "GPHw7mJbToX9Tyw7suXilsbkoUoSKN7wpXuTUqJK"}
@@ -123,6 +127,14 @@ angular.module('meetme.services', [])
 		    // called asynchronously if an error occurs
 		    // or server returns response with an error status.
 		});
+	}
+
+	obj.getCurrentUser = function(callback) {
+		FacebookService.userId(function(facebookId) {
+          obj.getSingleObject('Users', {"facebookId":facebookId}, function(user) {
+            callback(user);
+          });
+	    });
 	}
 
 	obj.getSingleObject = function(className, params, callback) {
