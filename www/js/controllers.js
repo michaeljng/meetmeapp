@@ -5,10 +5,15 @@ angular.module('meetme.controllers', [])
 	$scope.currentUser = currentUser;
 	$scope.inviterId = null;
 
-	PubNubService.registerForNotificationsChannel($scope.currentUser.objectId, function(type, message){
+	PubNubService.registerForNotificationsChannel($scope.currentUser.objectId, function(type, fromUserId, message){
 
-		console.log(type + " " + message)
+		console.log("Notification Received! From: " + fromUserId + " Type: " + type + " Message: " + message);
 
+		switch (type) {
+			case "Invitation Received":
+				$scope.showInvitation(fromUserId);
+				default:
+		}
 	});
 
 	$scope.showInvitation = function(userId) {

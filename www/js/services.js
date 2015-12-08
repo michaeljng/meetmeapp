@@ -29,13 +29,13 @@ angular.module('meetme.services', [])
 		sendNotificationToChannel: function(channelName, type, message) {
 			pubnub.publish({
 		      channel: channelName,
-		      message: {"type":type, "message":message}
+		      message: {"type":type, "fromUserId":currentUser.objectId, "message":message}
 		    });
 		},
 		sendChatToChannel: function(channelName, message) {
 			pubnub.publish({
 		      channel: channelName,
-		      message: {"message":message}
+		      message: {"message":message, "fromUserId":currentUser.objectId}
 		    });
 		}
 	}
