@@ -1,44 +1,84 @@
 angular.module('meetme.services', [])
 
+.factory('PubNubService', function (PreloadFunctions) {
+	var pubnub = PUBNUB.init({                          
+        publish_key   : 'pub-c-630fe092-7461-4246-b9ba-a6b201935fb7',
+        subscribe_key : 'sub-c-a57136cc-9870-11e5-b53d-0619f8945a4f'
+  	});
 
-.factory('PushService', function ($http, ParseService) {
-	var headers = {	"X-Ionic-Application-Id": "6db3367a",
-					"Authorization": "Y2E1Nzg4ODU3YjQ1NDg3ZjZhZWFmOWNiYzU3MzJlZDhkM2MzNDk0YjMyNzliNzhhOg=="}
-
+	var currentUser = PreloadFunctions.currentUser();
 
 	return {
-		sendNotificationToUser: function(user, notification) {
-			console.log(JSON.stringify(user, null, '\t'));
-			$http({
-				method: 'POST',
-				url: 'https://push.ionic.io/api/v1/push',
-				data: {"tokens":[user.pushToken], "notification":notification},
-				headers: headers
-			}).then( function successCallback(response) {
 
-			}, function errorCallback(response) {
-			    // called asynchronously if an error occurs
-			    // or server returns response with an error status.
+		registerForNotificationsChannel: function(channelName, callback) {
+			pubnub.subscribe({
+			    channel: channelName, // our channel name
+			    message: function(response) { // this gets fired when a message comes in
+			      callback(response["type"], response["message"]);
+			    }
 			});
 		},
-		sendNotificationToUserId: function(userId, notification) {
-			ParseService.getById("Users", userId, function(user) {
-				console.log(JSON.stringify(user, null, '\t'));
-				$http({
-					method: 'POST',
-					url: 'https://push.ionic.io/api/v1/push',
-					data: {"tokens":[user.pushToken], "notification":notification},
-					headers: headers
-				}).then( function successCallback(response) {
-
-				}, function errorCallback(response) {
-				    // called asynchronously if an error occurs
-				    // or server returns response with an error status.
-				});
+		registerForChatsChannel: function(channelName, callback) {
+			pubnub.subscribe({
+			    channel: channelName, // our channel name
+			    message: function(response) { // this gets fired when a message comes in
+			      callback(response["message"]);
+			    }
 			});
+		},
+		sendNotificationToChannel: function(channelName, type, message) {
+			pubnub.publish({
+		      channel: channel,
+		      message: {"type":type, "message":message}
+		    });
+		},
+		sendChatToChannel: function(channelName, message) {
+			pubnub.publish({
+		      channel: channel,
+		      message: {"message":message}
+		    });
 		}
 	}
 })
+
+// .factory('PushService', function ($http, ParseService) {
+// 	var headers = {	"X-Ionic-Application-Id": "6db3367a",
+// 					"Authorization": "Y2E1Nzg4ODU3YjQ1NDg3ZjZhZWFmOWNiYzU3MzJlZDhkM2MzNDk0YjMyNzliNzhhOg=="}
+
+
+// 	return {
+// 		sendNotificationToUser: function(user, notification) {
+// 			console.log(JSON.stringify(user, null, '\t'));
+// 			$http({
+// 				method: 'POST',
+// 				url: 'https://push.ionic.io/api/v1/push',
+// 				data: {"tokens":[user.pushToken], "notification":notification},
+// 				headers: headers
+// 			}).then( function successCallback(response) {
+
+// 			}, function errorCallback(response) {
+// 			    // called asynchronously if an error occurs
+// 			    // or server returns response with an error status.
+// 			});
+// 		},
+// 		sendNotificationToUserId: function(userId, notification) {
+// 			ParseService.getById("Users", userId, function(user) {
+// 				console.log(JSON.stringify(user, null, '\t'));
+// 				$http({
+// 					method: 'POST',
+// 					url: 'https://push.ionic.io/api/v1/push',
+// 					data: {"tokens":[user.pushToken], "notification":notification},
+// 					headers: headers
+// 				}).then( function successCallback(response) {
+
+// 				}, function errorCallback(response) {
+// 				    // called asynchronously if an error occurs
+// 				    // or server returns response with an error status.
+// 				});
+// 			});
+// 		}
+// 	}
+// })
 
 .factory('PreloadFunctions', function ($q, ParseService, FacebookService) {
 

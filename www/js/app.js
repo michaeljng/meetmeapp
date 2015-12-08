@@ -5,24 +5,12 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('meetme', ['ionic',
   'ngCordova',
-  'ionic.service.core',
-  'ionic.service.push',
   'meetme.controllers',
   'meetme.services',
   'meetme.searchTabController',
   'meetme.userTabController',
   'meetme.chatTabController',
   'ngOpenFB'])
-
-
-
-.config(['$ionicAppProvider', function($ionicAppProvider) {
-  $ionicAppProvider.identify({
-    app_id: '6db3367a',
-    api_key: 'c155dc86fcdf2dd071b86943d69f01429d2f0d0bcf62b8cb',
-    dev_push: true
-  })
-}])
 
   // .run(function($ionicPlatform) {
   //   $ionicPlatform.ready(function() {
@@ -80,7 +68,7 @@ angular.module('meetme', ['ionic',
 
       })
 
-.controller('LoginController', function ($scope, $state, $ionicUser, $ionicPush, $rootScope, FacebookService, ParseService) {
+.controller('LoginController', function ($scope, $state, FacebookService, ParseService) {
 
   $scope.userId;
 
