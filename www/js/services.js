@@ -14,7 +14,7 @@ angular.module('meetme.services', [])
 			pubnub.subscribe({
 			    channel: channelName, // our channel name
 			    message: function(response) { // this gets fired when a message comes in
-			      callback(response["type"], response["message"]);
+			      callback(response["type"], response["fromUserId"], response["message"]);
 			    }
 			});
 		},
@@ -22,7 +22,7 @@ angular.module('meetme.services', [])
 			pubnub.subscribe({
 			    channel: channelName, // our channel name
 			    message: function(response) { // this gets fired when a message comes in
-			      callback(response["message"]);
+			      callback(response["message"], response["fromUserId"]);
 			    }
 			});
 		},
