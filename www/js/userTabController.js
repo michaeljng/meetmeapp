@@ -24,7 +24,7 @@ angular.module('meetme.userTabController', [])
   $urlRouterProvider.otherwise('/app/home');
 })
 
-.controller('UserController', function ($scope, $state, $interval, $stateParams, displayUser, ParseService, PushService, FacebookService) {
+.controller('UserController', function ($scope, $state, $interval, $stateParams, displayUser, ParseService, PubNubService, FacebookService) {
 
   $scope.displayUser = displayUser;
 
@@ -51,7 +51,7 @@ angular.module('meetme.userTabController', [])
     });
   }
 
-  $scope.sendNotification = function(userId) {
-    PushService.sendNotificationToUserId(userId, {"alert": "Invitation Received:" + $stateParams.currentUserId} );
+  $scope.sendInvitation = function(userId) {
+    PubNubService.sendNotificationToChannel(userId, $stateParams.currentUserId, "Invitation Received", "test");
   }
 })

@@ -71,7 +71,7 @@ angular.module('meetme.searchTabController', [])
 })
 
 
-.controller('AvailableSearchController', function ($scope, $state, $interval, $stateParams, ParseService, PushService) {
+.controller('AvailableSearchController', function ($scope, $state, $interval, $stateParams, ParseService, PubNubService) {
 
   $scope.matchedUsers = [];
   $scope.currentUser = JSON.parse($stateParams.currentUser);
