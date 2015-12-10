@@ -1,0 +1,11 @@
+<ion-view title="chat-log">
+	<ion-content class="has-header has-footer">
+		<ion-list ng-repeat="chat in chats">
+			<a class="item item-thumbnail-left" href="#/app/logged-in/chat-tab/chat-log/{{currentUser.objectId}}/{{chat.objectId}}">
+				<img src="http://graph.facebook.com/{{chat.otherUser.facebookId}}/picture?width=270&height=270"/>
+				<h2>{{chat.otherUser.facebookName}}</h2>
+				<p>User summary and stuffs</p>
+			</a>
+		</ion-list>
+	</ion-content>
+</ion-view >

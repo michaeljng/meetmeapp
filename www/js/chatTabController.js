@@ -9,8 +9,19 @@ angular.module('meetme.chatTabController', [])
     abstract: true
   })
 
+  .state('app.logged-in.chat-tab.chats-list', {
+    url: '/chats-list',
+    templateUrl: 'templates/chat-list.html',
+    controller: 'ChatListController',
+    resolve: {
+      currentUser: function(PreloadFunctions) {
+        return PreloadFunctions.currentUser();
+      }
+    }
+  })
+
   .state('app.logged-in.chat-tab.chat-log', {
-    url: '/chat-log',
+    url: '/chat-log/:chatId/:currentUserId',
     templateUrl: 'templates/chat-log.html',
     controller: 'ChatController',
   })
@@ -19,32 +30,60 @@ angular.module('meetme.chatTabController', [])
   $urlRouterProvider.otherwise('/app/home');
 })
 
-.controller('ChatController', function ($scope, $state, $interval, $stateParams, ParseService) {
+.controller('ChatListController', function ($scope, currentUser, ParseService) {
+
+  $scope.currentUser = currentUser;
+  $scope.chats = [];
+
+  $scope.getOtherUserInChat = function(chat, callback) {
+
+    if (chat.user1.objectId == $scope.currentUser.objectId) {
+      ParseService.getById("Users", chat.user2.objectId, function(user){
+        return callback(user);
+      })
+    }
+    else {
+      ParseService.getById("Users", chat.user1.objectId, function(user){
+        return callback(user);
+      })
+    }
+  }
+
+  ParseService.get("Chats",{"$or":[{"user1"   : {"__type":"Pointer",
+                                                "className":"Users",
+                                                "objectId":$scope.currentUser.objectId}},
+                                   {"user2"   : {"__type":"Pointer",
+                                                "className":"Users",
+                                                "objectId":$scope.currentUser.objectId}}]}, function(chats) {                                      
+    
+    $scope.chats = chats;                                               
+
+    for (var i = 0; i < $scope.chats.length; i++) {
+      var chat = $scope.chats[i];
+      $scope.getOtherUserInChat(chat, function(user){
+        chat.otherUser = user;
+      });
+    }                                             
+
+    // console.log(JSON.stringify($scope.chats, null, '\t'));
+  });
+})
+
+.controller('ChatController', function ($scope, $state, $interval, $stateParams, ParseService, PubNubService) {
 
   var $input = $('#chat-input');
   var $output = $('#chat-output');
 
-  var pubnub = PUBNUB.init({                          
-        publish_key   : 'pub-c-630fe092-7461-4246-b9ba-a6b201935fb7',
-        subscribe_key : 'sub-c-a57136cc-9870-11e5-b53d-0619f8945a4f'
-  });
+  $scope.chatId = $stateParams.chatId;
+  $scope.currentUserId = $stateParams.currentUserId;
+  $scope.chatMessages = [];
 
-  var channel = 'testChannel';
-
-  var pubnub = PUBNUB.init({                          
-        publish_key   : 'pub-c-630fe092-7461-4246-b9ba-a6b201935fb7',
-        subscribe_key : 'sub-c-a57136cc-9870-11e5-b53d-0619f8945a4f'
-  });
-  // when we receive messages
-  pubnub.subscribe({
-    channel: channel, // our channel name
-    message: function(text) { // this gets fired when a message comes in
-
-      // create a new line for chat text
+  PubNubService.registerForChatsChannel($scope.chatId, function(chat) {
+    // create a new line for chat text
       var $line = $('<li />');
 
       // filter out html from messages
-      var $message = $('<span />').text(text).html();
+      var $message = $('<span />').text(chat).html();
 
       // build the html elements
       $line.append($message);
@@ -52,18 +91,12 @@ angular.module('meetme.chatTabController', [])
 
       // scroll the chat output to the bottom
       $output.scrollTop($output[0].scrollHeight);
-
-    }
-  });
+  })
 
   // when the "send message" form is submitted
   $scope.sendMessage = function() {
 
-    // publish input value to channel 
-    pubnub.publish({
-      channel: channel,
-      message: $input.val()
-    });
+    PubNubService.sendChatToChannel($stateParams.chatId, $scope.currentUserId, $input.val());
 
     console.log($input.val());
 
@@ -72,6 +105,5 @@ angular.module('meetme.chatTabController', [])
 
      // cancel event bubbling
     return false;
-
   };
 })
