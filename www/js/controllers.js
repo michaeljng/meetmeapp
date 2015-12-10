@@ -4,6 +4,7 @@ angular.module('meetme.controllers', [])
 
 	$scope.currentUser = currentUser;
 	$scope.inviterId = null;
+	$scope.pageExtended = false;
 
 	PubNubService.registerForNotificationsChannel($scope.currentUser.objectId, function(type, fromUserId, message){
 
@@ -18,17 +19,40 @@ angular.module('meetme.controllers', [])
 
 	$scope.showInvitation = function(userId) {
 		$scope.inviterId = userId;
+		$('#invitation-notification').find('.inviter').html(userId + 'has invited you to meet up!');
 		$('#invitation-notification').show();
 	}
 
 	$scope.declineInvitation = function() {
-		console.log("hello");
+		$('ion-view').css('top', '0');
+		$scope.pageExtended = false;
 		$('#invitation-notification').hide();
+		$('#invite-reminder').hide();
 	}
 
 	$scope.viewProfile = function() {
+		$('ion-view').css('top', '102px');
+		$scope.pageExtended = true;
 		$state.go('app.logged-in.user-tab.user-detail', {'userId':$scope.inviterId});
+		$scope.showInviteReminder($scope.inviterId);
 		$('#invitation-notification').hide();
+	}
+
+	$scope.showInviteReminder = function(userId) {
+		$scope.inviterId = userId;
+		$('#invite-reminder').find('.inviter').html(userId + 'has invited you to meet up!');
+		$('#invite-reminder').show();
+	}
+
+	$scope.acceptInvitation = function(userId) {
+		$('ion-view').css('top', '0');
+		$scope.pageExtended = false;
+		$state.go('app.logged-in.user-tab.user-detail', {'userId':$scope.inviterId}); // FIX: SEND TO CHAT
+		$('#invite-reminder').hide();
+	}
+
+	if($scope.pageExtended) {
+		$('ion-view').css('top', '102px');
 	}
 
 	$scope.reloadUserLocation = function() {
@@ -39,9 +63,9 @@ angular.module('meetme.controllers', [])
 		});
 	}
 
-	$scope.reloadUserLocation(); 
+	$scope.reloadUserLocation();
 	$interval(function() {
-	   $scope.reloadUserLocation();  
+	   $scope.reloadUserLocation();
   	}, 120000); // 2 minutes
 
 	FacebookService.userId(function(id) {
