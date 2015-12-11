@@ -3,7 +3,8 @@ angular.module('meetme.services', [])
 .factory('PubNubService', function (ParseService) {
 	var pubnub = PUBNUB.init({                          
         publish_key   : 'pub-c-630fe092-7461-4246-b9ba-a6b201935fb7',
-        subscribe_key : 'sub-c-a57136cc-9870-11e5-b53d-0619f8945a4f'
+        subscribe_key : 'sub-c-a57136cc-9870-11e5-b53d-0619f8945a4f',
+        ssl: true
   	});
 
  //  	var currentUser = null;
