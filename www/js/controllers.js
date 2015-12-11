@@ -47,12 +47,10 @@ angular.module('meetme.controllers', [])
 	$scope.acceptInvitation = function(userId) {
 		$('ion-view').css('top', '0');
 		$scope.pageExtended = false;
-		$state.go('app.logged-in.user-tab.user-detail', {'userId':$scope.inviterId}); // FIX: SEND TO CHAT
-		$('#invite-reminder').hide();
-	}
-
-	if($scope.pageExtended) {
-		$('ion-view').css('top', '102px');
+		ParseService.createAndRetrieve("Chats", {'user1': $scope.currentUser.objectId, 'user2': $scope.inviterId}, function(chat) {
+			$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': chat.objectId}); // FIX: SEND TO CHAT
+			$('#invite-reminder').hide();
+		});
 	}
 
 	$scope.reloadUserLocation = function() {
@@ -61,6 +59,10 @@ angular.module('meetme.controllers', [])
 				$scope.currentUser = currentUser;
 			});
 		});
+	}
+
+	if($scope.pageExtended) {
+		$('ion-view').css('top', '102px');
 	}
 
 	$scope.reloadUserLocation();
