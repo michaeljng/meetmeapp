@@ -13,12 +13,14 @@ angular.module('meetme.controllers', [])
 		switch (type) {
 			case "Invitation Received":
 				$scope.showInvitation(fromUserId);
-				default:
+				break;
 			case "Invitation Accepted":
 				$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': fromUserId});
-				default:
+				break;
 			case "Invitation Declined":
-				default:
+				break;
+			default:
+				break;
 		}
 	});
 
