@@ -15,7 +15,7 @@ angular.module('meetme.controllers', [])
 				$scope.showInvitation(fromUserId);
 				break;
 			case "Invitation Accepted":
-				$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': fromUserId});
+				$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': message.chatId});
 				break;
 			case "Invitation Declined":
 				break;
@@ -61,7 +61,7 @@ angular.module('meetme.controllers', [])
                                   				 'user2': {"__type":"Pointer",
                                   						   "className":"Users",
                                   						   "objectId":$scope.inviterId}}, function(chat) {
-            PubNubService.sendNotificationToChannel($scope.inviterId, $scope.currentUser.objectId, "Invitation Accepted", "");
+            PubNubService.sendNotificationToChannel($scope.inviterId, $scope.currentUser.objectId, "Invitation Accepted", {"chatId": chat.objectId});
 			$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': chat.objectId}); // FIX: SEND TO CHAT
 			$('#invite-reminder').hide();
 		});
