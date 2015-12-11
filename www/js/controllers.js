@@ -56,17 +56,17 @@ angular.module('meetme.controllers', [])
 		$('ion-view').css('top', '0');
 		$scope.pageExtended = false;
 		ParseService.get("Chats", {"$or":[{'user1': {"__type":"Pointer",
-                                  						   "className":"Users",
-                                  						   "objectId":$scope.currentUser.objectId}},
-                                  		   {'user1': {"__type":"Pointer",
-                                  						   "className":"Users",
-                                  						   "objectId":$scope.inviterId}}],
-                                   "$or":[{'user2': {"__type":"Pointer",
-                                  						   "className":"Users",
-                                  						   "objectId":$scope.currentUser.objectId}},
-                                  		   {'user2': {"__type":"Pointer",
-                                  						   "className":"Users",
-                                  						   "objectId":$scope.inviterId}}]}, function(chats) {
+                                  				 	 "className":"Users",
+                                  					 "objectId":$scope.currentUser.objectId},
+                                  		   'user2': {"__type":"Pointer",
+                                  				 	 "className":"Users",
+                                  					 "objectId":$scope.inviterId}},
+                                  		  {'user1': {"__type":"Pointer",
+                                  				 	 "className":"Users",
+                                  					 "objectId":$scope.inviterId},
+                                  		   'user2': {"__type":"Pointer",
+                                  				 	 "className":"Users",
+                                  					 "objectId":$scope.currentUser.objectId}}]}, function(chats) {
 
 
             var finishFunc = function(chatId) {
