@@ -55,12 +55,25 @@ angular.module('meetme.controllers', [])
 	$scope.acceptInvitation = function(userId) {
 		$('ion-view').css('top', '0');
 		$scope.pageExtended = false;
-		ParseService.get("Chats", {'user1': {"__type":"Pointer",
+		ParseService.get("Chats", {"$or":[{'user1': {"__type":"Pointer",
                                   						   "className":"Users",
-                                  						   "objectId":$scope.currentUser.objectId}, 
-	                  				 'user2': {"__type":"Pointer",
-	                  						   "className":"Users",
-	                  						   "objectId":$scope.inviterId}}, function(chats) {
+                                  						   "objectId":$scope.currentUser.objectId}},
+                                  		   {'user1': {"__type":"Pointer",
+                                  						   "className":"Users",
+                                  						   "objectId":$scope.inviterId}}],
+                                   "$or":[{'user2': {"__type":"Pointer",
+                                  						   "className":"Users",
+                                  						   "objectId":$scope.currentUser.objectId}},
+                                  		   {'user2': {"__type":"Pointer",
+                                  						   "className":"Users",
+                                  						   "objectId":$scope.inviterId}}]}, function(chats) {
+
+
+            var finishFunc = function(chatId) {
+	     		PubNubService.sendNotificationToChannel($scope.inviterId, $scope.currentUser.objectId, "Invitation Accepted", {"chatId": chatId});
+	     		$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': chatId});
+	     		$('#invite-reminder').hide();
+	     	}
 
 	     	if (chats.length == 0) {
 	     		ParseService.createAndRetrieve("Chats", {'user1': {"__type":"Pointer",
@@ -69,15 +82,12 @@ angular.module('meetme.controllers', [])
                                   				 'user2': {"__type":"Pointer",
                                   						   "className":"Users",
                                   						   "objectId":$scope.inviterId}}, function(chat) {
-		            PubNubService.sendNotificationToChannel($scope.inviterId, $scope.currentUser.objectId, "Invitation Accepted", {"chatId": chat.objectId});
-					$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': chat.objectId}); // FIX: SEND TO CHAT
+		            finishFunc(chat.objectId);
 				});
 	     	}
 	     	else if (chats.length == 1) {
-	     		$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': chats[0].objectId});
+	     		finishFunc(chats[0].objectId);
 	     	}
-
-	     	$('#invite-reminder').hide();
 	   });
 	}
 
