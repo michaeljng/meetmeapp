@@ -21,7 +21,7 @@ $positive:                        #333333;
 #inv-lightbox {
   background-color: #FFF;
   margin: auto;
-  margin-top: 40%;
+  margin-top: 50%;
   text-align: center;
   width: 90%;
 }
@@ -30,11 +30,12 @@ $positive:                        #333333;
   height: 66px;
   text-align: center;
 }
-#sub-notification {
+#invite-reminder {
   display: none;
+  height: 102px;
   text-align: center;
 }
-#sub-notification .title {
+#invite-reminder .title {
   color: #666;
   height: 122px;
 }
