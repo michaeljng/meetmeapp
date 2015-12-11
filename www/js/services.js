@@ -129,6 +129,20 @@ angular.module('meetme.services', [])
 		});
 	}
 
+	obj.getWithInclude = function(className, params, include, callback) {
+		$http({
+			method: 'GET',
+			url: 'https://api.parse.com/1/classes/' + className,
+			params: {"where" : params, "include": include},
+			headers: headers
+		}).then( function successCallback(response) {
+			callback(response.data.results);
+		}, function errorCallback(response) {
+		    // called asynchronously if an error occurs
+		    // or server returns response with an error status.
+		});
+	}
+
 	obj.getCurrentUser = function(callback) {
 		FacebookService.userId(function(facebookId) {
           obj.getSingleObject('Users', {"facebookId":facebookId}, function(user) {
