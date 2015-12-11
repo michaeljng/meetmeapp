@@ -55,16 +55,30 @@ angular.module('meetme.controllers', [])
 	$scope.acceptInvitation = function(userId) {
 		$('ion-view').css('top', '0');
 		$scope.pageExtended = false;
-		ParseService.createAndRetrieve("Chats", {'user1': {"__type":"Pointer",
+		ParseService.get("Chats", {'user1': {"__type":"Pointer",
+                                  						   "className":"Users",
+                                  						   "objectId":$scope.currentUser.objectId}, 
+	                  				 'user2': {"__type":"Pointer",
+	                  						   "className":"Users",
+	                  						   "objectId":$scope.inviterId}}, function(chats) {
+
+	     	if (chats.length == 0) {
+	     		ParseService.createAndRetrieve("Chats", {'user1': {"__type":"Pointer",
                                   						   "className":"Users",
                                   						   "objectId":$scope.currentUser.objectId}, 
                                   				 'user2': {"__type":"Pointer",
                                   						   "className":"Users",
                                   						   "objectId":$scope.inviterId}}, function(chat) {
-            PubNubService.sendNotificationToChannel($scope.inviterId, $scope.currentUser.objectId, "Invitation Accepted", {"chatId": chat.objectId});
-			$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': chat.objectId}); // FIX: SEND TO CHAT
-			$('#invite-reminder').hide();
-		});
+		            PubNubService.sendNotificationToChannel($scope.inviterId, $scope.currentUser.objectId, "Invitation Accepted", {"chatId": chat.objectId});
+					$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': chat.objectId}); // FIX: SEND TO CHAT
+				});
+	     	}
+	     	else if (chats.length == 1) {
+	     		$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': chats[0].objectId});
+	     	}
+
+	     	$('#invite-reminder').hide();
+	   });
 	}
 
 	$scope.reloadUserLocation = function() {
