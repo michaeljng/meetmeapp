@@ -47,7 +47,12 @@ angular.module('meetme.controllers', [])
 	$scope.acceptInvitation = function(userId) {
 		$('ion-view').css('top', '0');
 		$scope.pageExtended = false;
-		ParseService.createAndRetrieve("Chats", {'user1': $scope.currentUser.objectId, 'user2': $scope.inviterId}, function(chat) {
+		ParseService.createAndRetrieve("Chats", {'user1': {"__type":"Pointer",
+                                  						   "className":"Users",
+                                  						   "objectId":$scope.currentUser.objectId}, 
+                                  				 'user2': {"__type":"Pointer",
+                                  						   "className":"Users",
+                                  						   "objectId":$scope.inviterId}}, function(chat) {
 			$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': chat.objectId}); // FIX: SEND TO CHAT
 			$('#invite-reminder').hide();
 		});

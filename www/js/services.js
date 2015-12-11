@@ -165,7 +165,6 @@ angular.module('meetme.services', [])
 	}
 
 	obj.createAndRetrieve = function(className, object, callback) {
-		console.log("HERE");
 		$http({
 			method: 'POST',
 			url: 'https://api.parse.com/1/classes/' + className,
@@ -176,6 +175,7 @@ angular.module('meetme.services', [])
 				callback(getResponse);
 			});
 		}, function errorCallback(response) {
+			console.log(JSON.stringify(response,null,'\t'));
 		    // called asynchronously if an error occurs
 		    // or server returns response with an error status.
 		});
