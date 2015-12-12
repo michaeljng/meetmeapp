@@ -1,10 +1,11 @@
 angular.module('meetme.controllers', [])
 
-.controller('MainController', function ($scope, $state, $interval, currentUser, FacebookService, ParseService, PubNubService) {
+.controller('MainController', function ($scope, $state, $interval, $ionicPopup, currentUser, FacebookService, ParseService, PubNubService) {
 
 	$scope.currentUser = currentUser;
 	$scope.inviterId = null;
 	$scope.pageExtended = false;
+	$scope.popupClosed = true;
 
 	PubNubService.registerForNotificationsChannel($scope.currentUser.objectId, function(type, fromUserId, message){
 
@@ -26,15 +27,37 @@ angular.module('meetme.controllers', [])
 
 	$scope.showInvitation = function(userId) {
 		$scope.inviterId = userId;
-		$('#invitation-notification').find('.inviter').html(userId + 'has invited you to meet up!');
-		$('#invitation-notification').show();
-	}
+		if ($scope.popupClosed == true) {
+			$scope.popupClosed = false;
+			var confirmPopup = $ionicPopup.show({
+				title: 'Invite received!',
+				subTitle: userId + ' has invited you to meet up!',
+				scope: $scope,
+				buttons: [
+				{
+					text: 'Decline Invitation',
+					onTap: function(e) {
+						$scope.popupClosed = true;
+						$scope.declineInvitation();
+					}
+				},
+				{
+					text: '<b>See Profile</b>',
+					type: 'button-calm',
+					onTap: function(e) {
+						$scope.popupClosed = true;
+						$scope.viewProfile();
+					}
+				}
+				]
+			});
+		}
+	};
 
 	$scope.declineInvitation = function() {
 		$('ion-view').css('top', '0');
 		$scope.pageExtended = false;
 		PubNubService.sendNotificationToChannel($scope.inviterId, $scope.currentUser.objectId, "Invitation Declined", "");
-		$('#invitation-notification').hide();
 		$('#invite-reminder').hide();
 	}
 
@@ -43,7 +66,6 @@ angular.module('meetme.controllers', [])
 		$scope.pageExtended = true;
 		$state.go('app.logged-in.user-tab.user-detail', {'userId':$scope.inviterId});
 		$scope.showInviteReminder($scope.inviterId);
-		$('#invitation-notification').hide();
 	}
 
 	$scope.showInviteReminder = function(userId) {
@@ -78,7 +100,7 @@ angular.module('meetme.controllers', [])
 	     	if (chats.length == 0) {
 	     		ParseService.createAndRetrieve("Chats", {'user1': {"__type":"Pointer",
                                   						   "className":"Users",
-                                  						   "objectId":$scope.currentUser.objectId}, 
+                                  						   "objectId":$scope.currentUser.objectId},
                                   				 'user2': {"__type":"Pointer",
                                   						   "className":"Users",
                                   						   "objectId":$scope.inviterId}}, function(chat) {

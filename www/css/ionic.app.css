@@ -11,19 +11,6 @@
 .invite-time {
   color: #333; }
 
-#invitation-notification {
-  background-color: rgba(0, 0, 0, 0.8);
-  display: none;
-  height: 86%;
-  margin-top: 44px; }
-
-#inv-lightbox {
-  background-color: #FFF;
-  margin: auto;
-  margin-top: 50%;
-  text-align: center;
-  width: 90%; }
-
 #option-notification {
   display: none;
   height: 66px;
