@@ -31,6 +31,15 @@ angular.module('meetme.services', [])
 			    }
 			});
 		},
+		replayChatsChannel: function(channelName, count, callback) {
+			pubnub.history({
+			    channel : channelName,
+			    count : count,
+			    callback : function(m){
+			      callback(channelName, m[0]);
+			    }
+			});
+		},
 		sendNotificationToChannel: function(channelName, fromUserId, type, message) {
 			pubnub.publish({
 		      channel: channelName,
