@@ -3,7 +3,8 @@ angular.module('meetme.services', [])
 .factory('PubNubService', function (ParseService) {
 	var pubnub = PUBNUB.init({                          
         publish_key   : 'pub-c-630fe092-7461-4246-b9ba-a6b201935fb7',
-        subscribe_key : 'sub-c-a57136cc-9870-11e5-b53d-0619f8945a4f'
+        subscribe_key : 'sub-c-a57136cc-9870-11e5-b53d-0619f8945a4f',
+        ssl: true
   	});
 
  //  	var currentUser = null;
@@ -129,6 +130,20 @@ angular.module('meetme.services', [])
 		});
 	}
 
+	obj.getWithInclude = function(className, params, include, callback) {
+		$http({
+			method: 'GET',
+			url: 'https://api.parse.com/1/classes/' + className,
+			params: {"where" : params, "include": include},
+			headers: headers
+		}).then( function successCallback(response) {
+			callback(response.data.results);
+		}, function errorCallback(response) {
+		    // called asynchronously if an error occurs
+		    // or server returns response with an error status.
+		});
+	}
+
 	obj.getCurrentUser = function(callback) {
 		FacebookService.userId(function(facebookId) {
           obj.getSingleObject('Users', {"facebookId":facebookId}, function(user) {
@@ -165,7 +180,6 @@ angular.module('meetme.services', [])
 	}
 
 	obj.createAndRetrieve = function(className, object, callback) {
-		console.log("HERE");
 		$http({
 			method: 'POST',
 			url: 'https://api.parse.com/1/classes/' + className,
@@ -176,6 +190,7 @@ angular.module('meetme.services', [])
 				callback(getResponse);
 			});
 		}, function errorCallback(response) {
+			console.log(JSON.stringify(response,null,'\t'));
 		    // called asynchronously if an error occurs
 		    // or server returns response with an error status.
 		});

@@ -35,37 +35,29 @@ angular.module('meetme.chatTabController', [])
   $scope.currentUser = currentUser;
   $scope.chats = [];
 
-  $scope.getOtherUserInChat = function(chat, callback) {
+  $scope.getOtherUserInChat = function(chat) {
 
     if (chat.user1.objectId == $scope.currentUser.objectId) {
-      ParseService.getById("Users", chat.user2.objectId, function(user){
-        return callback(user);
-      })
+      return chat.user2;
     }
     else {
-      ParseService.getById("Users", chat.user1.objectId, function(user){
-        return callback(user);
-      })
+      return chat.user1;
     }
   }
 
-  ParseService.get("Chats",{"$or":[{"user1"   : {"__type":"Pointer",
+  ParseService.getWithInclude("Chats",{"$or":[{"user1"   : {"__type":"Pointer",
                                                 "className":"Users",
                                                 "objectId":$scope.currentUser.objectId}},
                                    {"user2"   : {"__type":"Pointer",
                                                 "className":"Users",
-                                                "objectId":$scope.currentUser.objectId}}]}, function(chats) {                                      
+                                                "objectId":$scope.currentUser.objectId}}]}, 'user1,user2',function(chats) {                                      
     
-    $scope.chats = chats;                                               
-
+    $scope.chats = chats;   
+                                            
     for (var i = 0; i < $scope.chats.length; i++) {
       var chat = $scope.chats[i];
-      $scope.getOtherUserInChat(chat, function(user){
-        chat.otherUser = user;
-      });
-    }                                             
-
-    // console.log(JSON.stringify($scope.chats, null, '\t'));
+      chat.otherUser = $scope.getOtherUserInChat(chat);
+    }                                            
   });
 })
 
