@@ -95,10 +95,15 @@ angular.module('meetme.searchTabController', [])
 
   $scope.reload();
 
-  $interval(function() {
+  var reloadInterval = $interval(function() {
     $scope.reload();
   }, 5000);
 
+  $scope.$on("$destroy", function (event) {
+    if ( reloadInterval ) {
+        $interval.cancel( reloadInterval );
+    }
+  });
 
   $scope.setUnavailable = function() {
     ParseService.update('Posts', $stateParams.postId, {"status":'I'}, function(response){
