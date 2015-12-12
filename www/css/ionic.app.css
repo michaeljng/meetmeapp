@@ -1,7 +1,29 @@
 @charset "UTF-8";
-.newdivname {
+#sub-no,
+#sub-yes,
+#inv-no,
+#inv-yes {
+  margin: 10px; }
+
+.inviter {
+  color: #666; }
+
+.invite-time {
+  color: #333; }
+
+#option-notification {
+  display: none;
+  height: 66px;
+  text-align: center; }
+
+#invite-reminder {
+  display: none;
+  height: 102px;
+  text-align: center; }
+
+#invite-reminder .title {
   color: #666;
-  background-color: #DDD; }
+  height: 122px; }
 
 /*!
   Ionicons, v2.0.1
