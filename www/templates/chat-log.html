@@ -1,5 +1,6 @@
 <ion-view title="chat-log" class="wrapper">
 	<ion-content scroll="true" class="has-header has-footer">
+		<div class="extended-all" ng-show="pageExtended"></div>
 		<div id="chat-output" style="height:200px">
 			<ion-list ng-repeat="chatMessage in chatMessages">
 				<p>{{chatMessage.message}}</p>

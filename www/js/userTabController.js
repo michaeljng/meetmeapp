@@ -37,15 +37,10 @@ angular.module('meetme.userTabController', [])
     document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
   }
 
-  if($scope.pageExtended) {
-    $('ion-view').css('top', '102px');
-  }
-
   if ($stateParams.currentUserId == $scope.displayUser.objectId) {
     $scope.editable = true;
     $("#editButton").show();
   } else {
-    $('#ion-user-profile').css('top', '108px');
     $("#option-notification").show();
   }
 
