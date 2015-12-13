@@ -59,7 +59,7 @@ angular.module('meetme.userTabController', [])
   $scope.sendInvitation = function(userId) {
     PubNubService.sendNotificationToChannel(userId, $stateParams.currentUserId, "Invitation Received", "test");
     $scope.inviteDisabled = true;
-    $('.invite-button').html('Invitation sent!');
-    $('.invite-button').removeClass('button-calm').addClass('button-stable');
+    $('#option-notification').find('.invite-button').html('Invitation sent!');
+    $('#option-notification').find('.invite-button').removeClass('button-calm').addClass('button-stable');
   }
 })
