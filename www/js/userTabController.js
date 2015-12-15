@@ -30,6 +30,7 @@ angular.module('meetme.userTabController', [])
 
   $scope.editable = false;
   $scope.editing = false;
+  $scope.inviteDisabled = false;
 
   if ($scope.displayUser.userLocation) {
     var latlon = $scope.displayUser.userLocation.latitude + "," + $scope.displayUser.userLocation.longitude;
@@ -52,5 +53,8 @@ angular.module('meetme.userTabController', [])
 
   $scope.sendInvitation = function(userId) {
     PubNubService.sendNotificationToChannel(userId, $stateParams.currentUserId, "Invitation Received", "test");
+    $scope.inviteDisabled = true;
+    $('#option-notification').find('.invite-button').html('Invitation sent!');
+    $('#option-notification').find('.invite-button').removeClass('button-calm').addClass('button-stable');
   }
 })
