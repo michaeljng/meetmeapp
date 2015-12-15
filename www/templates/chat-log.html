@@ -1,7 +1,11 @@
 <ion-view title="chat-log" class="wrapper">
 	<ion-content scroll="true" class="has-header has-footer">
 		<div class="extended-all" ng-show="pageExtended"></div>
-		<div id="chat-output" style="height:200px">
+		<div class="item item-thumbnail-left">
+				<img src="http://graph.facebook.com/{{otherUser.facebookId}}/picture?width=80&height=80"/>
+				<h2>{{otherUser.facebookName}}</h2>
+			</div>
+		<div id="chat-output" style="height: 200px; margin: 1rem; padding: .5rem;">
 			<ion-list ng-repeat="chatMessage in chatMessages">
 				<p style="color:{{chatColor(chatMessage.fromUserId)}};text-align:{{chatAlign(chatMessage.fromUserId)}}">{{chatMessage.message}}</p>
 			</ion-list>
