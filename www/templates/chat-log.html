@@ -3,7 +3,7 @@
 		<div class="extended-all" ng-show="pageExtended"></div>
 		<div id="chat-output" style="height:200px">
 			<ion-list ng-repeat="chatMessage in chatMessages">
-				<p>{{chatMessage.message}}</p>
+				<p style="color:{{chatColor(chatMessage.fromUserId)}};text-align:{{chatAlign(chatMessage.fromUserId)}}">{{chatMessage.message}}</p>
 			</ion-list>
 		</div>
 	</ion-content>

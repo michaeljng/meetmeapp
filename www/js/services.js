@@ -112,6 +112,19 @@ angular.module('meetme.services', [])
 	          });
 	        });
         	return dfd.promise;
+		},
+		otherUserForChatId: function(chatId, userId) {
+	        var dfd = $q.defer();
+	        ParseService.getWithInclude('Chats', {"objectId":chatId}, "user1,user2", function(chats) {
+	        	var chat = chats[0];
+	        	if (chat.user1.objectId == userId) {
+	        		dfd.resolve(chat.user2);
+	        	}
+	        	else {
+	          		dfd.resolve(chat.user1);
+	        	}
+	        });
+	        return dfd.promise;
 		}
 	}
 })
