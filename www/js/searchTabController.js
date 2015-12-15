@@ -76,10 +76,6 @@ angular.module('meetme.searchTabController', [])
   $scope.matchedUsers = [];
   $scope.currentUser = JSON.parse($stateParams.currentUser);
 
-  if($scope.pageExtended) {
-    $('ion-view').css('top', '102px');
-  }
-
   $scope.reload = function() {
     ParseService.get('Users', {"isAvailable":true, "objectId": {"$ne":$scope.currentUser.objectId}}, function(results) {
         $scope.matchedUsers = results;

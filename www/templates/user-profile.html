@@ -1,10 +1,12 @@
 <ion-view title="user-profile">
 
-  <div class="bar bar-subheader" id="option-notification">
-    <button class="button button-calm invite-button" ng-click="sendInvitation(displayUser.objectId)" ng-disabled="inviteDisabled">Invite to meet up!</button>
+  <div class="bar bar-subheader" id="option-notification" ng-hide="pageExtended">
+    <button class="button button-calm invite-button" ng-click="sendInvitation(displayUser.objectId)">Invite to meet up!</button>
   </div>
 
   <ion-content  class="has-header has-footer" id="ion-user-profile">
+    <div class="extended-inv" ng-show="pageExtended"></div>
+    <div class="extended-opt"></div>
     <ion-list>
       <ion-item>
         Name: {{displayUser.facebookName}}
