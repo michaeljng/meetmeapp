@@ -62,7 +62,6 @@ angular.module('meetme.controllers', [])
 	}
 
 	$scope.viewProfile = function() {
-		$('ion-view').css('top', '102px');
 		$scope.pageExtended = true;
 		$state.go('app.logged-in.user-tab.user-detail', {'userId':$scope.inviterId});
 		$scope.showInviteReminder($scope.inviterId);
@@ -119,10 +118,6 @@ angular.module('meetme.controllers', [])
 				$scope.currentUser = currentUser;
 			});
 		});
-	}
-
-	if($scope.pageExtended) {
-		$('ion-view').css('top', '102px');
 	}
 
 	$scope.reloadUserLocation();

@@ -1,10 +1,12 @@
 <ion-view title="user-profile">
 
-  <div class="bar bar-subheader" id="option-notification">
+  <div class="bar bar-subheader" id="option-notification" ng-hide="pageExtended">
     <button class="button button-calm invite-button" ng-click="sendInvitation(displayUser.objectId)">Invite to meet up!</button>
   </div>
 
   <ion-content  class="has-header has-footer" id="ion-user-profile">
+    <div class="extended-inv" ng-show="pageExtended"></div>
+    <div class="extended-opt"></div>
     <ion-list>
       <ion-item>
         Name: {{displayUser.facebookName}}
@@ -21,9 +23,6 @@
       <ion-item>
         Description: <textarea id="description" ng-model="displayUser.userDescription" cols="40" rows="5"></textarea>
       </ion-item>
-      <!-- <ion-item>
-        <ion-toggle ng-model="user.isAvailable" toggle-class="toggle-calm" ng-change="toggleAvailable()">Availability:</ion-toggle>
-      </ion-item> -->
       <ion-item id="editButton" style="display:none">
         <button class="button button-calm" ng-click="saveProfile()">Save</button>
         <!-- <button class="button button-calm" ng-click="logout()">Logout</button> -->

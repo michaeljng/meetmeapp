@@ -1,10 +1,33 @@
 // Place custom sass here
 $positive:                        #333333;
+.extended-inv {
+  height: 36px;
+}
+.extended-opt {
+  height: 65px;
+}
+.extended-all {
+  height: 101px;
+}
 #sub-no,
 #sub-yes,
 #inv-no,
 #inv-yes {
   margin: 10px;
+}
+.available-button {
+  border-radius: 200px;
+  border: 0;
+  color: #ffffff;
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0;
+  background: #11C1F3;
+  margin: 200px auto;
+  width: 200px;
+  height: 200px;
+  text-align: center;
 }
 .inviter {
   color: #666;
