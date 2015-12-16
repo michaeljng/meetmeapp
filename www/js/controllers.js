@@ -4,6 +4,7 @@ angular.module('meetme.controllers', [])
 
 	$scope.currentUser = currentUser;
 	$scope.inviterId = null;
+	$scope.inviter = null;
 	$scope.pageExtended = false;
 	$scope.popupClosed = true;
 
@@ -13,7 +14,9 @@ angular.module('meetme.controllers', [])
 
 		switch (type) {
 			case "Invitation Received":
-				$scope.showInvitation(fromUserId);
+				ParseService.getById('Users', fromUserId, function(user){
+					$scope.showInvitation(user);
+				});
 				break;
 			case "Invitation Accepted":
 				$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': message.chatId});
@@ -25,13 +28,14 @@ angular.module('meetme.controllers', [])
 		}
 	});
 
-	$scope.showInvitation = function(userId) {
-		$scope.inviterId = userId;
+	$scope.showInvitation = function(user) {
+		$scope.inviter = user;
+		$scope.inviterId = user.objectId;
 		if ($scope.popupClosed == true) {
 			$scope.popupClosed = false;
 			var confirmPopup = $ionicPopup.show({
 				title: 'Invite received!',
-				subTitle: userId + ' has invited you to meet up!',
+				subTitle: user.facebookName + ' has invited you to meet up!',
 				scope: $scope,
 				buttons: [
 				{
@@ -69,7 +73,7 @@ angular.module('meetme.controllers', [])
 
 	$scope.showInviteReminder = function(userId) {
 		$scope.inviterId = userId;
-		$('#invite-reminder').find('.inviter').html(userId + 'has invited you to meet up!');
+		$('#invite-reminder').find('.inviter').html($scope.inviter.facebookName + 'has invited you to meet up!');
 		$('#invite-reminder').show();
 	}
 
