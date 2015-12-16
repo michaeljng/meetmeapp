@@ -68,12 +68,11 @@ angular.module('meetme.controllers', [])
 	$scope.viewProfile = function() {
 		$scope.pageExtended = true;
 		$state.go('app.logged-in.user-tab.user-detail', {'userId':$scope.inviterId});
-		$scope.showInviteReminder($scope.inviterId);
+		$scope.showInviteReminder($scope.inviter);
 	}
 
-	$scope.showInviteReminder = function(userId) {
-		$scope.inviterId = userId;
-		$('#invite-reminder').find('.inviter').html($scope.inviter.facebookName + 'has invited you to meet up!');
+	$scope.showInviteReminder = function(user) {
+		$('#invite-reminder').find('.inviter').html(user.facebookName + 'has invited you to meet up!');
 		$('#invite-reminder').show();
 	}
 
