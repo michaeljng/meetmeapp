@@ -2,7 +2,7 @@
 	<ion-content class="has-header has-footer">
     <div class="extended-all" ng-show="pageExtended"></div>
 		<ion-list ng-repeat="chat in chats">
-			<a class="item item-thumbnail-left" href="#/app/logged-in/chat-tab/chat-log/{{chat.objectId}}/{{currentUser.objectId}}">
+			<a class="item item-thumbnail-left" href="#/app/logged-in/chat-tab/chat-log/{{chat.objectId}}/{{currentUser.objectId}}/{{chat.otherUser.objectId}}">
 				<img src="http://graph.facebook.com/{{chat.otherUser.facebookId}}/picture?width=270&height=270"/>
 				<h2>{{chat.otherUser.facebookName}}</h2>
 				<p>{{chat.lastChatText}}</p>

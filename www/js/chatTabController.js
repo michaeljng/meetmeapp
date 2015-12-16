@@ -21,9 +21,14 @@ angular.module('meetme.chatTabController', [])
   })
 
   .state('app.logged-in.chat-tab.chat-log', {
-    url: '/chat-log/:chatId/:currentUserId',
+    url: '/chat-log/:chatId/:currentUserId/:otherUserId',
     templateUrl: 'templates/chat-log.html',
     controller: 'ChatController',
+    resolve: {
+      otherUser: function(PreloadFunctions, $stateParams) {
+        return PreloadFunctions.otherUserForChatId($stateParams.chatId, $stateParams.currentUserId);
+      }
+    }
   })
 
   // Fallback
@@ -73,13 +78,14 @@ angular.module('meetme.chatTabController', [])
   });
 })
 
-.controller('ChatController', function ($scope, $state, $interval, $stateParams, ParseService, PubNubService) {
+.controller('ChatController', function ($scope, $state, $interval, $stateParams, otherUser, ParseService, PubNubService) {
 
   var $input = $('#chat-input');
   var $output = $('#chat-output');
 
   $scope.chatId = $stateParams.chatId;
   $scope.currentUserId = $stateParams.currentUserId;
+  $scope.otherUser = otherUser;
   $scope.chatMessages = [];
 
   PubNubService.replayChatsChannel($scope.chatId, 25, function(chatId, chatMessages){
@@ -88,22 +94,25 @@ angular.module('meetme.chatTabController', [])
   });
 
   PubNubService.registerForChatsChannel($scope.chatId, function(chatMessage, fromUserId) {
-
       $scope.chatMessages.push({"message":chatMessage, "fromUserId": fromUserId});
       $scope.$apply();
-    // create a new line for chat text
-      // var $line = $('<li />');
-
-      // // filter out html from messages
-      // var $message = $('<span />').text(chat).html();
-
-      // // build the html elements
-      // $line.append($message);
-      // $output.append($line);
-
-      // // scroll the chat output to the bottom
-      // $output.scrollTop($output[0].scrollHeight);
   })
+
+  $scope.chatColor = function(fromUserId) {
+    if ( fromUserId == $scope.currentUserId ) {
+      return "black";
+    } else {
+      return "green";
+    }
+  }
+
+  $scope.chatAlign = function(fromUserId) {
+    if ( fromUserId == $scope.currentUserId ) {
+      return "right";
+    } else {
+      return "left";
+    }
+  }
 
   // when the "send message" form is submitted
   $scope.sendMessage = function() {
