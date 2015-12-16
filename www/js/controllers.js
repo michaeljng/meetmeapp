@@ -72,7 +72,7 @@ angular.module('meetme.controllers', [])
 	}
 
 	$scope.showInviteReminder = function(user) {
-		$('#invite-reminder').find('.inviter').html(user.facebookName + 'has invited you to meet up!');
+		$('#invite-reminder').find('.inviter').html(user.facebookName + ' has invited you to meet up!');
 		$('#invite-reminder').show();
 	}
 
