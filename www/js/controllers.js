@@ -8,9 +8,11 @@ angular.module('meetme.controllers', [])
 	$scope.pageExtended = false;
 	$scope.popupClosed = true;
 
+	$scope.availabiilityTimerId = null;
+
 	PubNubService.registerForNotificationsChannel($scope.currentUser.objectId, function(type, fromUserId, message){
 
-		console.log("Notification Received! From: " + fromUserId + " Type: " + type + " Message: " + message);
+		console.log("Notification Received! From: " + fromUserId + " Type: " + type + " Message: " + JSON.stringify(message));
 
 		switch (type) {
 			case "Invitation Received":
@@ -22,6 +24,20 @@ angular.module('meetme.controllers', [])
 				$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': message.chatId});
 				break;
 			case "Invitation Declined":
+				break;
+			case "Timer Done":
+				if (message.timerId == $scope.availabiilityTimerId) {
+					$scope.availabiilityTimerId = null;
+					ParseService.getById('Users', $scope.currentUser.objectId, function(user) {
+						$scope.currentUser = user;
+						ParseService.update('Posts', user.activePost.objectId, {"status":'I'}, function(response){
+					        $scope.$parent.$parent.availabiilityTimerId = null;
+					        $state.go('app.logged-in.search-tab.unavailable');
+					      }
+					    );
+					})
+					
+				}
 				break;
 			default:
 				break;

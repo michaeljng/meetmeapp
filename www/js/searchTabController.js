@@ -47,14 +47,13 @@ angular.module('meetme.searchTabController', [])
 
     })
 
-.controller('UnavailableSearchController', function ($scope, $state, currentUser, ParseService) {
+.controller('UnavailableSearchController', function ($scope, $state, uuid2, currentUser, ParseService, TimerService) {
 
   $scope.currentUser = currentUser;
 
   if ($scope.currentUser.isAvailable == true) {
     $state.go('app.logged-in.search-tab.available', {'postId':$scope.currentUser.activePost.objectId,'currentUser':JSON.stringify($scope.currentUser)});
   }
-
 
 	$scope.setAvailable = function() {
     ParseService.create('Posts', {"status"   :'A',
@@ -66,6 +65,10 @@ angular.module('meetme.searchTabController', [])
           $state.go('app.logged-in.search-tab.available', {'postId':response.data.objectId, 'currentUser':JSON.stringify($scope.currentUser)});
         }
       );
+
+    var timerId = uuid2.newguid();
+    $scope.$parent.$parent.availabiilityTimerId = timerId;
+    TimerService.setTimer(5,currentUser.objectId,timerId);
 	}
 
 })
@@ -103,6 +106,7 @@ angular.module('meetme.searchTabController', [])
 
   $scope.setUnavailable = function() {
     ParseService.update('Posts', $stateParams.postId, {"status":'I'}, function(response){
+        $scope.$parent.$parent.availabiilityTimerId = null;
         $state.go('app.logged-in.search-tab.unavailable');
       }
     );

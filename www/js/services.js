@@ -1,5 +1,29 @@
 angular.module('meetme.services', [])
 
+.factory('TimerService', function ($http) {
+
+	// var serverAddress = 'meetmeserver.herokuapp.com'
+	var serverAddress = 'http://localhost:9292'
+	var timerEndpoint = '/v1/setTimer'
+
+	return {
+
+		setTimer: function(numSeconds, callbackChannels, timerId) {
+
+			$http({
+				method: 'POST',
+				url: serverAddress + timerEndpoint,
+				params: {"channelNames": callbackChannels, "numOfSeconds": numSeconds, "timerId": timerId}
+			}).then( function successCallback(response) {
+
+			}, function errorCallback(response) {
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+			});
+		}
+	}
+})
+
 .factory('PubNubService', function (ParseService) {
 	var pubnub = PUBNUB.init({                          
         publish_key   : 'pub-c-630fe092-7461-4246-b9ba-a6b201935fb7',
