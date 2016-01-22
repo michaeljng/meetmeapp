@@ -9,6 +9,7 @@ angular.module('meetme.controllers', [])
 	$scope.popupClosed = true;
 
 	$scope.availabilityTimerId = null;
+	$scope.invitationTimerId = null;
 
 	PubNubService.registerForNotificationsChannel($scope.currentUser.objectId, function(type, fromUserId, message){
 
@@ -16,6 +17,7 @@ angular.module('meetme.controllers', [])
 
 		switch (type) {
 			case "Invitation Received":
+				$scope.invitationTimerId = message.timerId;
 				ParseService.getById('Users', fromUserId, function(user){
 					$scope.showInvitation(user);
 				});
@@ -36,6 +38,10 @@ angular.module('meetme.controllers', [])
 					      }
 					    );
 					})
+				}
+				else if (message.timerId == $scope.invitationTimerId) {
+					$scope.invitationTimerId = null;
+					$scope.declineInvitation();
 				}
 				break;
 			default:
