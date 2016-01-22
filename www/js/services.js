@@ -2,8 +2,8 @@ angular.module('meetme.services', [])
 
 .factory('TimerService', function ($http) {
 
-	// var serverAddress = 'meetmeserver.herokuapp.com'
-	var serverAddress = 'http://localhost:9292'
+	var serverAddress = 'http://meetmeserver.herokuapp.com'
+	// var serverAddress = 'http://localhost:9292'
 	var timerEndpoint = '/v1/setTimer'
 
 	return {
