@@ -1,6 +1,6 @@
 angular.module('meetme.controllers', [])
 
-.controller('MainController', function ($scope, $state, $interval, $ionicPopup, currentUser, FacebookService, ParseService, PubNubService) {
+.controller('MainController', function ($scope, $state, $interval, $ionicPopup, TimerService, currentUser, FacebookService, ParseService, PubNubService) {
 
 	$scope.currentUser = currentUser;
 	$scope.inviterId = null;
@@ -18,6 +18,7 @@ angular.module('meetme.controllers', [])
 		switch (type) {
 			case "Invitation Received":
 				$scope.invitationTimerId = message.timerId;
+				TimerService.setTimer(5,$scope.currentUser.objectId,timerId)
 				ParseService.getById('Users', fromUserId, function(user){
 					$scope.showInvitation(user);
 				});
