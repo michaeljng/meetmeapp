@@ -68,7 +68,7 @@ angular.module('meetme.searchTabController', [])
 
     var timerId = uuid2.newguid();
     $scope.$parent.$parent.availabilityTimerId = timerId;
-    TimerService.setTimer(5,currentUser.objectId,timerId);
+    TimerService.setTimer(120,currentUser.objectId,timerId);
 	}
 
 })
