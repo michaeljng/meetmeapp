@@ -4,6 +4,7 @@ angular.module('meetme.controllers', [])
 
 	$scope.currentUser = currentUser;
 	$scope.inviterId = null;
+	$scope.confirmPopup = null;
 	$scope.inviter = null;
 	$scope.pageExtended = false;
 	$scope.popupClosed = true;
@@ -55,7 +56,7 @@ angular.module('meetme.controllers', [])
 		$scope.inviterId = user.objectId;
 		if ($scope.popupClosed == true) {
 			$scope.popupClosed = false;
-			var confirmPopup = $ionicPopup.show({
+			$scope.confirmPopup = $ionicPopup.show({
 				title: 'Invite received!',
 				subTitle: user.facebookName + ' has invited you to meet up!',
 				scope: $scope,
@@ -85,6 +86,7 @@ angular.module('meetme.controllers', [])
 		$scope.pageExtended = false;
 		PubNubService.sendNotificationToChannel($scope.inviterId, $scope.currentUser.objectId, "Invitation Declined", "");
 		$('#invite-reminder').hide();
+		$scope.confirmPopup.close();
 	}
 
 	$scope.viewProfile = function() {
