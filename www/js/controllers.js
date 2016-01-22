@@ -8,7 +8,7 @@ angular.module('meetme.controllers', [])
 	$scope.pageExtended = false;
 	$scope.popupClosed = true;
 
-	$scope.availabiilityTimerId = null;
+	$scope.availabilityTimerId = null;
 
 	PubNubService.registerForNotificationsChannel($scope.currentUser.objectId, function(type, fromUserId, message){
 
@@ -26,17 +26,16 @@ angular.module('meetme.controllers', [])
 			case "Invitation Declined":
 				break;
 			case "Timer Done":
-				if (message.timerId == $scope.availabiilityTimerId) {
-					$scope.availabiilityTimerId = null;
+				if (message.timerId == $scope.availabilityTimerId) {
+					$scope.availabilityTimerId = null;
 					ParseService.getById('Users', $scope.currentUser.objectId, function(user) {
 						$scope.currentUser = user;
 						ParseService.update('Posts', user.activePost.objectId, {"status":'I'}, function(response){
-					        $scope.$parent.$parent.availabiilityTimerId = null;
+					        $scope.$parent.$parent.availabilityTimerId = null;
 					        $state.go('app.logged-in.search-tab.unavailable');
 					      }
 					    );
 					})
-					
 				}
 				break;
 			default:

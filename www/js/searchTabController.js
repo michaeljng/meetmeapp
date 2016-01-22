@@ -67,7 +67,7 @@ angular.module('meetme.searchTabController', [])
       );
 
     var timerId = uuid2.newguid();
-    $scope.$parent.$parent.availabiilityTimerId = timerId;
+    $scope.$parent.$parent.availabilityTimerId = timerId;
     TimerService.setTimer(5,currentUser.objectId,timerId);
 	}
 
@@ -106,7 +106,7 @@ angular.module('meetme.searchTabController', [])
 
   $scope.setUnavailable = function() {
     ParseService.update('Posts', $stateParams.postId, {"status":'I'}, function(response){
-        $scope.$parent.$parent.availabiilityTimerId = null;
+        $scope.$parent.$parent.availabilityTimerId = null;
         $state.go('app.logged-in.search-tab.unavailable');
       }
     );
