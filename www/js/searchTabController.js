@@ -59,7 +59,7 @@ angular.module('meetme.searchTabController', [])
     $scope.data = {};
 
     var myPopup = $ionicPopup.show({
-    template: 'Minutes:<input ng-model="data.post_minutes" type="number"> <p/> Description:<textarea id="description" ng-model="data.post_description" rows="8"></textarea>',
+    template: 'Minutes:<input ng-model="data.postMinutes" type="number"> <p/> Description:<textarea id="description" ng-model="data.postDescription" rows="8"></textarea>',
     title: 'Enter Post Information',
     subTitle: 'Please use normal things',
     scope: $scope,
@@ -69,11 +69,11 @@ angular.module('meetme.searchTabController', [])
       text: '<b>Save</b>',
       type: 'button-positive',
       onTap: function(e) {
-        if (!$scope.data.post_description || !$scope.data.post_minutes) {
+        if (!$scope.data.postDescription || !$scope.data.postMinutes) {
             e.preventDefault();
           } else {
-            $scope.post_minutes = $scope.data.post_minutes;
-            $scope.post_description = $scope.data.post_description;
+            $scope.postMinutes = $scope.data.postMinutes;
+            $scope.postDescription = $scope.data.postDescription;
             $scope.setAvailable()
           }
         }
@@ -86,19 +86,19 @@ angular.module('meetme.searchTabController', [])
     ParseService.create('Posts', {
             "status" : 'A',
             "expiresAt" : {"__type": "Date",
-                          "iso": moment().add($scope.post_minutes,'minutes').format() },
+                          "iso": moment().add($scope.postMinutes,'minutes').format() },
             "user" : {"__type":"Pointer",
                       "className":"Users",
                       "objectId":$scope.currentUser.objectId },
-            "duration" : $scope.post_minutes,
-            "description" : $scope.post_description }, function(response) {
+            "duration" : $scope.postMinutes,
+            "description" : $scope.postDescription }, function(response) {
           $state.go('app.logged-in.search-tab.available', {'postId':response.data.objectId, 'currentUser':JSON.stringify($scope.currentUser)});
         }
       );
 
     var timerId = uuid2.newguid();
     $scope.$parent.$parent.availabilityTimerId = timerId;
-    TimerService.setTimer($scope.post_minutes*60,currentUser.objectId,timerId);
+    TimerService.setTimer($scope.postMinutes*60,currentUser.objectId,timerId);
 	}
 
 })
