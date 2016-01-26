@@ -5,6 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('meetme', ['ionic',
   'ngCordova',
+  'angularUUID2',
   'meetme.controllers',
   'meetme.services',
   'meetme.searchTabController',
