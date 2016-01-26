@@ -19,7 +19,7 @@ angular.module('meetme.controllers', [])
 		switch (type) {
 			case "Invitation Received":
 				$scope.invitationTimerId = message.timerId;
-				TimerService.setTimer(5,$scope.currentUser.objectId,$scope.invitationTimerId)
+				TimerService.setTimer(60,$scope.currentUser.objectId,$scope.invitationTimerId)
 				ParseService.getById('Users', fromUserId, function(user){
 					$scope.showInvitation(user);
 				});
