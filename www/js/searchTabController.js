@@ -47,7 +47,7 @@ angular.module('meetme.searchTabController', [])
 
     })
 
-.controller('UnavailableSearchController', function ($scope, $state, uuid2, currentUser, ParseService, TimerService) {
+.controller('UnavailableSearchController', function ($scope, $state, $ionicPopup, uuid2, currentUser, ParseService, TimerService) {
 
   $scope.currentUser = currentUser;
 
@@ -55,20 +55,50 @@ angular.module('meetme.searchTabController', [])
     $state.go('app.logged-in.search-tab.available', {'postId':$scope.currentUser.activePost.objectId,'currentUser':JSON.stringify($scope.currentUser)});
   }
 
+  $scope.showNewPost = function() {
+    $scope.data = {};
+
+    var myPopup = $ionicPopup.show({
+    template: 'Minutes:<input ng-model="data.postMinutes" type="number"> <p/> Description:<textarea id="description" ng-model="data.postDescription" rows="8"></textarea>',
+    title: 'Enter Post Information',
+    subTitle: 'Please use normal things',
+    scope: $scope,
+    buttons: [
+    { text: 'Cancel' },
+    {
+      text: '<b>Save</b>',
+      type: 'button-positive',
+      onTap: function(e) {
+        if (!$scope.data.postDescription || !$scope.data.postMinutes) {
+            e.preventDefault();
+          } else {
+            $scope.postMinutes = $scope.data.postMinutes;
+            $scope.postDescription = $scope.data.postDescription;
+            $scope.setAvailable()
+          }
+        }
+      }
+      ]
+    });
+  };
+
 	$scope.setAvailable = function() {
-    ParseService.create('Posts', {"status"   :'A',
-                      "expiresAt": {"__type": "Date",
-                              "iso": moment().add(1,'minutes').format() },
-                      "user"   : {"__type":"Pointer",
-                                  "className":"Users",
-                                  "objectId":$scope.currentUser.objectId} }, function(response) {
+    ParseService.create('Posts', {
+            "status" : 'A',
+            "expiresAt" : {"__type": "Date",
+                          "iso": moment().add($scope.postMinutes,'minutes').format() },
+            "user" : {"__type":"Pointer",
+                      "className":"Users",
+                      "objectId":$scope.currentUser.objectId },
+            "duration" : $scope.postMinutes,
+            "description" : $scope.postDescription }, function(response) {
           $state.go('app.logged-in.search-tab.available', {'postId':response.data.objectId, 'currentUser':JSON.stringify($scope.currentUser)});
         }
       );
 
     var timerId = uuid2.newguid();
     $scope.$parent.$parent.availabilityTimerId = timerId;
-    TimerService.setTimer(5,currentUser.objectId,timerId);
+    TimerService.setTimer($scope.postMinutes*60,currentUser.objectId,timerId);
 	}
 
 })
@@ -80,7 +110,7 @@ angular.module('meetme.searchTabController', [])
   $scope.currentUser = JSON.parse($stateParams.currentUser);
 
   $scope.reload = function() {
-    ParseService.get('Users', {"isAvailable":true, "objectId": {"$ne":$scope.currentUser.objectId}}, function(results) {
+    ParseService.getWithInclude('Users', {"isAvailable":true, "objectId": {"$ne":$scope.currentUser.objectId}}, 'activePost', function(results) {
         $scope.matchedUsers = results;
     });
     ParseService.getById('Users', $scope.currentUser.objectId, function(user) {
