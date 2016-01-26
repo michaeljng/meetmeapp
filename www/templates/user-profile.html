@@ -4,12 +4,15 @@
     <button class="button button-calm invite-button" ng-click="sendInvitation(displayUser.objectId)" ng-disabled="inviteDisabled">Invite to meet up!</button>
   </div>
 
-  <ion-content  class="has-header has-footer" id="ion-user-profile">
+  <ion-content  class="has-footer" id="ion-user-profile">
     <div class="extended-inv" ng-show="pageExtended"></div>
     <div class="extended-opt"></div>
     <ion-list>
       <ion-item>
-        Name: {{displayUser.facebookName}}
+        <img src="http://graph.facebook.com/{{currentUser.facebookId}}/picture?width=270&height=270"/>
+      </ion-item>
+      <ion-item>
+        <h1>{{displayUser.facebookName}}</h1>
       </ion-item>
       <ion-item>
         Nickname: <input id="nickName" ng-model="displayUser.nickName">
