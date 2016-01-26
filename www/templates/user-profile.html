@@ -8,17 +8,14 @@
     <div class="extended-inv" ng-show="pageExtended"></div>
     <div class="extended-opt"></div>
     <ion-list>
-      <ion-item>
-        <img src="http://graph.facebook.com/{{currentUser.facebookId}}/picture?width=270&height=270"/>
+      <ion-item class="text-center">
+        <img src="http://graph.facebook.com/{{currentUser.facebookId}}/picture?width=300&height=300"/>
       </ion-item>
       <ion-item>
         <h1>{{displayUser.facebookName}}</h1>
       </ion-item>
       <ion-item>
         Nickname: <input id="nickName" ng-model="displayUser.nickName">
-      </ion-item>
-      <ion-item>
-        Location: <div id="mapholder" ng-model="displayUser.userLocation" style="height:300px"></div>
       </ion-item>
       <ion-item>
         Age: <input id="age" ng-model="displayUser.userAge" type="number">
