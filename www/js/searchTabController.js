@@ -110,7 +110,7 @@ angular.module('meetme.searchTabController', [])
   $scope.currentUser = JSON.parse($stateParams.currentUser);
 
   $scope.reload = function() {
-    ParseService.get('Users', {"isAvailable":true, "objectId": {"$ne":$scope.currentUser.objectId}}, function(results) {
+    ParseService.getWithInclude('Users', {"isAvailable":true, "objectId": {"$ne":$scope.currentUser.objectId}}, 'activePost', function(results) {
         $scope.matchedUsers = results;
     });
     ParseService.getById('Users', $scope.currentUser.objectId, function(user) {
