@@ -1,6 +1,6 @@
 angular.module('meetme.controllers', [])
 
-.controller('MainController', function ($scope, $state, $interval, $ionicPopup, TimerService, currentUser, FacebookService, ParseService, PubNubService) {
+.controller('MainController', function ($scope, $state, $interval, $ionicPopup,  uuid2, TimerService, currentUser, FacebookService, ParseService, PubNubService) {
 
 	$scope.currentUser = currentUser;
 	$scope.inviterId = null;
@@ -10,6 +10,8 @@ angular.module('meetme.controllers', [])
 	$scope.popupClosed = true;
 	$scope.availabilityTimerId = null;
 	$scope.invitationTimerId = null;
+	$scope.secondsLeft = 0;
+	$scope.timer = null;
 
 	PubNubService.registerForNotificationsChannel($scope.currentUser.objectId, function(type, fromUserId, message){
 
@@ -17,8 +19,9 @@ angular.module('meetme.controllers', [])
 
 		switch (type) {
 			case "Invitation Received":
-				$scope.invitationTimerId = message.timerId;
-				TimerService.setTimer(60,$scope.currentUser.objectId,$scope.invitationTimerId)
+				$scope.invitationTimerId = uuid2.newguid();
+				$scope.secondsLeft = 20;
+				TimerService.setTimer($scope.secondsLeft,$scope.currentUser.objectId,$scope.invitationTimerId)
 				ParseService.getById('Users', fromUserId, function(user){
 					$scope.showInvitation(user);
 				});
@@ -57,7 +60,8 @@ angular.module('meetme.controllers', [])
 			$scope.popupClosed = false;
 			$scope.confirmPopup = $ionicPopup.show({
 				title: 'Invite received!',
-				subTitle: user.facebookName + ' has invited you to meet up!',
+				template: '{{inviter.facebookName}} has invited you to meet up! you have {{secondsLeft}} seconds left to respond',
+				// subTitle: user.facebookName + ' has invited you to meet up! ' + $scope.secondsLeft + ' seconds left',
 				scope: $scope,
 				buttons: [
 				{
@@ -77,6 +81,15 @@ angular.module('meetme.controllers', [])
 				}
 				]
 			});
+			$scope.timer = $interval(function(){
+				console.log($scope.secondsLeft);
+				if ($scope.secondsLeft == 0) {
+					$scope.declineInvitation();
+					$interval.cancel($scope.timer);
+				} else {
+					$scope.secondsLeft -= 1;
+				}
+			}, 1000);
 		}
 	};
 
