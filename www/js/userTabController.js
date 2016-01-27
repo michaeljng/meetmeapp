@@ -24,7 +24,7 @@ angular.module('meetme.userTabController', [])
   $urlRouterProvider.otherwise('/app/home');
 })
 
-.controller('UserController', function ($scope, $state, $interval, $stateParams, displayUser, ParseService, PubNubService, FacebookService) {
+.controller('UserController', function ($scope, $state, $interval, $stateParams, uuid2, displayUser, ParseService, PubNubService, FacebookService) {
 
   $scope.displayUser = displayUser;
 
@@ -52,7 +52,7 @@ angular.module('meetme.userTabController', [])
   }
 
   $scope.sendInvitation = function(userId) {
-    PubNubService.sendNotificationToChannel(userId, $stateParams.currentUserId, "Invitation Received", "test");
+    PubNubService.sendNotificationToChannel(userId, $stateParams.currentUserId, "Invitation Received", {"timerId": uuid2.newguid()});
     $scope.inviteDisabled = true;
     $('#option-notification').find('.invite-button').html('Invitation sent!');
     $('#option-notification').find('.invite-button').removeClass('button-calm').addClass('button-stable');
