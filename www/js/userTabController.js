@@ -24,7 +24,7 @@ angular.module('meetme.userTabController', [])
   $urlRouterProvider.otherwise('/app/home');
 })
 
-.controller('UserController', function ($scope, $state, $interval, $stateParams, displayUser, ParseService, PubNubService, FacebookService) {
+.controller('UserController', function ($scope, $state, $interval, $stateParams, displayUser, ParseService, PubNubService, FacebookService, LocationService) {
 
   $scope.displayUser = displayUser;
 
@@ -44,7 +44,12 @@ angular.module('meetme.userTabController', [])
     // Hide the distance 
     $("#distanceFrom").hide();
   } else {
-    var distance = 0;
+    // Calculate distance between the current user and the display user
+    var distance = LocationService.feetBetween($scope.currentUser.userLocation.latitude, $scope.currentUser.userLocation.longitude,
+                                                $scope.displayUser.userLocation.latitude, $scope.displayUser.userLocation.longitude);
+
+    // Remove decimals
+    distance = distance.toFixed();
 
     $("#distance").html(distance);
     $("#option-notification").show();
