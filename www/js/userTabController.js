@@ -41,7 +41,12 @@ angular.module('meetme.userTabController', [])
   if ($stateParams.currentUserId == $scope.displayUser.objectId) {
     $scope.editable = true;
     $("#editButton").show();
+    // Hide the distance 
+    $("#distanceFrom").hide();
   } else {
+    var distance = 0;
+
+    $("#distance").html(distance);
     $("#option-notification").show();
   }
 
