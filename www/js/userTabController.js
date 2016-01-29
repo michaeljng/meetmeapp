@@ -45,11 +45,11 @@ angular.module('meetme.userTabController', [])
     $("#distanceFrom").hide();
   } else {
     // Calculate distance between the current user and the display user
-    var distance = LocationService.feetBetween($scope.currentUser.userLocation.latitude, $scope.currentUser.userLocation.longitude,
+    var distance = LocationService.milesBetween($scope.currentUser.userLocation.latitude, $scope.currentUser.userLocation.longitude,
                                                 $scope.displayUser.userLocation.latitude, $scope.displayUser.userLocation.longitude);
 
     // Remove decimals
-    distance = distance.toFixed();
+    distance = distance.toFixed(1);
 
     $("#distance").html(distance);
     $("#option-notification").show();
