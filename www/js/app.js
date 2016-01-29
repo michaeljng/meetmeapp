@@ -75,7 +75,16 @@ angular.module('meetme', ['ionic',
   $scope.availableSecondsLeft = 0;
   $scope.timer = null;
 
+  $scope.clearTimer = function() {
+    $interval.cancel($scope.timer);
+    $scope.timer = null;
+  }
+
   $scope.setAvailableTimer = function(seconds) {
+    if ($scope.timer != null) {
+      $scope.clearTimer();
+    }
+
     $scope.availableSecondsLeft = seconds;
 
     $scope.timer = $interval(function(){
@@ -98,8 +107,7 @@ angular.module('meetme', ['ionic',
 
   $scope.showTitle = function() {
     $scope.headerText = $scope.applicationName;
-    $interval.cancel($scope.timer);
-    $scope.timer = null;
+    $scope.clearTimer();
   }
 
   $scope.showTitle();
