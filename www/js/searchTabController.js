@@ -80,6 +80,10 @@ angular.module('meetme.searchTabController', [])
             expiresAt.setHours($scope.data.postExpiresAt.getHours());
             expiresAt.setMinutes($scope.data.postExpiresAt.getMinutes());
 
+            if ($scope.secondsUntil(expiresAt) < 0) {
+              expiresAt = moment(expiresAt).add(1,'days');
+            }
+
             var seconds = $scope.secondsUntil(expiresAt);
             var description = $scope.data.postDescription;
             $scope.setAvailable(seconds, description);

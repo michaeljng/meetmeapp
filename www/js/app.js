@@ -90,7 +90,10 @@ angular.module('meetme', ['ionic',
     $scope.timer = $interval(function(){
         var minutesLeft = Math.ceil($scope.availableSecondsLeft/60);
 
-        if (minutesLeft > 1) {
+        if (minutesLeft > 59) {
+          $scope.headerText = Math.ceil(minutesLeft/60) + " Hours Left";
+        }
+        else if (minutesLeft > 1) {
           $scope.headerText = minutesLeft + " Minutes Left";
         }
         else {
