@@ -1,5 +1,43 @@
 // Place custom sass here
-$positive:                        #333333;
+.chat-info {
+  border-bottom: 1px solid #DDD;
+  text-align: center;
+  margin-top: 44px;
+  z-index: 9999;
+}
+.chat-info img {
+  border-radius: 100%;
+  margin-top: 10px;
+  max-width: 100px;
+}
+#chat-output {
+  height: 200px;
+  margin: 1rem;
+  margin-top: 122px;
+  padding: .5rem;
+}
+.chat-self {
+  background-color: #11c1f3;
+  border-radius: 5px;
+  color: #FFF;
+  clear: both;
+  display: inline-block;
+  float: right;
+  max-width: 70%;
+  padding: 10px 15px;
+  text-align: right;
+}
+.chat-partner {
+  background-color: #DDD;
+  border-radius: 5px;
+  clear: both;
+  color: #333;
+  display: inline-block;
+  float: left;
+  max-width: 70%;
+  padding: 10px 15px;
+  text-align: left;
+}
 .extended-inv {
   height: 36px;
 }
