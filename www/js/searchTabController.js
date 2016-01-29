@@ -123,6 +123,10 @@ angular.module('meetme.searchTabController', [])
   $scope.reload = function() {
     ParseService.getWithInclude('Users', {"isAvailable":true, "objectId": {"$ne":$scope.currentUser.objectId}}, 'activePost', function(results) {
         $scope.matchedUsers = results;
+        for (userIdx in $scope.matchedUsers) {
+          var postExpiresAt = new Date($scope.matchedUsers[userIdx].activePost.expiresAt.iso);
+          $scope.matchedUsers[userIdx].minutesLeftAvailable = Math.floor((postExpiresAt - moment())/60000);
+        }
     });
     ParseService.getById('Users', $scope.currentUser.objectId, function(user) {
         $scope.currentUser = user;
