@@ -1,11 +1,11 @@
 // Place custom sass here
-.chat-info {
+#chat-info {
   border-bottom: 1px solid #DDD;
+  height: 122px;
   text-align: center;
-  margin-top: 44px;
   z-index: 9999;
 }
-.chat-info img {
+#chat-info img {
   border-radius: 100%;
   margin-top: 10px;
   max-width: 100px;
