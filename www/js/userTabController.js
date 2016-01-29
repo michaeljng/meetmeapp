@@ -45,14 +45,20 @@ angular.module('meetme.userTabController', [])
     $("#distanceFrom").hide();
   } else {
     // Calculate distance between the current user and the display user
-    var distance = LocationService.milesBetween($scope.currentUser.userLocation.latitude, $scope.currentUser.userLocation.longitude,
+
+    if ($scope.currentUser.userLocation != null && $scope.displayUser.userLocation != null) {
+      var distance = LocationService.milesBetween($scope.currentUser.userLocation.latitude, $scope.currentUser.userLocation.longitude,
                                                 $scope.displayUser.userLocation.latitude, $scope.displayUser.userLocation.longitude);
 
-    // Remove decimals
-    distance = distance.toFixed(1);
+      // Remove decimals
+      distance = distance.toFixed(1);
 
-    $("#distance").html(distance);
-    $("#option-notification").show();
+      $("#distance").html(distance);
+      $("#option-notification").show();
+    }
+    else {
+      $("#distance").html("unknown");
+    }
   }
 
   $scope.saveProfile = function() {
