@@ -1,20 +1,3 @@
-<!-- <view title="logged-in">
-	<content has-header="true">
-		<table>
-			<tr>
-				<td>Facebook Name:</td>
-				<td>{{fbName}}</td>
-			</tr>
-			<tr>
-				<td>Nickname:</td>
-				<td><input id="nickName" ng-model="nickName" ng-change="updateNickname()"></td>
-			</tr>
-		</table>
-
-		<button ng-click="logout()">Logout</button>
-	</content>
-</view> -->
-
 <div class="bar bar-subheader" id="invite-reminder">
 	<div class="inviter"></div>
 	<div class="invite-time">Invitation ends in {{secondsLeft}} seconds.</div>
@@ -27,19 +10,18 @@
 <div ui-view>
 </div>
 
-<div class="tabs-striped tabs-color-calm">
-	<div class="tabs">
-		<a class="tab-item active" href="#/app/logged-in/search-tab/unavailable">
-			<i class="icon ion-search"></i>
-			Search
-		</a>
-		<a class="tab-item" href="#/app/logged-in/chat-tab/chats-list">
-			<i class="icon ion-chatbubbles"></i>
-			Chat
-		</a>
-		<a class="tab-item" href="#/app/logged-in/user-tab/user-detail/{{currentUser.objectId}}?currentUserId={{currentUser.objectId}}">
-			<i class="icon ion-person"></i>
-			Profile
-		</a>
-	</div>
-</div>
+<ion-tabs class="tabs-calm tabs-color-light tabs-icon-top">
+
+  <ion-tab title="Search" icon-on="ion-search" icon-off="ion-search" href="#/app/logged-in/search-tab/unavailable">
+    Search
+  </ion-tab>
+
+  <ion-tab title="Chat" icon-on="ion-chatbubbles" icon-off="ion-chatbubbles" href="#/app/logged-in/chat-tab/chats-list">
+    Chat
+  </ion-tab>
+
+  <ion-tab title="Profile" icon-on="ion-person" icon-off="ion-person" href="#/app/logged-in/user-tab/user-detail/{{currentUser.objectId}}?currentUserId={{currentUser.objectId}}">
+    Profile
+  </ion-tab>
+
+</ion-tabs>
