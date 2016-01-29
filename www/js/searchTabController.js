@@ -52,7 +52,7 @@ angular.module('meetme.searchTabController', [])
   $scope.currentUser = currentUser;
 
   $scope.secondsUntil = function(time) {
-    return (time - moment())/1000;
+    return Math.floor((time - moment())/1000);
   }
 
   if ($scope.currentUser.isAvailable == true) {
