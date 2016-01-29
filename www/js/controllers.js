@@ -172,7 +172,7 @@ angular.module('meetme.controllers', [])
 	$scope.reloadUserLocation();
 	$interval(function() {
 	   $scope.reloadUserLocation();
-  	}, 120000); // 2 minutes
+  	}, 10000); // 10 seconds
 
 	FacebookService.userId(function(id) {
 		$scope.userId = id;
