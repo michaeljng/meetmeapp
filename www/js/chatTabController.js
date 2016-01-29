@@ -55,7 +55,7 @@ angular.module('meetme.chatTabController', [])
       if (chat.objectId == id) {
         return chat;
       }
-    }  
+    }
   }
 
   ParseService.getWithInclude("Chats",{"$or":[{"user1"   : {"__type":"Pointer",
@@ -63,9 +63,9 @@ angular.module('meetme.chatTabController', [])
                                                 "objectId":$scope.currentUser.objectId}},
                                    {"user2"   : {"__type":"Pointer",
                                                 "className":"Users",
-                                                "objectId":$scope.currentUser.objectId}}]}, 'user1,user2',function(chats) {                                      
-    $scope.chats = chats;   
-                                            
+                                                "objectId":$scope.currentUser.objectId}}]}, 'user1,user2',function(chats) {
+    $scope.chats = chats;
+
     for (var i = 0; i < $scope.chats.length; i++) {
       var chat = $scope.chats[i];
       chat.otherUser = $scope.getOtherUserInChat(chat);
@@ -74,7 +74,7 @@ angular.module('meetme.chatTabController', [])
         chat.lastChatText = chatMessages[0].message;
         $scope.$apply();
       });
-    }                                            
+    }
   });
 })
 
@@ -98,19 +98,11 @@ angular.module('meetme.chatTabController', [])
       $scope.$apply();
   })
 
-  $scope.chatColor = function(fromUserId) {
+  $scope.chatStyle = function(fromUserId) {
     if ( fromUserId == $scope.currentUserId ) {
-      return "black";
+      return "chat-self";
     } else {
-      return "green";
-    }
-  }
-
-  $scope.chatAlign = function(fromUserId) {
-    if ( fromUserId == $scope.currentUserId ) {
-      return "right";
-    } else {
-      return "left";
+      return "chat-partner";
     }
   }
 
