@@ -78,7 +78,6 @@ angular.module('meetme.controllers', [])
 				console.log($scope.secondsLeft);
 				if ($scope.secondsLeft == 0) {
 					$scope.declineInvitation();
-					$interval.cancel($scope.timer);
 				} else {
 					$scope.secondsLeft -= 1;
 				}
@@ -89,6 +88,7 @@ angular.module('meetme.controllers', [])
 	$scope.declineInvitation = function() {
 		$('ion-view').css('top', '0');
 		$scope.pageExtended = false;
+		$interval.cancel($scope.timer);
 		PubNubService.sendNotificationToChannel($scope.inviterId, $scope.currentUser.objectId, "Invitation Declined", "");
 		$('#invite-reminder').hide();
 		$scope.confirmPopup.close();
@@ -107,6 +107,7 @@ angular.module('meetme.controllers', [])
 
 	$scope.acceptInvitation = function(userId) {
 		$('ion-view').css('top', '0');
+		$interval.cancel($scope.timer);
 		$scope.pageExtended = false;
 		ParseService.get("Chats", {"$or":[{'user1': {"__type":"Pointer",
                                   				 	 "className":"Users",
