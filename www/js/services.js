@@ -5,6 +5,7 @@ angular.module('meetme.services', [])
 	var serverAddress = 'http://meetmeserver.herokuapp.com'
 	// var serverAddress = 'http://localhost:9292'
 	var timerEndpoint = '/v1/setTimer'
+	var availabilityTimerEndpoint = '/v1/setAvailabilityTimer/'
 
 	return {
 
@@ -13,6 +14,20 @@ angular.module('meetme.services', [])
 			$http({
 				method: 'POST',
 				url: serverAddress + timerEndpoint,
+				params: {"channelNames": callbackChannels, "numOfSeconds": numSeconds, "timerId": timerId}
+			}).then( function successCallback(response) {
+
+			}, function errorCallback(response) {
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+			});
+		},
+
+		setAvailabilityTimer: function(numSeconds, callbackChannels, timerId, postId) {
+
+			$http({
+				method: 'POST',
+				url: serverAddress + availabilityTimerEndpoint + postId,
 				params: {"channelNames": callbackChannels, "numOfSeconds": numSeconds, "timerId": timerId}
 			}).then( function successCallback(response) {
 
@@ -131,8 +146,8 @@ angular.module('meetme.services', [])
 	    currentUser: function() {
 	        var dfd = $q.defer();
 	        FacebookService.userId(function(facebookId) {
-	          ParseService.getSingleObject('Users', {"facebookId":facebookId}, function(user) {
-	            dfd.resolve(user);
+	          ParseService.getWithInclude('Users', {"facebookId":facebookId}, "activePost",function(users) {
+	            dfd.resolve(users[0]);
 	          });
 	        });
         	return dfd.promise;

@@ -31,14 +31,7 @@ angular.module('meetme.controllers', [])
 			case "Timer Done":
 				if (message.timerId == $scope.availabilityTimerId) {
 					$scope.availabilityTimerId = null;
-					ParseService.getById('Users', $scope.currentUser.objectId, function(user) {
-						$scope.currentUser = user;
-						ParseService.update('Posts', user.activePost.objectId, {"status":'I'}, function(response){
-					        $scope.$parent.$parent.availabilityTimerId = null;
-					        $state.go('app.logged-in.search-tab.unavailable');
-					      }
-					    );
-					})
+					$state.go('app.logged-in.search-tab.unavailable');
 				}
 				else if (message.timerId == $scope.invitationTimerId) {
 					$scope.invitationTimerId = null;
