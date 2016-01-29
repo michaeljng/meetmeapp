@@ -1,19 +1,27 @@
 angular.module('meetme.controllers', [])
 
-.controller('MainController', function ($scope, $state, $interval, $ionicPopup, currentUser, FacebookService, ParseService, PubNubService) {
+.controller('MainController', function ($scope, $state, $interval, $ionicPopup,  uuid2, TimerService, currentUser, FacebookService, ParseService, PubNubService) {
 
 	$scope.currentUser = currentUser;
 	$scope.inviterId = null;
+	$scope.confirmPopup = null;
 	$scope.inviter = null;
 	$scope.pageExtended = false;
 	$scope.popupClosed = true;
+	$scope.availabilityTimerId = null;
+	$scope.invitationTimerId = null;
+	$scope.secondsLeft = 0;
+	$scope.timer = null;
 
 	PubNubService.registerForNotificationsChannel($scope.currentUser.objectId, function(type, fromUserId, message){
 
-		console.log("Notification Received! From: " + fromUserId + " Type: " + type + " Message: " + message);
+		console.log("Notification Received! From: " + fromUserId + " Type: " + type + " Message: " + JSON.stringify(message));
 
 		switch (type) {
 			case "Invitation Received":
+				$scope.invitationTimerId = uuid2.newguid();
+				$scope.secondsLeft = 20;
+				TimerService.setTimer($scope.secondsLeft,$scope.currentUser.objectId,$scope.invitationTimerId)
 				ParseService.getById('Users', fromUserId, function(user){
 					$scope.showInvitation(user);
 				});
@@ -22,6 +30,16 @@ angular.module('meetme.controllers', [])
 				$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': message.chatId});
 				break;
 			case "Invitation Declined":
+				break;
+			case "Timer Done":
+				if (message.timerId == $scope.availabilityTimerId) {
+					$scope.availabilityTimerId = null;
+					$state.go('app.logged-in.search-tab.unavailable');
+				}
+				else if (message.timerId == $scope.invitationTimerId) {
+					$scope.invitationTimerId = null;
+					$scope.declineInvitation();
+				}
 				break;
 			default:
 				break;
@@ -33,9 +51,10 @@ angular.module('meetme.controllers', [])
 		$scope.inviterId = user.objectId;
 		if ($scope.popupClosed == true) {
 			$scope.popupClosed = false;
-			var confirmPopup = $ionicPopup.show({
+			$scope.confirmPopup = $ionicPopup.show({
 				title: 'Invite received!',
-				subTitle: user.facebookName + ' has invited you to meet up!',
+				template: '{{inviter.facebookName}} has invited you to meet up! you have {{secondsLeft}} seconds left to respond',
+				// subTitle: user.facebookName + ' has invited you to meet up! ' + $scope.secondsLeft + ' seconds left',
 				scope: $scope,
 				buttons: [
 				{
@@ -55,14 +74,24 @@ angular.module('meetme.controllers', [])
 				}
 				]
 			});
+			$scope.timer = $interval(function(){
+				console.log($scope.secondsLeft);
+				if ($scope.secondsLeft == 0) {
+					$scope.declineInvitation();
+				} else {
+					$scope.secondsLeft -= 1;
+				}
+			}, 1000);
 		}
 	};
 
 	$scope.declineInvitation = function() {
 		$('ion-view').css('top', '0');
 		$scope.pageExtended = false;
+		$interval.cancel($scope.timer);
 		PubNubService.sendNotificationToChannel($scope.inviterId, $scope.currentUser.objectId, "Invitation Declined", "");
 		$('#invite-reminder').hide();
+		$scope.confirmPopup.close();
 	}
 
 	$scope.viewProfile = function() {
@@ -78,6 +107,7 @@ angular.module('meetme.controllers', [])
 
 	$scope.acceptInvitation = function(userId) {
 		$('ion-view').css('top', '0');
+		$interval.cancel($scope.timer);
 		$scope.pageExtended = false;
 		ParseService.get("Chats", {"$or":[{'user1': {"__type":"Pointer",
                                   				 	 "className":"Users",
@@ -123,10 +153,26 @@ angular.module('meetme.controllers', [])
 		});
 	}
 
+ // A confirm dialog
+ $scope.showConfirm = function() {
+ 	var confirmPopup = $ionicPopup.confirm({
+ 		title: 'Consume Ice Cream',
+ 		template: 'Are you sure you want to eat this ice cream?'
+ 	});
+
+ 	confirmPopup.then(function(res) {
+ 		if(res) {
+ 			console.log('You are sure');
+ 		} else {
+ 			console.log('You are not sure');
+ 		}
+ 	});
+ };
+
 	$scope.reloadUserLocation();
 	$interval(function() {
 	   $scope.reloadUserLocation();
-  	}, 120000); // 2 minutes
+  	}, 10000); // 10 seconds
 
 	FacebookService.userId(function(id) {
 		$scope.userId = id;

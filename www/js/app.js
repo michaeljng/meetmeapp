@@ -5,6 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('meetme', ['ionic',
   'ngCordova',
+  'angularUUID2',
   'meetme.controllers',
   'meetme.services',
   'meetme.searchTabController',
@@ -43,7 +44,7 @@ angular.module('meetme', ['ionic',
         .state('app', {
           url: '/app',
           templateUrl: 'templates/app.html',
-          abstract: true
+          controller: 'ApplicationController',
         })
 
         .state('app.logged-out', {
@@ -67,6 +68,53 @@ angular.module('meetme', ['ionic',
         $urlRouterProvider.otherwise('/app/home');
 
       })
+
+.controller('ApplicationController', function ($scope, $interval) {
+
+  $scope.applicationName = 'QuiikMeet'
+  $scope.availableSecondsLeft = 0;
+  $scope.timer = null;
+
+  $scope.clearTimer = function() {
+    $interval.cancel($scope.timer);
+    $scope.timer = null;
+  }
+
+  $scope.setAvailableTimer = function(seconds) {
+    if ($scope.timer != null) {
+      $scope.clearTimer();
+    }
+
+    $scope.availableSecondsLeft = seconds;
+
+    $scope.timer = $interval(function(){
+        var minutesLeft = Math.ceil($scope.availableSecondsLeft/60);
+
+        if (minutesLeft > 59) {
+          $scope.headerText = Math.ceil(minutesLeft/60) + " Hours Left";
+        }
+        else if (minutesLeft > 1) {
+          $scope.headerText = minutesLeft + " Minutes Left";
+        }
+        else {
+          $scope.headerText = $scope.availableSecondsLeft + " Seconds Left";
+        }
+
+        if ($scope.availableSecondsLeft == 0) {
+          $scope.showTitle();
+        } else {
+          $scope.availableSecondsLeft -= 1;
+        }
+      }, 1000);
+  }
+
+  $scope.showTitle = function() {
+    $scope.headerText = $scope.applicationName;
+    $scope.clearTimer();
+  }
+
+  $scope.showTitle();
+})
 
 .controller('LoginController', function ($scope, $state, FacebookService, ParseService) {
 
