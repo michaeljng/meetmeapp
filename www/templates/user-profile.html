@@ -1,5 +1,7 @@
 <ion-view title="user-profile">
 
+  <div class="bar bar-subheader bar-balanced" id="saved-notification">Profile changes saved!</div>
+
   <div class="bar bar-subheader" id="option-notification" ng-hide="pageExtended">
     <button class="button button-calm invite-button" ng-click="sendInvitation(displayUser.objectId)" ng-disabled="inviteDisabled">Invite to meet up!</button>
   </div>
@@ -12,7 +14,7 @@
         <img src="http://graph.facebook.com/{{displayUser.facebookId}}/picture?width=300&height=300"/>
       </ion-item>
       <ion-item>
-        <h1>{{displayUser.facebookName}}</h1> 
+        <h1>{{displayUser.facebookName}}</h1>
       </ion-item>
       <ion-item>
         Nickname: <input id="nickName" ng-model="displayUser.nickName">
