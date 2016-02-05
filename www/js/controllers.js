@@ -3,7 +3,6 @@ angular.module('meetme.controllers', [])
 .controller('MainController', function ($scope, $state, $interval, $ionicPopup,  uuid2, TimerService, currentUser, FacebookService, ParseService, PubNubService) {
 
 	$scope.currentUser = currentUser;
-	$scope.inviterId = null;
 	$scope.confirmPopup = null;
 	$scope.inviter = null;
 	$scope.pageExtended = false;
@@ -30,6 +29,9 @@ angular.module('meetme.controllers', [])
 				$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': message.chatId});
 				break;
 			case "Invitation Declined":
+				$scope.message = message;
+				$ionicPopup.alert({title: 'Invitation Declined',
+								template: 'Sorry {{message.fromUser.facebookName}} is busy right now'});
 				break;
 			case "Timer Done":
 				if (message.timerId == $scope.availabilityTimerId) {
@@ -48,7 +50,6 @@ angular.module('meetme.controllers', [])
 
 	$scope.showInvitation = function(user) {
 		$scope.inviter = user;
-		$scope.inviterId = user.objectId;
 		if ($scope.popupClosed == true) {
 			$scope.popupClosed = false;
 			$scope.confirmPopup = $ionicPopup.show({
@@ -89,14 +90,14 @@ angular.module('meetme.controllers', [])
 		$('ion-view').css('top', '0');
 		$scope.pageExtended = false;
 		$interval.cancel($scope.timer);
-		PubNubService.sendNotificationToChannel($scope.inviterId, $scope.currentUser.objectId, "Invitation Declined", "");
+		PubNubService.sendNotificationToChannel($scope.inviter.objectId, $scope.currentUser.objectId, "Invitation Declined", {"fromUser":$scope.inviter});
 		$('#invite-reminder').hide();
 		$scope.confirmPopup.close();
 	}
 
 	$scope.viewProfile = function() {
 		$scope.pageExtended = true;
-		$state.go('app.logged-in.user-tab.user-detail', {'userId':$scope.inviterId});
+		$state.go('app.logged-in.user-tab.user-detail', {'userId':$scope.inviter.objectId});
 		$scope.showInviteReminder($scope.inviter);
 	}
 
@@ -114,17 +115,17 @@ angular.module('meetme.controllers', [])
                                   					 "objectId":$scope.currentUser.objectId},
                                   		   'user2': {"__type":"Pointer",
                                   				 	 "className":"Users",
-                                  					 "objectId":$scope.inviterId}},
+                                  					 "objectId":$scope.inviter.objectId}},
                                   		  {'user1': {"__type":"Pointer",
                                   				 	 "className":"Users",
-                                  					 "objectId":$scope.inviterId},
+                                  					 "objectId":$scope.inviter.objectId},
                                   		   'user2': {"__type":"Pointer",
                                   				 	 "className":"Users",
                                   					 "objectId":$scope.currentUser.objectId}}]}, function(chats) {
 
 
             var finishFunc = function(chatId) {
-	     		PubNubService.sendNotificationToChannel($scope.inviterId, $scope.currentUser.objectId, "Invitation Accepted", {"chatId": chatId});
+	     		PubNubService.sendNotificationToChannel($scope.inviter.objectId, $scope.currentUser.objectId, "Invitation Accepted", {"chatId": chatId});
 	     		$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': chatId});
 	     		$('#invite-reminder').hide();
 	     	}
@@ -135,7 +136,7 @@ angular.module('meetme.controllers', [])
                                   						   "objectId":$scope.currentUser.objectId},
                                   				 'user2': {"__type":"Pointer",
                                   						   "className":"Users",
-                                  						   "objectId":$scope.inviterId}}, function(chat) {
+                                  						   "objectId":$scope.inviter.objectId}}, function(chat) {
 		            finishFunc(chat.objectId);
 				});
 	     	}
