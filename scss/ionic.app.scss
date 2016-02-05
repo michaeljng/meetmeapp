@@ -52,6 +52,18 @@
   display: none;
   text-align: center;
 }
+#warning-popup-notification {
+  background-color: #EF473A;
+  border-radius: 5px;
+  color: #FFF;
+  display: none;
+  padding: 5px;
+  position: absolute;
+  text-align: center;
+  top: 15px;
+  left: 0;
+  right: 0;
+}
 #sub-no,
 #sub-yes,
 #inv-no,
