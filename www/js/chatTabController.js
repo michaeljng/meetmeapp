@@ -71,7 +71,12 @@ angular.module('meetme.chatTabController', [])
       chat.otherUser = $scope.getOtherUserInChat(chat);
       PubNubService.replayChatsChannel(chat.objectId, 1, function(chatId, chatMessages){
         var chat = $scope.findChatById(chatId);
-        chat.lastChatText = chatMessages[0].message;
+        if (chatMessages.length > 0) {
+          chat.lastChatText = chatMessages[0].message;
+        }
+        else {
+          chat.lastChatText = 'No Messages With This User'
+        }
         $scope.$apply();
       });
     }
@@ -84,7 +89,6 @@ angular.module('meetme.chatTabController', [])
   var $output = $('#chat-output');
 
   $scope.chatId = $stateParams.chatId;
-  $scope.currentUserId = $stateParams.currentUserId;
   $scope.otherUser = otherUser;
   $scope.chatMessages = [];
 
@@ -93,13 +97,13 @@ angular.module('meetme.chatTabController', [])
       $scope.$apply();
   });
 
-  PubNubService.registerForChatsChannel($scope.chatId, function(chatMessage, fromUserId) {
-      $scope.chatMessages.push({"message":chatMessage, "fromUserId": fromUserId});
+  PubNubService.registerForChatsChannel($scope.chatId, function(chatMessage, fromUser) {
+      $scope.chatMessages.push({"message":chatMessage, "fromUser": fromUser});
       $scope.$apply();
   })
 
   $scope.chatStyle = function(fromUserId) {
-    if ( fromUserId == $scope.currentUserId ) {
+    if ( fromUserId == $scope.currentUser.objectId ) {
       return "chat-self";
     } else {
       return "chat-partner";
@@ -109,7 +113,7 @@ angular.module('meetme.chatTabController', [])
   // when the "send message" form is submitted
   $scope.sendMessage = function() {
 
-    PubNubService.sendChatToChannel($stateParams.chatId, $scope.currentUserId, $input.val());
+    PubNubService.sendChatToChannel($stateParams.chatId, $scope.currentUser, $input.val());
 
     console.log($input.val());
 

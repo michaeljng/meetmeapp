@@ -7,7 +7,7 @@
     <div class="extended-all" ng-show="pageExtended"></div>
     <div id="chat-output">
       <ion-list ng-repeat="chatMessage in chatMessages">
-        <p class="{{chatStyle(chatMessage.fromUserId)}}">{{chatMessage.message}}</p>
+        <p class="{{chatStyle(chatMessage.fromUser.objectId)}}">{{chatMessage.message}}</p>
       </ion-list>
     </div>
   </ion-content>

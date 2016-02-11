@@ -85,7 +85,7 @@ angular.module('meetme.services', [])
 			pubnub.subscribe({
 			    channel: channelName, // our channel name
 			    message: function(response) { // this gets fired when a message comes in
-			      callback(response["type"], response["fromUserId"], response["message"]);
+			      callback(response["type"], response["fromUser"], response["message"]);
 			    }
 			});
 		},
@@ -93,7 +93,7 @@ angular.module('meetme.services', [])
 			pubnub.subscribe({
 			    channel: channelName, // our channel name
 			    message: function(response) { // this gets fired when a message comes in
-			      callback(response["message"], response["fromUserId"]);
+			      callback(response["message"], response["fromUser"]);
 			    }
 			});
 		},
@@ -106,16 +106,16 @@ angular.module('meetme.services', [])
 			    }
 			});
 		},
-		sendNotificationToChannel: function(channelName, fromUserId, type, message) {
+		sendNotificationToChannel: function(channelName, fromUser, type, message) {
 			pubnub.publish({
 		      channel: channelName,
-		      message: {"type":type, "fromUserId":fromUserId, "message":message}
+		      message: {"type":type, "fromUser":fromUser, "message":message}
 		    });
 		},
-		sendChatToChannel: function(channelName, fromUserId, message) {
+		sendChatToChannel: function(channelName, fromUser, message) {
 			pubnub.publish({
 		      channel: channelName,
-		      message: {"message":message, "fromUserId":fromUserId}
+		      message: {"message":message, "fromUser":fromUser}
 		    });
 		}
 	}
