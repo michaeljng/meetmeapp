@@ -113,8 +113,6 @@ angular.module('meetme.chatTabController', [])
 
     console.log($input.val());
 
-    $ionicScrollDelegate.scrollBottom(false);
-
     // clear the input field
     $input.val('');
 
@@ -130,5 +128,12 @@ angular.module('meetme.chatTabController', [])
     if (scope.$last){
       $ionicScrollDelegate.scrollBottom(false);
     }
+    var observer = new MutationObserver(function(mutations) {
+      $ionicScrollDelegate.scrollBottom(false);
+    });
+    observer.observe(element[0], {
+      childList: true,
+      subtree: true
+    });
   };
 })
