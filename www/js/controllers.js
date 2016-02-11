@@ -35,7 +35,6 @@ angular.module('meetme.controllers', [])
 				break;
 			case "Invitation Accepted":
 				$scope.isInviting = false;
-				$scope.interactingWithUser = null;
 				$scope.showAcceptedInvitation(message.chatId);
 				break;
 			case "Invitation Declined":
@@ -107,12 +106,14 @@ angular.module('meetme.controllers', [])
 					text: 'Go To Chat',
 					onTap: function(e) {
 						$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': chatId});
+						$scope.interactingWithUser = null;
 					}
 				},
 				{
 					text: 'Ignore',
 					type: 'button-calm',
 					onTap: function(e) {
+						$scope.interactingWithUser = null;
 					}
 
 				}
@@ -169,8 +170,8 @@ angular.module('meetme.controllers', [])
 
             var finishFunc = function(chatId) {
             	$scope.isBeingInvited = false;
-            	$scope.interactingWithUser = null;
 	     		PubNubService.sendNotificationToChannel($scope.interactingWithUser.objectId, $scope.currentUser, "Invitation Accepted", {"chatId": chatId});
+	     		$scope.interactingWithUser = null;
 	     		$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': chatId});
 	     		$('#invite-reminder').hide();
 	     	}
