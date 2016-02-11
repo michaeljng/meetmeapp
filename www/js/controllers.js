@@ -127,12 +127,13 @@ angular.module('meetme.controllers', [])
 	}
 
 	$scope.declineInvitation = function() {
+		PubNubService.sendNotificationToChannel($scope.interactingWithUser.objectId, $scope.currentUser, "Invitation Declined", {});
+
 		$('ion-view').css('top', '0');
 		$scope.pageExtended = false;
 		$scope.isBeingInvited = false;
 		$scope.interactingWithUser = null;
 		$scope.clearInvitationTimer();
-		PubNubService.sendNotificationToChannel($scope.interactingWithUser.objectId, $scope.currentUser, "Invitation Declined", {});
 		$('#invite-reminder').hide();
 		$scope.confirmPopup.close();
 	}
@@ -152,8 +153,6 @@ angular.module('meetme.controllers', [])
 		$('ion-view').css('top', '0');
 		$scope.clearInvitationTimer();
 		$scope.pageExtended = false;
-		$scope.isBeingInvited = false;
-		$scope.interactingWithUser = null;
 		ParseService.get("Chats", {"$or":[{'user1': {"__type":"Pointer",
                                   				 	 "className":"Users",
                                   					 "objectId":$scope.currentUser.objectId},
@@ -170,6 +169,7 @@ angular.module('meetme.controllers', [])
 
             var finishFunc = function(chatId) {
             	$scope.isBeingInvited = false;
+            	$scope.interactingWithUser = null;
 	     		PubNubService.sendNotificationToChannel($scope.interactingWithUser.objectId, $scope.currentUser, "Invitation Accepted", {"chatId": chatId});
 	     		$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': chatId});
 	     		$('#invite-reminder').hide();
