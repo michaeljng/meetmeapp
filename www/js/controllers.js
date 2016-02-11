@@ -35,10 +35,12 @@ angular.module('meetme.controllers', [])
 				break;
 			case "Invitation Accepted":
 				$scope.isInviting = false;
+				$scope.interactingWithUser = null;
 				$scope.showAcceptedInvitation(message.chatId);
 				break;
 			case "Invitation Declined":
 				$scope.isInviting = false;
+				$scope.interactingWithUser = null;
 				$ionicPopup.alert({title: 'Invitation Declined',
 								template: "Sorry " + fromUser.facebookName + " is busy right now"});
 				break;
@@ -128,6 +130,7 @@ angular.module('meetme.controllers', [])
 		$('ion-view').css('top', '0');
 		$scope.pageExtended = false;
 		$scope.isBeingInvited = false;
+		$scope.interactingWithUser = null;
 		$scope.clearInvitationTimer();
 		PubNubService.sendNotificationToChannel($scope.interactingWithUser.objectId, $scope.currentUser, "Invitation Declined", {});
 		$('#invite-reminder').hide();
@@ -150,6 +153,7 @@ angular.module('meetme.controllers', [])
 		$scope.clearInvitationTimer();
 		$scope.pageExtended = false;
 		$scope.isBeingInvited = false;
+		$scope.interactingWithUser = null;
 		ParseService.get("Chats", {"$or":[{'user1': {"__type":"Pointer",
                                   				 	 "className":"Users",
                                   					 "objectId":$scope.currentUser.objectId},

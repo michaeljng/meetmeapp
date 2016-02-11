@@ -67,9 +67,10 @@ angular.module('meetme.userTabController', [])
     });
   }
 
-  $scope.sendInvitation = function(userId) {
+  $scope.sendInvitation = function(user) {
     $scope.$parent.$parent.isInviting = true;
-    PubNubService.sendNotificationToChannel(userId, $scope.currentUser, "Invitation Received", {});
+    $scope.$parent.$parent.interactingWithUser = user;
+    PubNubService.sendNotificationToChannel(user.objectId, $scope.currentUser, "Invitation Received", {});
     $scope.inviteDisabled = true;
     $('#option-notification').find('.invite-button').html('Invitation sent!');
     $('#option-notification').find('.invite-button').removeClass('button-calm').addClass('button-stable');
