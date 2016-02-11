@@ -141,7 +141,7 @@ angular.module('meetme.controllers', [])
 
 	$scope.viewInviterProfile = function() {
 		$scope.pageExtended = true;
-		$state.go('app.logged-in.user-tab.user-detail', {'userId':$scope.interactingWithUser.objectId});
+		$state.go('app.logged-in.user-tab.user-detail', {'displayUserId':$scope.interactingWithUser.objectId});
 		$scope.showInviteReminder();
 	}
 
