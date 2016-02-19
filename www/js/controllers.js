@@ -89,8 +89,7 @@ angular.module('meetme.controllers', [])
 				}
 				]
 			});
-			$scope.invitationTimer = $interval(function(){
-				console.log($scope.secondsLeft);
+			$scope.invitationTimer = $interval(function() {
 				if ($scope.secondsLeft == 0) {
 					$interval.cancel($scope.invitationTimer);
 					$scope.invitationTimer = null;
