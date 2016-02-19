@@ -106,6 +106,10 @@ angular.module('meetme.chatTabController', [])
     }
   }
 
+  $scope.otherAvatar = function(fromUserId) {
+    fromUserId == $scope.currentUserId;
+  }
+
   // when the "send message" form is submitted
   $scope.sendMessage = function() {
 

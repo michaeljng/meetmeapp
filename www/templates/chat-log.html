@@ -1,15 +1,18 @@
 <ion-view title="chat-log" class="wrapper">
 	<div class="bar bar-subheader" id="chat-info">
-    <img src="http://graph.facebook.com/{{otherUser.facebookId}}/picture?width=80&height=80"/>
-    <br/>{{otherUser.facebookName}}
+    {{otherUser.facebookName}}
   </div>
   <ion-content scroll="true" class="has-header has-footer">
     <div class="extended-all" ng-show="pageExtended"></div>
     <div id="chat-output">
       <div class="empty-chat" ng-show="!chatMessages.length">This chat log is empty. Start the conversation!</div>
       <ion-list ng-repeat="chatMessage in chatMessages" my-repeat-directive>
-        <p class="{{chatStyle(chatMessage.fromUserId)}}">{{chatMessage.message}}</p>
-      </ion-list>
+      <div class="{{chatStyle(chatMessage.fromUserId)}}">
+        <img src="http://graph.facebook.com/{{otherUser.facebookId}}/picture?width=80&height=80"/>
+        <div class="triangle-left"></div><p class="chat-text">{{chatMessage.message}}<div class="triangle-right"></div>
+      </div>
+    </div>
+    </ion-list>
     </div>
   </ion-content>
 

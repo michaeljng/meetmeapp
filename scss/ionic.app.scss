@@ -1,41 +1,81 @@
 // Place custom sass here
 #chat-info {
   border-bottom: 1px solid #DDD;
-  height: 122px;
-  text-align: center;
+  font-weight: bold;
+  height: 44px;
+  padding: 10px;
   z-index: 9999;
 }
-#chat-info img {
-  border-radius: 100%;
-  margin-top: 10px;
-  max-width: 100px;
-}
 #chat-output {
-  margin: 122px 1rem 0 1rem;
+  margin: 44px 1rem 100px 1rem;
   overflow: auto;
   padding: .5rem .5rem 0 .5rem;
 }
 .chat-self {
-  background-color: #11c1f3;
-  border-radius: 5px;
-  color: #FFF;
   clear: both;
   display: inline-block;
   float: right;
   max-width: 70%;
+  position: relative;
+}
+.chat-self img {
+  display: none;
+}
+.chat-self .chat-text {
+  background-color: #11c1f3;
+  border-radius: 15px 15px 0 15px;
+  color: #FFF;
+  display: inline-block;
   padding: 10px 15px;
   text-align: right;
 }
+.chat-self .triangle-left {
+  display: none;
+}
+.chat-self .triangle-right {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 0 0 10px;
+  border-color: transparent transparent transparent #11c1f3;
+  position: absolute;
+  bottom: 10px;
+  right: -8px;
+}
 .chat-partner {
-  background-color: #DDD;
-  border-radius: 5px;
   clear: both;
-  color: #333;
   display: inline-block;
   float: left;
+}
+.chat-partner img {
+  border-radius: 100%;
+  display: inline-block;
+  max-width: 50px;
+  position: relative;
+  top: 14px;
+}
+.chat-partner .chat-text {
+  background-color: #DDD;
+  border-radius: 15px 15px 15px 0;
+  color: #333;
+  display: inline-block;
   max-width: 70%;
   padding: 10px 15px;
   text-align: left;
+}
+.chat-partner .triangle-left {
+  display: none;
+}
+.chat-partner .triangle-left {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 10px 10px;
+  border-color: transparent transparent #DDD transparent;
+  position: relative;
+  top: 15px;
 }
 .empty-chat {
   color: #666;
