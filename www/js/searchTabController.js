@@ -47,7 +47,7 @@ angular.module('meetme.searchTabController', [])
 
     })
 
-.controller('UnavailableSearchController', function ($scope, $state, $ionicPopup, uuid2, currentUser, ParseService, TimerService) {
+.controller('UnavailableSearchController', function ($scope, $state, $ionicPopup, $timeout, uuid2, currentUser, ParseService, TimerService) {
 
   $scope.currentUser = currentUser;
 
@@ -63,9 +63,9 @@ angular.module('meetme.searchTabController', [])
     $scope.data = {};
 
     var myPopup = $ionicPopup.show({
-    template: 'Minutes:<input ng-model="data.postExpiresAt" type="time"> <p/> Description:<textarea id="description" ng-model="data.postDescription" rows="8"></textarea>',
-    title: 'Enter Post Information',
-    subTitle: 'Please use normal things',
+    template: '</div>When are you available until?<input ng-model="data.postExpiresAt" type="time"> <p/>What do you want to do?<textarea id="description" ng-model="data.postDescription" rows="8"></textarea> <p/><div id="warning-popup-notification"></div>',
+    title: 'Enter Post Info',
+    subTitle: 'This is what is going to be shown to other available users!',
     scope: $scope,
     buttons: [
     { text: 'Cancel' },
@@ -73,7 +73,11 @@ angular.module('meetme.searchTabController', [])
       text: '<b>Save</b>',
       type: 'button-positive',
       onTap: function(e) {
-        if (!$scope.data.postDescription || !$scope.data.postExpiresAt) {
+        if (!$scope.data.postExpiresAt) {
+            $scope.showPopupWarning("Please set an end time for when your post will expire.");
+            e.preventDefault();
+          } else if (!$scope.data.postDescription) {
+            $scope.showPopupWarning("Please add a short description of what you want to do.");
             e.preventDefault();
           } else {
             var expiresAt = new Date();
@@ -93,6 +97,12 @@ angular.module('meetme.searchTabController', [])
       ]
     });
   };
+
+  $scope.showPopupWarning = function(content) {
+    $('#warning-popup-notification').html(content);
+    $('#warning-popup-notification').show();
+    $timeout(function() { $('#warning-popup-notification').fadeOut('2000'); }, 2000);
+  }
 
 	$scope.setAvailable = function(postSeconds, postDescription) {
     console.log(postSeconds);

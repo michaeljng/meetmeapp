@@ -83,7 +83,7 @@ angular.module('meetme.chatTabController', [])
   });
 })
 
-.controller('ChatController', function ($scope, $state, $interval, $stateParams, otherUser, ParseService, PubNubService) {
+.controller('ChatController', function ($scope, $state, $interval, $stateParams, $ionicScrollDelegate, otherUser, ParseService, PubNubService) {
 
   var $input = $('#chat-input');
   var $output = $('#chat-output');
@@ -103,7 +103,11 @@ angular.module('meetme.chatTabController', [])
   })
 
   $scope.chatStyle = function(fromUserId) {
-    if ( fromUserId == $scope.currentUser.objectId ) {
+    console.log("+++++++++++");
+    console.log(fromUserId);
+    console.log($scope.currentUser.objectId);
+    console.log("+++++++++++");
+    if (fromUserId == $scope.currentUser.objectId) {
       return "chat-self";
     } else {
       return "chat-partner";
@@ -122,5 +126,22 @@ angular.module('meetme.chatTabController', [])
 
      // cancel event bubbling
     return false;
+  };
+
+
+})
+
+.directive('myRepeatDirective', function ($ionicScrollDelegate) {
+  return function(scope, element, attrs) {
+    if (scope.$last){
+      $ionicScrollDelegate.scrollBottom(false);
+    }
+    var observer = new MutationObserver(function(mutations) {
+      $ionicScrollDelegate.scrollBottom(false);
+    });
+    observer.observe(element[0], {
+      childList: true,
+      subtree: true
+    });
   };
 })
