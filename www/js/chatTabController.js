@@ -103,10 +103,6 @@ angular.module('meetme.chatTabController', [])
   })
 
   $scope.chatStyle = function(fromUserId) {
-    console.log("+++++++++++");
-    console.log(fromUserId);
-    console.log($scope.currentUser.objectId);
-    console.log("+++++++++++");
     if (fromUserId == $scope.currentUser.objectId) {
       return "chat-self";
     } else {
