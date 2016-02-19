@@ -1,0 +1,179 @@
+// Place custom sass here
+.top-bar {
+  background: $green;
+  position: absolute;
+  z-index: 9;
+  width: 100%;
+  height: $top-bar-height;
+  //@include display(flex);
+  //@include justify-content(center);
+  //@include align-items(center);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .title {
+    color: #fff;
+    font-size: 24px;
+    margin: 0;
+    //@include display(flex);
+    //@include justify-content(center);
+    //@include align-items(center);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+
+
+#chat-info {
+  border-bottom: 1px solid #DDD;
+  font-weight: bold;
+  height: 44px;
+  padding: 10px;
+  z-index: 9999;
+}
+#chat-output {
+  margin: 44px 1rem 100px 1rem;
+  overflow: auto;
+  padding: .5rem .5rem 0 .5rem;
+}
+.chat-self {
+  clear: both;
+  display: inline-block;
+  float: right;
+  max-width: 70%;
+  position: relative;
+  img {
+    display: none;
+  }
+  .chat-text {
+    background-color: #11c1f3;
+    border-radius: 15px 15px 0 15px;
+    color: #FFF;
+    display: inline-block;
+    padding: 10px 15px;
+    text-align: right;
+  }
+  .triangle-left {
+    display: none;
+  }
+  .triangle-right {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 0 0 10px;
+    border-color: transparent transparent transparent #11c1f3;
+    position: absolute;
+    bottom: 10px;
+    right: -8px;
+  }
+}
+
+.chat-partner {
+  clear: both;
+  display: inline-block;
+  float: left;
+  img {
+    border-radius: 100%;
+    display: inline-block;
+    max-width: 50px;
+    position: relative;
+    top: 14px;
+  }
+  .chat-text {
+    background-color: #DDD;
+    border-radius: 15px 15px 15px 0;
+    color: #333;
+    display: inline-block;
+    max-width: 70%;
+    padding: 10px 15px;
+    text-align: left;
+  }
+  .triangle-left {
+    display: none;
+  }
+  .triangle-left {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 10px 10px;
+    border-color: transparent transparent #DDD transparent;
+    position: relative;
+    top: 15px;
+  }
+}
+
+.empty-chat {
+  color: #666;
+  font-style: italic;
+  text-align: center;
+}
+.extended-inv {
+  height: 36px;
+}
+.extended-opt {
+  height: 65px;
+}
+.extended-all {
+  height: 101px;
+}
+#saved-notification {
+  font-weight: bold;
+  display: none;
+  text-align: center;
+}
+#warning-popup-notification {
+  background-color: #EF473A;
+  border-radius: 5px;
+  color: #FFF;
+  display: none;
+  padding: 5px;
+  position: absolute;
+  text-align: center;
+  top: 15px;
+  left: 0;
+  right: 0;
+}
+#sub-no,
+#sub-yes,
+#inv-no,
+#inv-yes {
+  margin: 10px;
+}
+.available-button {
+  border-radius: 200px;
+  border: 0;
+  color: #ffffff;
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0;
+  background: #11C1F3;
+  margin: 200px auto;
+  width: 200px;
+  height: 200px;
+  text-align: center;
+}
+.inviter {
+  color: #666;
+}
+.invite-time {
+  color: #333;
+}
+#option-notification {
+  display: none;
+  height: 66px;
+  text-align: center;
+}
+#invite-reminder {
+  display: none;
+  height: 102px;
+  text-align: center;
+}
+#invite-reminder .title {
+  color: #666;
+  height: 122px;
+}
