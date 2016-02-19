@@ -24,7 +24,7 @@ angular.module('meetme.userTabController', [])
   $urlRouterProvider.otherwise('/app/home');
 })
 
-.controller('UserController', function ($scope, $state, $interval, $timeout, displayUser, ParseService, PubNubService, FacebookService, LocationService) {
+.controller('UserController', function ($scope, $state, $interval, $timeout, $ionicPopup, displayUser, ParseService, PubNubService, FacebookService, LocationService) {
 
   $scope.displayUser = displayUser;
 
@@ -70,6 +70,11 @@ angular.module('meetme.userTabController', [])
   }
 
   $scope.sendInvitation = function(user) {
+    if ($scope.$parent.$parent.isInviting == true) {
+      $scope.$parent.$parent.showBusyPopup();
+      return;
+    }
+
     $scope.$parent.$parent.isInviting = true;
     $scope.$parent.$parent.interactingWithUser = user;
     PubNubService.sendNotificationToChannel(user.objectId, $scope.currentUser, "Invitation Received", {});

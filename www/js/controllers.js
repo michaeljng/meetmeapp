@@ -24,6 +24,11 @@ angular.module('meetme.controllers', [])
 
 		switch (type) {
 			case "Invitation Received":
+				if ($scope.interactingWithUser != null) {
+					$scope.declineInvitation();
+					return;
+				}
+
 				$scope.isBeingInvited = true;
 				$scope.interactingWithUser = fromUser;
 
@@ -94,6 +99,15 @@ angular.module('meetme.controllers', [])
 			}, 1000);
 		}
 	};
+
+	 $scope.showBusyPopup = function() {
+	    $ionicPopup.alert({
+	        title: 'Please Wait..',
+	        template: 'you already have an invite out to {{interactingWithUser.facebookName}}, please wait for them to respond',
+	        // subTitle: user.facebookName + ' has invited you to meet up! ' + $scope.secondsLeft + ' seconds left',
+	        scope: $scope
+	      });
+	  }
 
 	$scope.showAcceptedInvitation = function(chatId) {
 		$ionicPopup.show({
