@@ -78,7 +78,7 @@ angular.module('meetme.chatTabController', [])
   });
 })
 
-.controller('ChatController', function ($scope, $state, $interval, $stateParams, otherUser, ParseService, PubNubService) {
+.controller('ChatController', function ($scope, $state, $interval, $stateParams, $ionicScrollDelegate, otherUser, ParseService, PubNubService) {
 
   var $input = $('#chat-input');
   var $output = $('#chat-output');
@@ -118,5 +118,22 @@ angular.module('meetme.chatTabController', [])
 
      // cancel event bubbling
     return false;
+  };
+
+
+})
+
+.directive('myRepeatDirective', function ($ionicScrollDelegate) {
+  return function(scope, element, attrs) {
+    if (scope.$last){
+      $ionicScrollDelegate.scrollBottom(false);
+    }
+    var observer = new MutationObserver(function(mutations) {
+      $ionicScrollDelegate.scrollBottom(false);
+    });
+    observer.observe(element[0], {
+      childList: true,
+      subtree: true
+    });
   };
 })
