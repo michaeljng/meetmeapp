@@ -25,7 +25,7 @@ angular.module('meetme.controllers', [])
 		switch (type) {
 			case "Invitation Received":
 				if ($scope.interactingWithUser != null) {
-					$scope.declineInvitation();
+					$scope.declineInvitation(fromUser.objectId);
 					return;
 				}
 
@@ -54,7 +54,7 @@ angular.module('meetme.controllers', [])
 					$state.go('app.logged-in.search-tab.unavailable');
 				}
 				else if (message.timerId == $scope.invitationTimerId) {
-					$scope.declineInvitation();
+					$scope.declineInvitation($scope.interactingWithUser.objectId);
 				}
 				break;
 			default:
@@ -75,7 +75,7 @@ angular.module('meetme.controllers', [])
 					text: 'Decline Invitation',
 					onTap: function(e) {
 						$scope.popupClosed = true;
-						$scope.declineInvitation();
+						$scope.declineInvitation($scope.interactingWithUser.objectId);
 					}
 				},
 				{
@@ -141,16 +141,17 @@ angular.module('meetme.controllers', [])
 		$scope.invitationTimerId = null;
 	}
 
-	$scope.declineInvitation = function() {
-		PubNubService.sendNotificationToChannel($scope.interactingWithUser.objectId, $scope.currentUser, "Invitation Declined", {});
-
-		$('ion-view').css('top', '0');
-		$scope.pageExtended = false;
-		$scope.isBeingInvited = false;
-		$scope.interactingWithUser = null;
-		$scope.clearInvitationTimer();
-		$('#invite-reminder').hide();
-		$scope.confirmPopup.close();
+	$scope.declineInvitation = function(userId) {
+		PubNubService.sendNotificationToChannel(userId, $scope.currentUser, "Invitation Declined", {});
+		if (userId == $scope.interactingWithUser.objectId) {
+			$('ion-view').css('top', '0');
+			$scope.pageExtended = false;
+			$scope.isBeingInvited = false;
+			$scope.interactingWithUser = null;
+			$scope.clearInvitationTimer();
+			// $('#invite-reminder').hide();
+			$scope.confirmPopup.close();
+		}
 	}
 
 	$scope.viewInviterProfile = function() {
