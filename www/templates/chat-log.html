@@ -7,12 +7,11 @@
     <div id="chat-output">
       <div class="empty-chat" ng-show="!chatMessages.length">This chat log is empty. Start the conversation!</div>
       <ion-list ng-repeat="chatMessage in chatMessages" my-repeat-directive>
-      <div class="{{chatStyle(chatMessage.fromUserId)}}">
-        <img src="http://graph.facebook.com/{{otherUser.facebookId}}/picture?width=80&height=80"/>
-        <div class="triangle-left"></div><p class="chat-text">{{chatMessage.message}}<div class="triangle-right"></div>
-      </div>
-    </div>
-    </ion-list>
+        <div class="{{chatStyle(chatMessage.fromUser.objectId)}}">
+          <img src="http://graph.facebook.com/{{otherUser.facebookId}}/picture?width=80&height=80"/>
+          <div class="triangle-left"></div><p class="chat-text">{{chatMessage.message}}<div class="triangle-right"></div>
+        </div>
+      </ion-list>
     </div>
   </ion-content>
 
@@ -22,4 +21,4 @@
       <button ng-click="sendMessage()">Send</button>
     </div>
   </div>
-</ion-view >
+</ion-view>

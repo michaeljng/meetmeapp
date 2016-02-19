@@ -10,12 +10,12 @@ angular.module('meetme.userTabController', [])
   })
 
   .state('app.logged-in.user-tab.user-detail', {
-    url: '/user-detail/:userId?currentUserId',
+    url: '/user-detail/:displayUserId',
     templateUrl: 'templates/user-profile.html',
     controller: 'UserController',
     resolve: {
       displayUser: function(PreloadFunctions, $stateParams) {
-        return PreloadFunctions.userById($stateParams.userId);
+        return PreloadFunctions.userById($stateParams.displayUserId);
       }
     }
   })
@@ -24,7 +24,7 @@ angular.module('meetme.userTabController', [])
   $urlRouterProvider.otherwise('/app/home');
 })
 
-.controller('UserController', function ($scope, $state, $interval, $timeout, $stateParams, displayUser, ParseService, PubNubService, FacebookService, LocationService) {
+.controller('UserController', function ($scope, $state, $interval, $timeout, displayUser, ParseService, PubNubService, FacebookService, LocationService) {
 
   $scope.displayUser = displayUser;
 
@@ -38,7 +38,7 @@ angular.module('meetme.userTabController', [])
     // document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
   }
 
-  if ($stateParams.currentUserId == $scope.displayUser.objectId) {
+  if ($scope.currentUser.objectId == $scope.displayUser.objectId) {
     $scope.editable = true;
     $("#editButton").show();
     // Hide the distance
@@ -62,15 +62,17 @@ angular.module('meetme.userTabController', [])
   }
 
   $scope.saveProfile = function() {
-    ParseService.updateAndRetrieve('Users',$stateParams.currentUserId,$scope.displayUser, function(user) {
+    ParseService.updateAndRetrieve('Users',$scope.currentUser.objectId,$scope.displayUser, function(user) {
       $scope.displayUser = user;
     });
     $('#saved-notification').show();
     $timeout(function() { $('#saved-notification').fadeOut('2000'); }, 2000);
   }
 
-  $scope.sendInvitation = function(userId) {
-    PubNubService.sendNotificationToChannel(userId, $stateParams.currentUserId, "Invitation Received", {});
+  $scope.sendInvitation = function(user) {
+    $scope.$parent.$parent.isInviting = true;
+    $scope.$parent.$parent.interactingWithUser = user;
+    PubNubService.sendNotificationToChannel(user.objectId, $scope.currentUser, "Invitation Received", {});
     $scope.inviteDisabled = true;
     $('#option-notification').find('.invite-button').html('Invitation sent!');
     $('#option-notification').find('.invite-button').removeClass('button-calm').addClass('button-stable');
