@@ -45,6 +45,7 @@ angular.module('meetme.controllers', [])
 			case "Invitation Declined":
 				$scope.isInviting = false;
 				$scope.interactingWithUser = null;
+				$scope.$broadcast('invitationDeclined', {});
 				$ionicPopup.alert({title: 'Invitation Declined',
 								template: "Sorry " + fromUser.facebookName + " is busy right now"});
 				break;
