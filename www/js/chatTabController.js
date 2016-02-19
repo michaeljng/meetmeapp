@@ -113,6 +113,10 @@ angular.module('meetme.chatTabController', [])
   // when the "send message" form is submitted
   $scope.sendMessage = function() {
 
+    if ($input.val() == "") {
+      return;
+    }
+
     PubNubService.sendChatToChannel($stateParams.chatId, $scope.currentUser, $input.val());
 
     console.log($input.val());
