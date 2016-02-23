@@ -24,6 +24,11 @@ angular.module('meetme.controllers', [])
 
 		switch (type) {
 			case "Invitation Received":
+				if ($scope.interactingWithUser != null) {
+					$scope.declineInvitation(fromUser.objectId);
+					return;
+				}
+
 				$scope.isBeingInvited = true;
 				$scope.interactingWithUser = fromUser;
 
@@ -40,6 +45,7 @@ angular.module('meetme.controllers', [])
 			case "Invitation Declined":
 				$scope.isInviting = false;
 				$scope.interactingWithUser = null;
+				$scope.$broadcast('invitationDeclined', {});
 				$ionicPopup.alert({title: 'Invitation Declined',
 								template: "Sorry " + fromUser.facebookName + " is busy right now"});
 				break;
@@ -49,7 +55,7 @@ angular.module('meetme.controllers', [])
 					$state.go('app.logged-in.search-tab.unavailable');
 				}
 				else if (message.timerId == $scope.invitationTimerId) {
-					$scope.declineInvitation();
+					$scope.declineInvitation($scope.interactingWithUser.objectId);
 				}
 				break;
 			default:
@@ -70,7 +76,7 @@ angular.module('meetme.controllers', [])
 					text: 'Decline Invitation',
 					onTap: function(e) {
 						$scope.popupClosed = true;
-						$scope.declineInvitation();
+						$scope.declineInvitation($scope.interactingWithUser.objectId);
 					}
 				},
 				{
@@ -83,8 +89,7 @@ angular.module('meetme.controllers', [])
 				}
 				]
 			});
-			$scope.invitationTimer = $interval(function(){
-				console.log($scope.secondsLeft);
+			$scope.invitationTimer = $interval(function() {
 				if ($scope.secondsLeft == 0) {
 					$interval.cancel($scope.invitationTimer);
 					$scope.invitationTimer = null;
@@ -94,6 +99,15 @@ angular.module('meetme.controllers', [])
 			}, 1000);
 		}
 	};
+
+	 $scope.showBusyPopup = function() {
+	    $ionicPopup.alert({
+	        title: 'Please Wait..',
+	        template: 'you already have an invite out to {{interactingWithUser.facebookName}}, please wait for them to respond',
+	        // subTitle: user.facebookName + ' has invited you to meet up! ' + $scope.secondsLeft + ' seconds left',
+	        scope: $scope
+	      });
+	  }
 
 	$scope.showAcceptedInvitation = function(chatId) {
 		$ionicPopup.show({
@@ -127,16 +141,17 @@ angular.module('meetme.controllers', [])
 		$scope.invitationTimerId = null;
 	}
 
-	$scope.declineInvitation = function() {
-		PubNubService.sendNotificationToChannel($scope.interactingWithUser.objectId, $scope.currentUser, "Invitation Declined", {});
-
-		$('ion-view').css('top', '0');
-		$scope.pageExtended = false;
-		$scope.isBeingInvited = false;
-		$scope.interactingWithUser = null;
-		$scope.clearInvitationTimer();
-		$('#invite-reminder').hide();
-		$scope.confirmPopup.close();
+	$scope.declineInvitation = function(userId) {
+		PubNubService.sendNotificationToChannel(userId, $scope.currentUser, "Invitation Declined", {});
+		if (userId == $scope.interactingWithUser.objectId) {
+			$('ion-view').css('top', '0');
+			$scope.pageExtended = false;
+			$scope.isBeingInvited = false;
+			$scope.interactingWithUser = null;
+			$scope.clearInvitationTimer();
+			// $('#invite-reminder').hide();
+			$scope.confirmPopup.close();
+		}
 	}
 
 	$scope.viewInviterProfile = function() {

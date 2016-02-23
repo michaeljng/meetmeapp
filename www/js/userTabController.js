@@ -24,13 +24,22 @@ angular.module('meetme.userTabController', [])
   $urlRouterProvider.otherwise('/app/home');
 })
 
-.controller('UserController', function ($scope, $state, $interval, $timeout, displayUser, ParseService, PubNubService, FacebookService, LocationService) {
+.controller('UserController', function ($scope, $state, $interval, $timeout, $ionicPopup, displayUser, ParseService, PubNubService, FacebookService, LocationService) {
 
   $scope.displayUser = displayUser;
 
   $scope.editable = false;
   $scope.editing = false;
-  $scope.inviteDisabled = false;
+  $scope.inviteEnabled = true;
+
+  var inviteButtonTextDefault = "Invite to meet up!";
+  var inviteButtonTextInvited = 'Invitation sent!';
+
+  $scope.inviteButtonText = inviteButtonTextDefault;
+
+  $scope.$on('invitationDeclined', function(eventName, args) {
+    $scope.setInviteButtonAvailable(true);
+  });
 
   if ($scope.displayUser.userLocation) {
     var latlon = $scope.displayUser.userLocation.latitude + "," + $scope.displayUser.userLocation.longitude;
@@ -61,6 +70,19 @@ angular.module('meetme.userTabController', [])
     }
   }
 
+  $scope.setInviteButtonAvailable = function(bool) {
+    if (bool) {
+      $scope.inviteEnabled = true;
+      $scope.inviteButtonText = inviteButtonTextDefault;
+      $('#option-notification').find('.invite-button').removeClass('button-stable').addClass('button-calm');
+    }
+    else {
+      $scope.inviteEnabled = false;
+      $scope.inviteButtonText = inviteButtonTextInvited;
+      $('#option-notification').find('.invite-button').removeClass('button-calm').addClass('button-stable');
+    }
+  }
+
   $scope.saveProfile = function() {
     ParseService.updateAndRetrieve('Users',$scope.currentUser.objectId,$scope.displayUser, function(user) {
       $scope.displayUser = user;
@@ -70,11 +92,14 @@ angular.module('meetme.userTabController', [])
   }
 
   $scope.sendInvitation = function(user) {
+    if ($scope.$parent.$parent.isInviting == true) {
+      $scope.$parent.$parent.showBusyPopup();
+      return;
+    }
+
     $scope.$parent.$parent.isInviting = true;
     $scope.$parent.$parent.interactingWithUser = user;
     PubNubService.sendNotificationToChannel(user.objectId, $scope.currentUser, "Invitation Received", {});
-    $scope.inviteDisabled = true;
-    $('#option-notification').find('.invite-button').html('Invitation sent!');
-    $('#option-notification').find('.invite-button').removeClass('button-calm').addClass('button-stable');
+    $scope.setInviteButtonAvailable(false);
   }
 })
