@@ -71,7 +71,7 @@ angular.module('meetme.searchTabController', [])
     { text: 'Cancel' },
     {
       text: '<b>Save</b>',
-      type: 'button-positive',
+      type: 'button-balanced',
       onTap: function(e) {
         if (!$scope.data.postExpiresAt) {
             $scope.showPopupWarning("Please set an end time for when your post will expire.");

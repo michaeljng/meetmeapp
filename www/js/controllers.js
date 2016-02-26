@@ -81,7 +81,7 @@ angular.module('meetme.controllers', [])
 				},
 				{
 					text: '<b>See Profile</b>',
-					type: 'button-calm',
+					type: 'button-balanced',
 					onTap: function(e) {
 						$scope.popupClosed = true;
 						$scope.viewInviterProfile();
@@ -125,7 +125,7 @@ angular.module('meetme.controllers', [])
 				},
 				{
 					text: 'Ignore',
-					type: 'button-calm',
+					type: 'button-balanced',
 					onTap: function(e) {
 						$scope.interactingWithUser = null;
 					}
