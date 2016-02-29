@@ -83,6 +83,10 @@ angular.module('meetme.userTabController', [])
     }
   }
 
+  if ($scope.$parent.$parent.isInviting && $scope.displayUser.objectId == $scope.$parent.$parent.interactingWithUser.objectId) {
+    $scope.setInviteButtonAvailable(false);
+  }
+
   $scope.saveProfile = function() {
     ParseService.updateAndRetrieve('Users',$scope.currentUser.objectId,$scope.displayUser, function(user) {
       $scope.displayUser = user;
