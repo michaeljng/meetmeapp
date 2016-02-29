@@ -149,7 +149,7 @@ angular.module('meetme.controllers', [])
 			$scope.isBeingInvited = false;
 			$scope.interactingWithUser = null;
 			$scope.clearInvitationTimer();
-			// $('#invite-reminder').hide();
+			$('#invite-reminder').hide();
 			$scope.confirmPopup.close();
 		}
 	}
