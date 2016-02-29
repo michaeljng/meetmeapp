@@ -1,23 +1,24 @@
 <ion-view title="chat-log" class="wrapper">
-	<ion-content scroll="true" class="has-header has-footer">
-		<div class="extended-all" ng-show="pageExtended"></div>
-		<div class="item item-thumbnail-left">
-				<img src="http://graph.facebook.com/{{otherUser.facebookId}}/picture?width=80&height=80"/>
-				<h2>{{otherUser.facebookName}}</h2>
-			</div>
-		<div id="chat-output" style="height: 200px; margin: 1rem; padding: .5rem;">
-			<ion-list ng-repeat="chatMessage in chatMessages">
-				<p style="color:{{chatColor(chatMessage.fromUserId)}};text-align:{{chatAlign(chatMessage.fromUserId)}}">{{chatMessage.message}}</p>
-			</ion-list>
-		</div>
-	</ion-content>
-	
-	<div class="bar bar-footer" style="height:100px">
-		<div style="height:60px">
-			<input id="chat-input"></input>
-			<button ng-click="sendMessage()">Send</button>
-		</div>
-	</div>
-</ion-view >
+	<div class="bar bar-subheader" id="chat-info">
+    {{otherUser.facebookName}}
+  </div>
+  <ion-content scroll="true" class="has-header has-footer">
+    <div class="extended-all" ng-show="pageExtended"></div>
+    <div id="chat-output">
+      <div class="empty-chat" ng-show="!chatMessages.length">This chat log is empty. Start the conversation!</div>
+      <ion-list ng-repeat="chatMessage in chatMessages" my-repeat-directive>
+        <div class="{{chatStyle(chatMessage.fromUser.objectId)}}">
+          <img src="http://graph.facebook.com/{{otherUser.facebookId}}/picture?width=80&height=80"/>
+          <div class="triangle-left"></div><p class="chat-text">{{chatMessage.message}}<div class="triangle-right"></div>
+        </div>
+      </ion-list>
+    </div>
+  </ion-content>
 
-
+  <div class="bar bar-footer" style="height:100px">
+    <div style="height:60px">
+      <input id="chat-input"></input>
+      <button ng-click="sendMessage()">Send</button>
+    </div>
+  </div>
+</ion-view>

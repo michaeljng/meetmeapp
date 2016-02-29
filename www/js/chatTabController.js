@@ -55,7 +55,7 @@ angular.module('meetme.chatTabController', [])
       if (chat.objectId == id) {
         return chat;
       }
-    }  
+    }
   }
 
   ParseService.getWithInclude("Chats",{"$or":[{"user1"   : {"__type":"Pointer",
@@ -63,28 +63,32 @@ angular.module('meetme.chatTabController', [])
                                                 "objectId":$scope.currentUser.objectId}},
                                    {"user2"   : {"__type":"Pointer",
                                                 "className":"Users",
-                                                "objectId":$scope.currentUser.objectId}}]}, 'user1,user2',function(chats) {                                      
-    $scope.chats = chats;   
-                                            
+                                                "objectId":$scope.currentUser.objectId}}]}, 'user1,user2',function(chats) {
+    $scope.chats = chats;
+
     for (var i = 0; i < $scope.chats.length; i++) {
       var chat = $scope.chats[i];
       chat.otherUser = $scope.getOtherUserInChat(chat);
       PubNubService.replayChatsChannel(chat.objectId, 1, function(chatId, chatMessages){
         var chat = $scope.findChatById(chatId);
-        chat.lastChatText = chatMessages[0].message;
+        if (chatMessages.length > 0) {
+          chat.lastChatText = chatMessages[0].message;
+        }
+        else {
+          chat.lastChatText = 'No Messages With This User'
+        }
         $scope.$apply();
       });
-    }                                            
+    }
   });
 })
 
-.controller('ChatController', function ($scope, $state, $interval, $stateParams, otherUser, ParseService, PubNubService) {
+.controller('ChatController', function ($scope, $state, $interval, $stateParams, $ionicScrollDelegate, otherUser, ParseService, PubNubService) {
 
   var $input = $('#chat-input');
   var $output = $('#chat-output');
 
   $scope.chatId = $stateParams.chatId;
-  $scope.currentUserId = $stateParams.currentUserId;
   $scope.otherUser = otherUser;
   $scope.chatMessages = [];
 
@@ -93,31 +97,27 @@ angular.module('meetme.chatTabController', [])
       $scope.$apply();
   });
 
-  PubNubService.registerForChatsChannel($scope.chatId, function(chatMessage, fromUserId) {
-      $scope.chatMessages.push({"message":chatMessage, "fromUserId": fromUserId});
+  PubNubService.registerForChatsChannel($scope.chatId, function(chatMessage, fromUser) {
+      $scope.chatMessages.push({"message":chatMessage, "fromUser": fromUser});
       $scope.$apply();
   })
 
-  $scope.chatColor = function(fromUserId) {
-    if ( fromUserId == $scope.currentUserId ) {
-      return "black";
+  $scope.chatStyle = function(fromUserId) {
+    if (fromUserId == $scope.currentUser.objectId) {
+      return "chat-self";
     } else {
-      return "green";
-    }
-  }
-
-  $scope.chatAlign = function(fromUserId) {
-    if ( fromUserId == $scope.currentUserId ) {
-      return "right";
-    } else {
-      return "left";
+      return "chat-partner";
     }
   }
 
   // when the "send message" form is submitted
   $scope.sendMessage = function() {
 
-    PubNubService.sendChatToChannel($stateParams.chatId, $scope.currentUserId, $input.val());
+    if ($input.val() == "") {
+      return;
+    }
+
+    PubNubService.sendChatToChannel($stateParams.chatId, $scope.currentUser, $input.val());
 
     console.log($input.val());
 
@@ -126,5 +126,22 @@ angular.module('meetme.chatTabController', [])
 
      // cancel event bubbling
     return false;
+  };
+
+
+})
+
+.directive('myRepeatDirective', function ($ionicScrollDelegate) {
+  return function(scope, element, attrs) {
+    if (scope.$last){
+      $ionicScrollDelegate.scrollBottom(false);
+    }
+    var observer = new MutationObserver(function(mutations) {
+      $ionicScrollDelegate.scrollBottom(false);
+    });
+    observer.observe(element[0], {
+      childList: true,
+      subtree: true
+    });
   };
 })

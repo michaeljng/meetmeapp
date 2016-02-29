@@ -1,5 +1,71 @@
 angular.module('meetme.services', [])
 
+.factory('TimerService', function ($http) {
+
+	var serverAddress = 'http://meetmeserver.herokuapp.com'
+	// var serverAddress = 'http://localhost:9292'
+	var timerEndpoint = '/v1/setTimer'
+	var availabilityTimerEndpoint = '/v1/setAvailabilityTimer/'
+
+	return {
+
+		setTimer: function(numSeconds, callbackChannels, timerId) {
+
+			$http({
+				method: 'POST',
+				url: serverAddress + timerEndpoint,
+				params: {"channelNames": callbackChannels, "numOfSeconds": numSeconds, "timerId": timerId}
+			}).then( function successCallback(response) {
+
+			}, function errorCallback(response) {
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+			});
+		},
+
+		setAvailabilityTimer: function(numSeconds, callbackChannels, timerId, postId) {
+
+			$http({
+				method: 'POST',
+				url: serverAddress + availabilityTimerEndpoint + postId,
+				params: {"channelNames": callbackChannels, "numOfSeconds": numSeconds, "timerId": timerId}
+			}).then( function successCallback(response) {
+
+			}, function errorCallback(response) {
+			    // called asynchronously if an error occurs
+			    // or server returns response with an error status.
+			});
+		}
+	}
+})
+
+.factory('LocationService', function () {
+
+	return {
+		milesBetween: function(lat1, lon1, lat2, lon2) {
+			return this.kmBetween(lat1, lon1, lat2, lon2) * 0.62137119;
+		},
+
+		feetBetween: function(lat1, lon1, lat2, lon2) {
+			return this.milesBetween(lat1, lon1, lat2, lon2) * 5280;
+		},
+
+		kmBetween: function(lat1, lon1, lat2, lon2) {
+		  var R = 6371; // Radius of the earth in km
+		  var dLat = (lat2-lat1) * (Math.PI/180);  // deg2rad below
+		  var dLon = (lon2-lon1) * (Math.PI/180);
+		  var a = 
+		    Math.sin(dLat/2) * Math.sin(dLat/2) +
+		    Math.cos(lat1 * (Math.PI/180)) * Math.cos(lat2 * (Math.PI/180)) * 
+		    Math.sin(dLon/2) * Math.sin(dLon/2)
+		    ; 
+		  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+		  var d = R * c; // Distance in km
+		  return d;
+		}
+	}
+})
+
 .factory('PubNubService', function (ParseService) {
 	var pubnub = PUBNUB.init({                          
         publish_key   : 'pub-c-630fe092-7461-4246-b9ba-a6b201935fb7',
@@ -19,7 +85,7 @@ angular.module('meetme.services', [])
 			pubnub.subscribe({
 			    channel: channelName, // our channel name
 			    message: function(response) { // this gets fired when a message comes in
-			      callback(response["type"], response["fromUserId"], response["message"]);
+			      callback(response["type"], response["fromUser"], response["message"]);
 			    }
 			});
 		},
@@ -27,7 +93,7 @@ angular.module('meetme.services', [])
 			pubnub.subscribe({
 			    channel: channelName, // our channel name
 			    message: function(response) { // this gets fired when a message comes in
-			      callback(response["message"], response["fromUserId"]);
+			      callback(response["message"], response["fromUser"]);
 			    }
 			});
 		},
@@ -40,16 +106,16 @@ angular.module('meetme.services', [])
 			    }
 			});
 		},
-		sendNotificationToChannel: function(channelName, fromUserId, type, message) {
+		sendNotificationToChannel: function(channelName, fromUser, type, message) {
 			pubnub.publish({
 		      channel: channelName,
-		      message: {"type":type, "fromUserId":fromUserId, "message":message}
+		      message: {"type":type, "fromUser":fromUser, "message":message}
 		    });
 		},
-		sendChatToChannel: function(channelName, fromUserId, message) {
+		sendChatToChannel: function(channelName, fromUser, message) {
 			pubnub.publish({
 		      channel: channelName,
-		      message: {"message":message, "fromUserId":fromUserId}
+		      message: {"message":message, "fromUser":fromUser}
 		    });
 		}
 	}
@@ -107,8 +173,8 @@ angular.module('meetme.services', [])
 	    currentUser: function() {
 	        var dfd = $q.defer();
 	        FacebookService.userId(function(facebookId) {
-	          ParseService.getSingleObject('Users', {"facebookId":facebookId}, function(user) {
-	            dfd.resolve(user);
+	          ParseService.getWithInclude('Users', {"facebookId":facebookId}, "activePost",function(users) {
+	            dfd.resolve(users[0]);
 	          });
 	        });
         	return dfd.promise;
