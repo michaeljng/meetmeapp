@@ -49,10 +49,6 @@ angular.module('meetme.userTabController', [])
 
   if ($scope.currentUser.objectId == $scope.displayUser.objectId) {
     $scope.editable = true;
-    $("#editButton").show();
-    // Hide the distance and ability to invite if own profile
-    $("#distanceFrom").hide();
-    $("#option-notification").hide();
   } else {
     // Calculate distance between the current user and the display user
     if ($scope.currentUser.userLocation != null && $scope.displayUser.userLocation != null) {

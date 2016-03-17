@@ -2,7 +2,7 @@
 
   <div class="bar bar-subheader bar-dark" id="saved-notification">Profile changes saved!</div>
 
-  <div class="bar bar-subheader" id="option-notification" ng-hide="pageExtended">
+  <div class="bar bar-subheader" id="option-notification" ng-hide="pageExtended || editable">
     <button class="button button-balanced invite-button" ng-click="sendInvitation(displayUser)" ng-disabled="!inviteEnabled">{{inviteButtonText}}</button>
   </div>
 
@@ -19,7 +19,7 @@
       <ion-item>
         Nickname: <input id="nickName" ng-model="displayUser.nickName">
       </ion-item>
-      <ion-item id="distanceFrom">
+      <ion-item id="distanceFrom" ng-hide="editable">
         Currently <span id="distance"></span> mi. from you
       </ion-item>
       <ion-item>
@@ -28,7 +28,7 @@
       <ion-item>
         Description: <textarea id="description" ng-model="displayUser.userDescription" cols="40" rows="5"></textarea>
       </ion-item>
-      <ion-item id="editButton" style="display:none">
+      <ion-item id="editButton" ng-hide="!editable">
         <button class="button button-balanced" ng-click="saveProfile()">Save</button>
         <!-- <button class="button button-calm" ng-click="logout()">Logout</button> -->
       </ion-item>
