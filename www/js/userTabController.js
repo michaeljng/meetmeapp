@@ -49,12 +49,8 @@ angular.module('meetme.userTabController', [])
 
   if ($scope.currentUser.objectId == $scope.displayUser.objectId) {
     $scope.editable = true;
-    $("#editButton").show();
-    // Hide the distance
-    $("#distanceFrom").hide();
   } else {
     // Calculate distance between the current user and the display user
-
     if ($scope.currentUser.userLocation != null && $scope.displayUser.userLocation != null) {
       var distance = LocationService.milesBetween($scope.currentUser.userLocation.latitude, $scope.currentUser.userLocation.longitude,
                                                 $scope.displayUser.userLocation.latitude, $scope.displayUser.userLocation.longitude);
@@ -63,7 +59,6 @@ angular.module('meetme.userTabController', [])
       distance = distance.toFixed(1);
 
       $("#distance").html(distance);
-      $("#option-notification").show();
     }
     else {
       $("#distance").html("unknown");
