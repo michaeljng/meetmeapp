@@ -9358,6 +9358,10 @@ a.button {
     position: relative;
     top: 15px; }
 
+.editable-field {
+  background-color: #EEE;
+  border: none; }
+
 .empty-chat {
   color: #666;
   font-style: italic;

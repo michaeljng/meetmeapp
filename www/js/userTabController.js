@@ -65,6 +65,18 @@ angular.module('meetme.userTabController', [])
     }
   }
 
+  if($scope.editable != true) {
+    if($scope.displayUser.nickName == null) {
+      $scope.displayUser.nickName = "N/A"
+    }
+    if($scope.displayUser.userAge == null) {
+      $scope.displayUser.userAge = "N/A"
+    }
+    if($scope.displayUser.userDescription == null) {
+      $scope.displayUser.userDescription = "N/A"
+    }
+  }
+
   $scope.setInviteButtonAvailable = function(bool) {
     if (bool) {
       $scope.inviteEnabled = true;
