@@ -117,19 +117,18 @@ angular.module('meetme.controllers', [])
 				scope: $scope,
 				buttons: [
 				{
-					text: 'Go To Chat',
+					text: 'Ignore',
 					onTap: function(e) {
-						$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': chatId});
 						$scope.interactingWithUser = null;
 					}
 				},
 				{
-					text: 'Ignore',
+					text: 'Go to Chat',
 					type: 'button-balanced',
 					onTap: function(e) {
+						$state.go('app.logged-in.chat-tab.chat-log', {'currentUserId':$scope.currentUser.objectId, 'chatId': chatId});
 						$scope.interactingWithUser = null;
 					}
-
 				}
 				]
 			});
