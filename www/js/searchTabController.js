@@ -50,6 +50,7 @@ angular.module('meetme.searchTabController', [])
 .controller('UnavailableSearchController', function ($scope, $state, $ionicPopup, $timeout, uuid2, currentUser, ParseService, TimerService) {
 
   $scope.currentUser = currentUser;
+  $scope.data = {};
 
   $scope.secondsUntil = function(time) {
     return Math.floor((time - moment())/1000);
@@ -58,14 +59,31 @@ angular.module('meetme.searchTabController', [])
   if ($scope.currentUser.isAvailable == true) {
     $state.go('app.logged-in.search-tab.available', {'postId':$scope.currentUser.activePost.objectId,'currentUser':JSON.stringify($scope.currentUser), 'availableSecondsLeft': $scope.secondsUntil(new Date($scope.currentUser.activePost.expiresAt.iso))});
   }
-  
-  $scope.showNewPost = function() {
-    $scope.data = {};
 
+  $scope.showNewPost = function() {
+    if (!$scope.data.postExpiresAt) {
+      $scope.showPopupWarning("Please set a time for when you are availability until");
+    } else if (!$scope.data.postDescription) {
+      $scope.showPopupWarning("Please add at least 1 activitiy");
+    } else {
+      var expiresAt = new Date();
+      expiresAt.setHours($scope.data.postExpiresAt.getHours());
+      expiresAt.setMinutes($scope.data.postExpiresAt.getMinutes());
+
+      if ($scope.secondsUntil(expiresAt) < 0) {
+        expiresAt = moment(expiresAt).add(1,'days');
+      }
+
+      var seconds = $scope.secondsUntil(expiresAt);
+      var description = $scope.data.postDescription;
+      $scope.setAvailable(seconds, description);
+    }
+  };
+
+  $scope.editPostTime = function() {
     var myPopup = $ionicPopup.show({
-    template: '</div>When are you available until?<input ng-model="data.postExpiresAt" type="time"> <p/>What do you want to do?<textarea id="description" ng-model="data.postDescription" rows="8"></textarea> <p/><div id="warning-popup-notification"></div>',
-    title: 'Enter Post Info',
-    subTitle: 'This is what is going to be shown to other available users!',
+    template: '<input ng-model="data.postExpiresAt" type="time">',
+    title: 'until when?',
     scope: $scope,
     buttons: [
     { text: 'Cancel' },
@@ -73,26 +91,34 @@ angular.module('meetme.searchTabController', [])
       text: '<b>Save</b>',
       type: 'button-balanced',
       onTap: function(e) {
-        if (!$scope.data.postExpiresAt) {
-            $scope.showPopupWarning("Please set an end time for when your post will expire.");
-            e.preventDefault();
-          } else if (!$scope.data.postDescription) {
-            $scope.showPopupWarning("Please add a short description of what you want to do.");
-            e.preventDefault();
-          } else {
-            var expiresAt = new Date();
-            expiresAt.setHours($scope.data.postExpiresAt.getHours());
-            expiresAt.setMinutes($scope.data.postExpiresAt.getMinutes());
+        var expiresAt = new Date();
+        expiresAt.setHours($scope.data.postExpiresAt.getHours());
+        expiresAt.setMinutes($scope.data.postExpiresAt.getMinutes());
 
-            if ($scope.secondsUntil(expiresAt) < 0) {
-              expiresAt = moment(expiresAt).add(1,'days');
-            }
-
-            var seconds = $scope.secondsUntil(expiresAt);
-            var description = $scope.data.postDescription;
-            $scope.setAvailable(seconds, description);
-          }
+        if ($scope.secondsUntil(expiresAt) < 0) {
+          expiresAt = moment(expiresAt).add(1,'days');
         }
+
+        var seconds = $scope.secondsUntil(expiresAt);
+      }
+      }
+      ]
+    });
+  };
+
+  $scope.editPostActivity = function() {
+    var myPopup = $ionicPopup.show({
+    template: '<textarea id="description" ng-model="data.postDescription" rows="8"></textarea>',
+    title: 'to do what?',
+    scope: $scope,
+    buttons: [
+    { text: 'Cancel' },
+    {
+      text: '<b>Save</b>',
+      type: 'button-balanced',
+      onTap: function(e) {
+        var description = $scope.data.postDescription;
+      }
       }
       ]
     });
