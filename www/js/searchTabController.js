@@ -81,25 +81,49 @@ angular.module('meetme.searchTabController', [])
   };
 
   $scope.editPostTime = function() {
+    if($scope.data.postExpiresAt != null) {
+      var savedTime = $scope.data.postExpiresAt;
+    }
     var myPopup = $ionicPopup.show({
     template: '<input ng-model="data.postExpiresAt" type="time">',
     title: 'until when?',
     scope: $scope,
     buttons: [
-    { text: 'Cancel' },
+    { text: 'Cancel',
+      onTap: function(e) {
+        $scope.data.postExpiresAt = savedTime;
+      }
+    },
     {
       text: '<b>Save</b>',
       type: 'button-balanced',
       onTap: function(e) {
-        var expiresAt = new Date();
-        expiresAt.setHours($scope.data.postExpiresAt.getHours());
-        expiresAt.setMinutes($scope.data.postExpiresAt.getMinutes());
+        if (!$scope.data.postExpiresAt) {
+          $scope.showPopupWarning("Please set a time for when you are availability until");
+          e.preventDefault();
+        } else {
+          var expiresAt = new Date();
+          expiresAt.setHours($scope.data.postExpiresAt.getHours());
+          expiresAt.setMinutes($scope.data.postExpiresAt.getMinutes());
 
-        if ($scope.secondsUntil(expiresAt) < 0) {
-          expiresAt = moment(expiresAt).add(1,'days');
+          if ($scope.secondsUntil(expiresAt) < 0) {
+            expiresAt = moment(expiresAt).add(1,'days');
+          }
+
+          var seconds = $scope.secondsUntil(expiresAt);
+
+          $(".time-container").css("background-color", "#87bfde");
+          $(".time-container").css("color", "#FFF");
+
+          var hours = $scope.data.postExpiresAt.getHours();
+          var minutes = $scope.data.postExpiresAt.getMinutes();
+          var ampm = hours >= 12 ? 'pm' : 'am';
+          hours = hours % 12;
+          hours = hours ? hours : 12;
+          minutes = minutes < 10 ? '0'+minutes : minutes;
+          var strTime = hours + ':' + minutes + ' ' + ampm;
+          $(".time-container span").html("until " + strTime);
         }
-
-        var seconds = $scope.secondsUntil(expiresAt);
       }
       }
       ]
@@ -107,17 +131,33 @@ angular.module('meetme.searchTabController', [])
   };
 
   $scope.editPostActivity = function() {
+    if($scope.data.postDescription != null) {
+      var savedDescription = $scope.data.postDescription;
+    }
     var myPopup = $ionicPopup.show({
     template: '<textarea id="description" ng-model="data.postDescription" rows="8"></textarea>',
     title: 'to do what?',
     scope: $scope,
     buttons: [
-    { text: 'Cancel' },
+    { text: 'Cancel',
+      onTap: function(e) {
+        $scope.data.postDescription = savedDescription;
+      }
+    },
     {
       text: '<b>Save</b>',
       type: 'button-balanced',
       onTap: function(e) {
-        var description = $scope.data.postDescription;
+        if (!$scope.data.postDescription) {
+          $scope.showPopupWarning("Please add at least 1 activitiy");
+          e.preventDefault();
+        } else {
+          var description = $scope.data.postDescription;
+
+          $(".activity-container").css("background-color", "#87bfde");
+          $(".activity-container").css("color", "#FFF");
+          $(".activity-container span").html("to " + description);
+        }
       }
       }
       ]
