@@ -135,7 +135,7 @@ angular.module('meetme.searchTabController', [])
       var savedDescription = $scope.data.postDescription;
     }
     var myPopup = $ionicPopup.show({
-    template: '<textarea id="description" ng-model="data.postDescription" rows="8"></textarea>',
+    template: '<div class="clickable-category"><i class="ion-fork"></i></div><div class="clickable-category"><i class="ion-ios-game-controller-a"></i></div><div class="clickable-category"><i class="ion-ios-people"></i></div><div class="clickable-category"><i class="ion-ios-basketball"></i></div><div class="clickable-category"><i class="ion-coffee"></i></div><p/><textarea id="description" ng-model="data.postDescription" rows="1" placeholder="other..."></textarea>',
     title: 'to do what?',
     scope: $scope,
     buttons: [
