@@ -1,26 +1,76 @@
-// Place custom sass here
+*, *:before, *:after {
+  @include transition(all 0.3s ease-in-out);
+}
+
+.container {
+  padding: 30px;
+  color: $text-color;
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+h1 {
+  font-size: $fs-h1;
+}
+h2 {
+  font-size: $fs-h2;
+}
+p {
+  font-size: $fs-body;
+}
+h1, h2, p {
+  color: $text-color;
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+.btn {
+  border: none;
+  text-transform: lowercase;
+  background: $green;
+  color: $white;
+  font-size: $fs-body;
+  border-radius: 5px;
+  padding: 15px;
+  &:hover {
+    color: $white;
+  }
+  &:active {
+    background: darken($green, 10%);
+  }
+}
+
 .top-bar {
   background: $green;
   position: absolute;
   z-index: 9;
   width: 100%;
   height: $top-bar-height;
-  //@include display(flex);
-  //@include justify-content(center);
-  //@include align-items(center);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include display(flex);
+  @include justify-content(center);
+  @include align-items(center);
   .title {
     color: #fff;
     font-size: 24px;
     margin: 0;
-    //@include display(flex);
-    //@include justify-content(center);
-    //@include align-items(center);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  }
+}
+
+
+.fb-login-outer {
+  @include display(flex);
+  @include justify-content(center);
+  @include flex-direction(column);
+  @include flex-grow(1);
+  //height: 100vh;
+  .fb-login-inner {
+
+  }
+  h1 {
+    font-weight: 700;
+  }
+  h2 {
+
   }
 }
 
