@@ -9073,8 +9073,7 @@ a.button {
 .container {
   padding: 30px;
   color: #4f4f4f;
-  line-height: 1.5;
-  font-weight: 300; }
+  line-height: 1.5; }
 
 h1 {
   font-size: 36px; }
@@ -9097,11 +9096,14 @@ h1, h2, p {
   color: #fff;
   font-size: 16px;
   border-radius: 5px;
-  padding: 15px; }
-  .btn:hover {
-    color: #fff; }
+  padding: 15px 20px; }
   .btn:active {
     background: #2ca072; }
+  .btn.secondary {
+    background: #fff;
+    color: #4f4f4f; }
+    .btn.secondary:active {
+      background: #e8e8e8; }
 
 .top-bar {
   background: #37c88f;
@@ -9126,10 +9128,8 @@ h1, h2, p {
   -webkit-align-items: center;
   -moz-align-items: center;
   align-items: center; }
-  .top-bar .title {
-    color: #fff;
-    font-size: 24px;
-    margin: 0; }
+  .top-bar .logo {
+    width: 140px; }
 
 .fb-login-outer {
   display: -webkit-box;
@@ -9153,9 +9153,23 @@ h1, h2, p {
   -webkit-flex-grow: 1;
   -moz-flex-grow: 1;
   flex-grow: 1;
-  -ms-flex-positive: 1; }
+  -ms-flex-positive: 1;
+  height: 100vh;
+  background: #37c88f; }
   .fb-login-outer h1 {
-    font-weight: 700; }
+    font-weight: 700;
+    color: #fff; }
+  .fb-login-outer h2 {
+    color: #fff; }
+  .fb-login-outer .btn {
+    margin-top: 40px;
+    width: 100%;
+    border: 2px solid #fff;
+    font-weight: 700;
+    background: none; }
+    .fb-login-outer .btn:active {
+      background: #fff;
+      color: #37c88f; }
 
 #chat-info {
   border-bottom: 1px solid #DDD;

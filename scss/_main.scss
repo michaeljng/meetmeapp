@@ -6,7 +6,7 @@
   padding: 30px;
   color: $text-color;
   line-height: 1.5;
-  font-weight: 300;
+  //font-weight: 300;
 }
 
 h1 {
@@ -27,21 +27,27 @@ h1, h2, p {
 .btn {
   border: none;
   text-transform: lowercase;
-  background: $green;
+  background: $primary-color;
   color: $white;
   font-size: $fs-body;
   border-radius: 5px;
-  padding: 15px;
+  padding: 15px 20px;
   &:hover {
-    color: $white;
   }
   &:active {
-    background: darken($green, 10%);
+    background: darken($primary-color, 10%);
+  }
+  &.secondary {
+    background: $white;
+    color: $text-color;
+    &:active {
+      background: $light-gray;
+    }
   }
 }
 
 .top-bar {
-  background: $green;
+  background: $primary-color;
   position: absolute;
   z-index: 9;
   width: 100%;
@@ -49,10 +55,8 @@ h1, h2, p {
   @include display(flex);
   @include justify-content(center);
   @include align-items(center);
-  .title {
-    color: #fff;
-    font-size: 24px;
-    margin: 0;
+  .logo {
+    width: 140px;
   }
 }
 
@@ -62,15 +66,28 @@ h1, h2, p {
   @include justify-content(center);
   @include flex-direction(column);
   @include flex-grow(1);
-  //height: 100vh;
+  height: 100vh;
+  background: $primary-color;
   .fb-login-inner {
 
   }
   h1 {
     font-weight: 700;
+    color: $white;
   }
   h2 {
-
+    color: $white;
+  }
+  .btn {
+    margin-top: 40px;
+    width: 100%;
+    border: 2px solid $white;
+    font-weight: 700;
+    background: none;
+    &:active {
+      background: $white;
+      color: $primary-color;
+    }
   }
 }
 
