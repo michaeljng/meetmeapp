@@ -1,0 +1,315 @@
+*, *:before, *:after {
+  @include transition(all 0.3s ease-in-out);
+}
+
+.container {
+  padding: 30px;
+  color: $text-color;
+  line-height: 1.5;
+  //font-weight: 300;
+}
+
+h1 {
+  font-size: $fs-h1;
+}
+h2 {
+  font-size: $fs-h2;
+}
+p {
+  font-size: $fs-body;
+}
+h1, h2, p {
+  color: $text-color;
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+.btn {
+  border: none;
+  text-transform: lowercase;
+  background: $primary-color;
+  color: $white;
+  font-size: $fs-body;
+  border-radius: 5px;
+  padding: 15px 20px;
+  &:hover {
+  }
+  &:active {
+    background: darken($primary-color, 10%);
+  }
+  &.secondary {
+    background: $white;
+    color: $text-color;
+    &:active {
+      background: $light-gray;
+    }
+  }
+}
+
+.top-bar {
+  background: $primary-color;
+  position: absolute;
+  z-index: 9;
+  width: 100%;
+  height: $top-bar-height;
+  @include display(flex);
+  @include justify-content(center);
+  @include align-items(center);
+  .logo {
+    width: 140px;
+  }
+}
+
+
+.fb-login-outer {
+  @include display(flex);
+  @include justify-content(center);
+  @include flex-direction(column);
+  @include flex-grow(1);
+  height: 100vh;
+  background: $primary-color;
+  .fb-login-inner {
+
+  }
+  #fb-login-instructions{
+    background: $white;
+    height: 300px;
+    bottom: -300px;
+    left: 0;
+    position: absolute;
+    padding:$padding;
+    h1, h2{
+      color:$text-color;
+    }
+
+    &.open{
+      bottom:0;
+    }
+    .btn{
+      border-top:1px solid $light-gray;
+    }
+
+
+  }
+  h1 {
+    font-weight: 700;
+    color: $white;
+  }
+  h2 {
+    color: $white;
+  }
+  .btn {
+    width: 100%;
+    font-weight: 700;
+    background: #FFF;
+    left: 0;
+    bottom: 0;
+    color: $text-color;
+    border-radius: 0;
+    position: absolute;
+    &:active {
+      background: $white;
+      color: $primary-color;
+    }
+  }
+}
+.overlay{
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  background: rgba(0,0,0,.8);
+  opacity: 0;
+  pointer-events: none;
+
+  &.open{
+    opacity:1;
+    pointer-events: all;
+  }
+
+}
+
+
+
+#chat-info {
+  border-bottom: 1px solid #DDD;
+  font-weight: bold;
+  height: 44px;
+  padding: 10px;
+  z-index: 9999;
+}
+#chat-output {
+  margin: 44px 1rem 100px 1rem;
+  overflow: auto;
+  padding: .5rem .5rem 0 .5rem;
+}
+.chat-self {
+  clear: both;
+  display: inline-block;
+  float: right;
+  max-width: 70%;
+  position: relative;
+  img {
+    display: none;
+  }
+  .chat-text {
+    background-color: $green;
+    border-radius: 15px 15px 0 15px;
+    color: #FFF;
+    display: inline-block;
+    padding: 10px 15px;
+    text-align: right;
+  }
+  .triangle-left {
+    display: none;
+  }
+  .triangle-right {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 0 0 10px;
+    border-color: transparent transparent transparent $green;
+    position: absolute;
+    bottom: 10px;
+    right: -8px;
+  }
+}
+
+.chat-partner {
+  clear: both;
+  display: inline-block;
+  float: left;
+  img {
+    border-radius: 100%;
+    display: inline-block;
+    max-width: 50px;
+    position: relative;
+    top: 14px;
+  }
+  .chat-text {
+    background-color: #DDD;
+    border-radius: 15px 15px 15px 0;
+    color: #333;
+    display: inline-block;
+    max-width: 70%;
+    padding: 10px 15px;
+    text-align: left;
+  }
+  .triangle-left {
+    display: none;
+  }
+  .triangle-left {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 10px 10px;
+    border-color: transparent transparent #DDD transparent;
+    position: relative;
+    top: 15px;
+  }
+}
+
+.editable-field {
+  background-color: #EEE;
+  border: none;
+}
+.empty-chat {
+  color: #666;
+  font-style: italic;
+  text-align: center;
+}
+.extended-inv {
+  height: 36px;
+}
+.extended-opt {
+  height: 65px;
+}
+.extended-all {
+  height: 101px;
+}
+#saved-notification {
+  font-weight: bold;
+  display: none;
+  padding-top: 10px;
+  text-align: center;
+}
+#warning-popup-notification {
+  background-color: #EF473A;
+  border-radius: 5px;
+  color: #FFF;
+  display: none;
+  padding: 5px;
+  position: absolute;
+  text-align: center;
+  top: 50px;
+  left: 0;
+  right: 0;
+}
+#sub-no,
+#sub-yes,
+#inv-no,
+#inv-yes {
+  margin: 10px;
+}
+.invite-button {
+  margin-top: 10px;
+}
+.inviter {
+  color: #666;
+}
+.invite-time {
+  color: #333;
+}
+#option-notification {
+  height: 66px;
+  text-align: center;
+}
+#invite-reminder {
+  display: none;
+  height: 102px;
+  text-align: center;
+}
+#invite-reminder .title {
+  color: #666;
+  height: 122px;
+}
+.edit-post-title {
+  align-items: center;
+  background-color: #3794c8;
+  color: #FFF;
+  display: flex;
+  font-size: 18px;
+  justify-content: center;
+  margin-top: 50px;
+  height: 20%;
+  width: 100%;
+}
+.edit-post-button {
+  border: none;
+  display: block;
+  font-size: 18px;
+  height: 20%;
+  width: 100%;
+}
+.find-button {
+  background-color: #d76646;
+  border: none;
+  color: #FFF;
+  display: block;
+  font-size: 18px;
+  height: 20%;
+  width: 100%;
+}
+.clickable-category {
+  border: 2px solid;
+  display: inline-block;
+  font-size: 30px;
+  margin: 0 3px 10px 3px;
+  padding: 4px;
+  text-align: center;
+  height: 40px;
+  width: 40px;
+}
