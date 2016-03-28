@@ -1,18 +1,31 @@
 <ion-view title="logged-out">
 <!-- <ion-content class="has-header"> -->
+<div class="overlay" id="login-overlay" onClick="hideLogin()"></div>
 
 <div class="container fb-login-outer">
 	<div class="fb-login-inner">
 
-		<h1>
+		<!-- <h1>
 			Getting Started
-		</h1>
+		</h1> -->
 
 		<h2>
-			We need to pull your name and interests from Facebook. We promise we won&rsquo;t post anything!
+			quiikmeet fills gaps in your schedule with social interaction. Someone help me figure out what this should say.
 		</h2>
 
-		<button class="btn white" ng-click="doLogin()">Login with Facebook</button>
+		<button class="btn white" onClick="showLogin()">get started</button>
+	</div>
+	<div id="fb-login-instructions">
+		<h1>
+			authenticate with Facebook
+		</h1>
+
+		<p>
+			We need to pull your name and interests from Facebook. We promise we won&rsquo;t post anything!
+		</p>
+
+		<button class="btn white" ng-click="doLogin()">continue with Facebook</button>
+
 	</div>
 </div>
 
