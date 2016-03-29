@@ -9347,3 +9347,9 @@ h1, h2, p {
 #invite-reminder .title {
   color: #666;
   height: 122px; }
+
+.user-card .profile-picture {
+  border-radius: 50%; }
+
+.user-card h2 {
+  font-weight: 700; }
