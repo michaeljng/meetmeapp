@@ -1,5 +1,6 @@
 <div class="top-bar">
-  	<img class="logo" src="../img/quiikmeet-logo.svg" />
+	<h4 ng-show="!showLogo">{{headerText}}</h4>
+  	<img ng-show="showLogo" class="logo" src="../img/quiikmeet-logo.svg" />
 </div>
 
 <div ui-view></div>
