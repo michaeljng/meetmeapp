@@ -9089,6 +9089,10 @@ h1, h2, p {
   line-height: 1.5;
   font-weight: 300; }
 
+a, a:hover, a:active, a:visited, a:focus {
+  text-decoration: none;
+  color: #4f4f4f; }
+
 .btn {
   border: none;
   text-transform: lowercase;
@@ -9348,8 +9352,79 @@ h1, h2, p {
   color: #666;
   height: 122px; }
 
-.user-card .profile-picture {
-  border-radius: 50%; }
+.available-users .title {
+  font-weight: 700;
+  margin-bottom: 25px; }
 
-.user-card h2 {
-  font-weight: 700; }
+.available-users .user-card {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  background: #f4f4f4;
+  border-radius: 3px;
+  box-shadow: 0 2px rgba(0, 0, 0, 0.1);
+  margin-bottom: 5px;
+  padding: 15px; }
+  .available-users .user-card:active {
+    background: #e8e8e8; }
+  .available-users .user-card .card-left, .available-users .user-card .card-right {
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column; }
+  .available-users .user-card .card-left {
+    -webkit-flex-shrink: 0;
+    -moz-flex-shrink: 0;
+    flex-shrink: 0;
+    -ms-flex-negative: 0;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center;
+    margin-right: 15px; }
+    .available-users .user-card .card-left .profile-picture {
+      border-radius: 50%;
+      width: 60px;
+      height: 60px; }
+  .available-users .user-card .card-right h2 {
+    font-weight: 700;
+    font-size: 18px;
+    margin: 0; }
+  .available-users .user-card .card-right .wants-to {
+    margin-bottom: 10px; }
+  .available-users .user-card .card-right .details {
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: horizontal;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row; }
+    .available-users .user-card .card-right .details .distance {
+      margin-right: 10px; }

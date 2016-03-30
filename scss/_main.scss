@@ -24,6 +24,11 @@ h1, h2, p {
   font-weight: 300;
 }
 
+a, a:hover, a:active, a:visited, a:focus {
+  text-decoration: none;
+  color: $text-color;
+}
+
 .btn {
   border: none;
   text-transform: lowercase;
