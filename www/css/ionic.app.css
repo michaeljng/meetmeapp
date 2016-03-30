@@ -9071,7 +9071,7 @@ a.button {
   transition: all 0.3s ease-in-out; }
 
 .container {
-  padding: 30px;
+  padding: 20px;
   color: #4f4f4f;
   line-height: 1.5; }
 
@@ -9079,10 +9079,10 @@ h1 {
   font-size: 24px; }
 
 h2 {
-  font-size: 22px; }
+  font-size: 20px; }
 
 p {
-  font-size: 18px; }
+  font-size: 16px; }
 
 h1, h2, p {
   color: #4f4f4f;
@@ -9098,7 +9098,7 @@ a, a:hover, a:active, a:visited, a:focus {
   text-transform: lowercase;
   background: #37c88f;
   color: #fff;
-  font-size: 18px;
+  font-size: 16px;
   border-radius: 5px;
   padding: 15px 20px; }
   .btn:active {
@@ -9372,9 +9372,9 @@ a, a:hover, a:active, a:visited, a:focus {
   flex-direction: row;
   background: #f4f4f4;
   border-radius: 3px;
-  box-shadow: 0 2px rgba(0, 0, 0, 0.1);
-  margin-bottom: 5px;
-  padding: 15px; }
+  box-shadow: 0 1px rgba(0, 0, 0, 0.1);
+  margin-bottom: 8px;
+  padding: 12px; }
   .available-users .user-card:active {
     background: #e8e8e8; }
   .available-users .user-card .card-left, .available-users .user-card .card-right {
@@ -9401,14 +9401,14 @@ a, a:hover, a:active, a:visited, a:focus {
     -webkit-justify-content: center;
     -moz-justify-content: center;
     justify-content: center;
-    margin-right: 15px; }
+    margin-right: 12px; }
     .available-users .user-card .card-left .profile-picture {
       border-radius: 50%;
-      width: 60px;
-      height: 60px; }
+      width: 70px;
+      height: 70px; }
   .available-users .user-card .card-right h2 {
     font-weight: 700;
-    font-size: 18px;
+    font-size: 16px;
     margin: 0; }
   .available-users .user-card .card-right .wants-to {
     margin-bottom: 10px; }

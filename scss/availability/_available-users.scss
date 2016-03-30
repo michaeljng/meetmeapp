@@ -9,9 +9,9 @@
 		@include flex-direction(row);
 		background: $lighter-gray;
 		border-radius: 3px;
-		box-shadow: 0 2px rgba(0,0,0,0.1);
-		margin-bottom: 5px;
-		padding: 15px;
+		box-shadow: 0 1px rgba(0,0,0,0.1);
+		margin-bottom: 8px;
+		padding: 12px;
 		&:active {
 			background: $light-gray;
 		}
@@ -22,11 +22,11 @@
 		.card-left {
 			@include flex-shrink(0);
 			@include justify-content(center);
-			margin-right: 15px;
+			margin-right: 12px;
 			.profile-picture {
 				border-radius: 50%;
-				width: 60px;
-				height: 60px;
+				width: 70px;
+				height: 70px;
 			}
 		}
 		.card-right {
