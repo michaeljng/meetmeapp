@@ -85,6 +85,8 @@ angular.module('meetme', ['ionic',
   $scope.applicationName = 'QuiikMeet'
   $scope.availableSecondsLeft = 0;
   $scope.timer = null;
+  $scope.headerText = "";
+  $scope.showLogo = true;
 
   $scope.clearTimer = function() {
     $interval.cancel($scope.timer);
@@ -96,6 +98,7 @@ angular.module('meetme', ['ionic',
       $scope.clearTimer();
     }
 
+    $scope.showLogo = false;
     $scope.availableSecondsLeft = seconds;
 
     $scope.timer = $interval(function(){
@@ -120,7 +123,8 @@ angular.module('meetme', ['ionic',
   }
 
   $scope.showTitle = function() {
-    $scope.headerText = $scope.applicationName;
+    $scope.headerText = "";
+    $scope.showLogo = true;
     $scope.clearTimer();
   }
 
