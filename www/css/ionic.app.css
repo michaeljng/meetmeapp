@@ -9134,6 +9134,10 @@ a, a:hover, a:active, a:visited, a:focus {
   align-items: center; }
   .top-bar .logo {
     width: 140px; }
+  .top-bar .time-remaining {
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px; }
 
 .fb-login-outer {
   display: -webkit-box;
@@ -9427,4 +9431,4 @@ a, a:hover, a:active, a:visited, a:focus {
     -ms-flex-direction: row;
     flex-direction: row; }
     .available-users .user-card .card-right .details .distance {
-      margin-right: 10px; }
+      margin-right: 15px; }

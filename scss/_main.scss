@@ -63,6 +63,11 @@ a, a:hover, a:active, a:visited, a:focus {
   .logo {
     width: 140px;
   }
+  .time-remaining {
+    color: $white;
+    font-weight: 700;
+    font-size: $fs-h2;
+  }
 }
 
 
