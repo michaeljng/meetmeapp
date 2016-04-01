@@ -3,7 +3,7 @@
 }
 
 .container {
-  padding: 30px;
+  padding: 20px;
   color: $text-color;
   line-height: 1.5;
   //font-weight: 300;
@@ -22,6 +22,35 @@ h1, h2, p {
   color: $text-color;
   line-height: 1.5;
   font-weight: 300;
+}
+
+a, a:hover, a:active, a:visited, a:focus {
+  text-decoration: none;
+  color: $text-color;
+}
+
+.fixed-circle {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  z-index: 100000;
+  @include display(flex);
+  @include justify-content(center);
+  @include align-items(center);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  text-transform: lowercase;
+  background: $primary-color;
+  color: $white;
+  font-size: $fs-h2;
+  @include transition(all 0.15s ease-in-out);
+  &:active {
+    @include transform(rotate(45deg));
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  }
 }
 
 .btn {
@@ -57,6 +86,11 @@ h1, h2, p {
   @include align-items(center);
   .logo {
     width: 140px;
+  }
+  .time-remaining {
+    color: $white;
+    font-weight: 700;
+    font-size: $fs-h2;
   }
 }
 

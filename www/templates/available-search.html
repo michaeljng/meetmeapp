@@ -1,16 +1,32 @@
 <ion-view>
-	<ion-content class="has-header has-footer">
+	<ion-content class="has-header has-footer container available-users">
 		<div class="extended-all" ng-show="pageExtended"></div>
+
+		<h1 class="title">available users</h1>
+
 		<ion-list ng-repeat="matchedUser in matchedUsers">
-			<a class="item item-thumbnail-left" href="#/app/logged-in/user-tab/user-detail/{{matchedUser.objectId}}">
-				<img src="http://graph.facebook.com/{{matchedUser.facebookId}}/picture?width=270&height=270"/>
-				<h2>{{matchedUser.facebookName}}</h2>
-				<p>Available for {{matchedUser.minutesLeftAvailable}} mins</p>
-				<p>Interested in {{matchedUser.activePost.description}}</p>
+			<a class="user-card" href="#/app/logged-in/user-tab/user-detail/{{matchedUser.objectId}}">
+				<div class="card-left">
+					<img class="profile-picture" src="http://graph.facebook.com/{{matchedUser.facebookId}}/picture?width=270&height=270"/>
+				</div>
+				<div class="card-right">
+					<h2>{{matchedUser.facebookName}}</h2>
+					<div class="wants-to">Interested in {{matchedUser.activePost.description}}</div>
+					<div class="details">
+						<div class="distance">
+							<i class="icon ion-ios-location"></i> 0.1 mi
+						</div>
+						<div class="time-available">
+							<i class="icon ion-ios-stopwatch"></i> {{matchedUser.minutesLeftAvailable}} mins
+						</div>
+					</div>
+				</div>
+
 			</a>
 		</ion-list>
-		<div>
-			<button ng-click="setUnavailable()">Unavailable</button>
-		</div>
 	</ion-content>
+	
+	<button class="fixed-circle" ng-click="setUnavailable()">
+		<i class="icon ion-close"></i>
+	</button>
 </ion-view>
