@@ -51,6 +51,7 @@ angular.module('meetme.searchTabController', [])
 
   $scope.currentUser = currentUser;
   $scope.data = {};
+  $scope.categoryArray = [false, false, false, false, false];
 
   $scope.secondsUntil = function(time) {
     return Math.floor((time - moment())/1000);
@@ -63,7 +64,7 @@ angular.module('meetme.searchTabController', [])
   $scope.showNewPost = function() {
     if (!$scope.data.postExpiresAt) {
       $scope.showPopupWarning("Please set a time for when you are availability until");
-    } else if (!$scope.data.postDescription) {
+    } else if (!$scope.data.postDescription && $.inArray(true, $scope.categoryArray) == -1) {
       $scope.showPopupWarning("Please add at least 1 activitiy");
     } else {
       var expiresAt = new Date();
@@ -112,8 +113,7 @@ angular.module('meetme.searchTabController', [])
 
           var seconds = $scope.secondsUntil(expiresAt);
 
-          $(".time-container").css("background-color", "#87bfde");
-          $(".time-container").css("color", "#FFF");
+          $(".time-container").addClass("completed-container");
 
           var hours = $scope.data.postExpiresAt.getHours();
           var minutes = $scope.data.postExpiresAt.getMinutes();
@@ -135,7 +135,7 @@ angular.module('meetme.searchTabController', [])
       var savedDescription = $scope.data.postDescription;
     }
     var myPopup = $ionicPopup.show({
-    template: '<div class="clickable-category"><i class="ion-fork"></i></div><div class="clickable-category"><i class="ion-ios-game-controller-a"></i></div><div class="clickable-category"><i class="ion-ios-people"></i></div><div class="clickable-category"><i class="ion-ios-basketball"></i></div><div class="clickable-category"><i class="ion-coffee"></i></div><p/><textarea id="description" ng-model="data.postDescription" rows="1" placeholder="other..."></textarea>',
+    template: '<div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[0]}" ng-click="toggleCategory(1)"><i class="ion-fork"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[1]}" ng-click="toggleCategory(2)"><i class="ion-ios-game-controller-a"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[2]}" ng-click="toggleCategory(3)"><i class="ion-ios-people"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[3]}" ng-click="toggleCategory(4)"><i class="ion-ios-basketball"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[4]}" ng-click="toggleCategory(5)"><i class="ion-coffee"></i></div><p/><textarea id="description" ng-model="data.postDescription" rows="1" placeholder="other..."></textarea>',
     title: 'to do what?',
     scope: $scope,
     buttons: [
@@ -148,21 +148,23 @@ angular.module('meetme.searchTabController', [])
       text: '<b>Save</b>',
       type: 'button-balanced',
       onTap: function(e) {
-        if (!$scope.data.postDescription) {
+        if ($scope.data.postDescription || $.inArray(true, $scope.categoryArray) != -1) {
+          var description = $scope.data.postDescription;
+          $(".activity-container").addClass("completed-container");
+          $(".activity-container span").html("to " + description);
+        } else {
           $scope.showPopupWarning("Please add at least 1 activitiy");
           e.preventDefault();
-        } else {
-          var description = $scope.data.postDescription;
-
-          $(".activity-container").css("background-color", "#87bfde");
-          $(".activity-container").css("color", "#FFF");
-          $(".activity-container span").html("to " + description);
         }
       }
       }
       ]
     });
   };
+
+  $scope.toggleCategory = function(category) {
+    $scope.categoryArray[category-1] = !$scope.categoryArray[category-1];
+  }
 
   $scope.showPopupWarning = function(content) {
     $('#warning-popup-notification').html(content);
