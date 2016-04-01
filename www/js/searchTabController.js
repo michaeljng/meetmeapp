@@ -51,7 +51,12 @@ angular.module('meetme.searchTabController', [])
 
   $scope.currentUser = currentUser;
   $scope.data = {};
-  $scope.categoryArray = [false, false, false, false, false];
+  $scope.categoryArray = [
+    {"category":"eat a meal",               "active":false},
+    {"category":"game",                     "active":false},
+    {"category":"attend a gathering",       "active":false},
+    {"category":"play sports",              "active":false},
+    {"category":"grab coffee",              "active":false}];
 
   $scope.secondsUntil = function(time) {
     return Math.floor((time - moment())/1000);
@@ -61,10 +66,19 @@ angular.module('meetme.searchTabController', [])
     $state.go('app.logged-in.search-tab.available', {'postId':$scope.currentUser.activePost.objectId,'currentUser':JSON.stringify($scope.currentUser), 'availableSecondsLeft': $scope.secondsUntil(new Date($scope.currentUser.activePost.expiresAt.iso))});
   }
 
+  $scope.noCategoriesChosen = function() {
+    for (i = 0; i < $scope.categoryArray.length; i++) {
+      if(i["active"] == true) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   $scope.showNewPost = function() {
     if (!$scope.data.postExpiresAt) {
       $scope.showPopupWarning("Please set a time for when you are availability until");
-    } else if (!$scope.data.postDescription && $.inArray(true, $scope.categoryArray) == -1) {
+    } else if (!$scope.data.postDescription && $scope.noCategoriesChosen) {
       $scope.showPopupWarning("Please add at least 1 activitiy");
     } else {
       var expiresAt = new Date();
@@ -135,7 +149,7 @@ angular.module('meetme.searchTabController', [])
       var savedDescription = $scope.data.postDescription;
     }
     var myPopup = $ionicPopup.show({
-    template: '<div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[0]}" ng-click="toggleCategory(1)"><i class="ion-fork"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[1]}" ng-click="toggleCategory(2)"><i class="ion-ios-game-controller-a"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[2]}" ng-click="toggleCategory(3)"><i class="ion-ios-people"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[3]}" ng-click="toggleCategory(4)"><i class="ion-ios-basketball"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[4]}" ng-click="toggleCategory(5)"><i class="ion-coffee"></i></div><p/><textarea id="description" ng-model="data.postDescription" rows="1" placeholder="other..."></textarea>',
+    template: '<div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[0][\'active\']}" ng-click="toggleCategory(1)"><i class="ion-fork"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[1][\'active\']}" ng-click="toggleCategory(2)"><i class="ion-ios-game-controller-a"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[2][\'active\']}" ng-click="toggleCategory(3)"><i class="ion-ios-people"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[3][\'active\']}" ng-click="toggleCategory(4)"><i class="ion-ios-basketball"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[4][\'active\']}" ng-click="toggleCategory(5)"><i class="ion-coffee"></i></div><p/><textarea id="description" ng-model="data.postDescription" rows="1" placeholder="other..."></textarea>',
     title: 'to do what?',
     scope: $scope,
     buttons: [
@@ -148,8 +162,8 @@ angular.module('meetme.searchTabController', [])
       text: '<b>Save</b>',
       type: 'button-balanced',
       onTap: function(e) {
-        if ($scope.data.postDescription || $.inArray(true, $scope.categoryArray) != -1) {
-          var description = $scope.data.postDescription;
+        if ($scope.data.postDescription || !$scope.noCategoriesChosen) {
+          var description = $scope.stringDescription;
           $(".activity-container").addClass("completed-container");
           $(".activity-container span").html("to " + description);
         } else {
@@ -162,8 +176,12 @@ angular.module('meetme.searchTabController', [])
     });
   };
 
+  $scope.stringDescription = function() {
+    return $scope.data.postDescription;
+  }
+
   $scope.toggleCategory = function(category) {
-    $scope.categoryArray[category-1] = !$scope.categoryArray[category-1];
+    $scope.categoryArray[category-1]["active"] = !$scope.categoryArray[category-1]["active"];
   }
 
   $scope.showPopupWarning = function(content) {
