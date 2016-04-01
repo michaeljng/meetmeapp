@@ -31,8 +31,8 @@ a, a:hover, a:active, a:visited, a:focus {
 
 .fixed-circle {
   position: fixed;
-  bottom: 20px;
-  right: 0;
+  bottom: 80px;
+  right: 20px;
   z-index: 100000;
   @include display(flex);
   @include justify-content(center);
@@ -46,6 +46,7 @@ a, a:hover, a:active, a:visited, a:focus {
   background: $primary-color;
   color: $white;
   font-size: $fs-h2;
+  @include transition(all 0.15s ease-in-out);
   &:active {
     @include transform(rotate(45deg));
     box-shadow: 0 3px 6px rgba(0,0,0,0.2);
