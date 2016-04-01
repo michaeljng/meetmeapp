@@ -29,6 +29,29 @@ a, a:hover, a:active, a:visited, a:focus {
   color: $text-color;
 }
 
+.fixed-circle {
+  position: fixed;
+  bottom: 20px;
+  right: 0;
+  z-index: 100000;
+  @include display(flex);
+  @include justify-content(center);
+  @include align-items(center);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  text-transform: lowercase;
+  background: $primary-color;
+  color: $white;
+  font-size: $fs-h2;
+  &:active {
+    @include transform(rotate(45deg));
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  }
+}
+
 .btn {
   border: none;
   text-transform: lowercase;
