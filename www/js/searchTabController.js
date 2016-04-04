@@ -57,6 +57,7 @@ angular.module('meetme.searchTabController', [])
     {"category":"attend a gathering",       "active":false},
     {"category":"play sports",              "active":false},
     {"category":"grab coffee",              "active":false}];
+  $scope.savedCategoryArray = JSON.parse(JSON.stringify($scope.categoryArray));
 
   $scope.secondsUntil = function(time) {
     return Math.floor((time - moment())/1000);
@@ -68,7 +69,7 @@ angular.module('meetme.searchTabController', [])
 
   $scope.noCategoriesChosen = function() {
     for (i = 0; i < $scope.categoryArray.length; i++) {
-      if(i["active"] == true) {
+      if($scope.categoryArray[i]["active"] == true) {
         return false;
       }
     }
@@ -90,7 +91,7 @@ angular.module('meetme.searchTabController', [])
       }
 
       var seconds = $scope.secondsUntil(expiresAt);
-      var description = $scope.data.postDescription;
+      var description = $scope.stringDescription();
       $scope.setAvailable(seconds, description);
     }
   };
@@ -155,6 +156,7 @@ angular.module('meetme.searchTabController', [])
     buttons: [
     { text: 'Cancel',
       onTap: function(e) {
+        $scope.categoryArray = JSON.parse(JSON.stringify($scope.savedCategoryArray));
         $scope.data.postDescription = savedDescription;
       }
     },
@@ -162,10 +164,10 @@ angular.module('meetme.searchTabController', [])
       text: '<b>Save</b>',
       type: 'button-balanced',
       onTap: function(e) {
-        if ($scope.data.postDescription || !$scope.noCategoriesChosen) {
-          var description = $scope.stringDescription;
+        if ($scope.data.postDescription || !$scope.noCategoriesChosen()) {
+          $scope.savedCategoryArray = JSON.parse(JSON.stringify($scope.categoryArray));
           $(".activity-container").addClass("completed-container");
-          $(".activity-container span").html("to " + description);
+          $(".activity-container span").html("to " + $scope.stringDescription());
         } else {
           $scope.showPopupWarning("Please add at least 1 activitiy");
           e.preventDefault();
@@ -177,7 +179,19 @@ angular.module('meetme.searchTabController', [])
   };
 
   $scope.stringDescription = function() {
-    return $scope.data.postDescription;
+    var finalString = "";
+    for (i = 0; i < $scope.categoryArray.length; i++) {
+      if($scope.categoryArray[i]["active"] == true) {
+        finalString = finalString + $scope.categoryArray[i]["category"] + ", ";
+      }
+    }
+    if ($scope.data.postDescription == null || $scope.data.postDescription.length === 0) {
+      finalString = finalString.slice(0, -2);
+      var customDescription = "";
+    } else {
+      var customDescription = $scope.data.postDescription;
+    }
+    return finalString + customDescription;
   }
 
   $scope.toggleCategory = function(category) {
