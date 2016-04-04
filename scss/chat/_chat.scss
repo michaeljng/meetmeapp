@@ -1,2 +1,143 @@
 // Chat Styles
+.chat-container {
+	.info-bar {
+		@include display(flex);
+		@include flex-direction(row);
+		@include align-items(center);
+		@include justify-content(space-between);
+		position: absolute;
+		top: $bar-height;
+		left: 0;
+		right: 0;
+		width: 100%;
+		height: $bar-height;
+		background: $lighter-gray;
+		border-bottom: 1px solid $light-gray;
+		z-index: 9;
+		font-size: $fs-body;
+		padding: 0 20px;
+		.username {
+			font-weight: 700;
+			//@include display(flex);
+		}
+		.met-when {
+			//@include display(flex);
+			//@include justify-content(flex-end);
+		}
+	}
 
+
+	.chat-output {
+		padding: 0 20px;
+		//margin-top: 100px;
+	}
+	.chat-self {
+		clear: both;
+		display: inline-block;
+		float: right;
+		max-width: 70%;
+		position: relative;
+		img {
+			display: none;
+		}
+		.chat-text {
+			background: $green;
+			border-radius: 15px 15px 0 15px;
+			color: $white;
+			display: inline-block;
+			padding: 10px 15px;
+			text-align: right;
+			&:after {
+				content: '';
+				display: inline-block;
+				width: 0;
+				height: 0;
+				border-style: solid;
+				border-width: 10px 0 0 10px;
+				border-color: transparent transparent transparent $green;
+				position: absolute;
+				bottom: 10px;
+				right: -8px;
+			}
+		}
+	}
+
+	.chat-partner {
+		clear: both;
+		display: inline-block;
+		float: left;
+		img {
+			border-radius: 50%;
+			display: inline-block;
+			max-width: 50px;
+			position: relative;
+			top: 14px;
+		}
+		.chat-text {
+			background: $light-gray;
+			border-radius: 15px 15px 15px 0;
+			color: $text-color;
+			display: inline-block;
+			max-width: 70%;
+			padding: 10px 15px;
+			text-align: left;
+			&:after {
+				content: '';
+				display: inline-block;
+				width: 0;
+				height: 0;
+				border-style: solid;
+				border-width: 0 0 10px 10px;
+				border-color: transparent transparent $green transparent;
+				position: relative;
+				top: 15px;
+			}
+		}
+
+	}
+
+
+	.chat-input-bar {
+		@include display(flex);
+		@include flex-direction(row);
+		background: $lighter-gray;
+		height: $bar-height;
+		width: 100%;
+		position: absolute;
+		bottom: $bar-height;
+		left: 0;
+		right: 0;
+		margin: 0;
+		border-top: 1px solid $light-gray;
+		&:active {
+			//background: $light-gray;
+		}
+		.chat-input {
+			border: none;
+			height: 100%;
+			background: none;
+			@include display(flex);
+			@include flex-grow(1);
+			padding: 0 20px;
+			color: $text-color;
+		}
+		.btn {
+			@include display(flex);
+			@include align-items(center);
+			@include justify-content(center);
+			border-radius: 0;
+			font-size: 30px;
+			width: 50px;
+			height: 100%;
+			padding: 0;
+			color: $green;
+			background: none;
+			&:active {
+				@include transform(translateX(50%));
+			}
+			.icon {
+				@include display(flex);
+			}
+		}
+	}
+}

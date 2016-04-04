@@ -9,6 +9,19 @@
   //font-weight: 300;
 }
 
+.has-header {
+  top: $bar-height;
+  &.has-info-top {
+    top: $bar-height * 2;
+  }
+}
+.has-footer {
+  bottom: $bar-height;
+  &.has-info-bottom {
+    bottom: $bar-height * 2;
+  }
+}
+
 h1 {
   font-size: $fs-h1;
 }
@@ -80,7 +93,7 @@ a, a:hover, a:active, a:visited, a:focus {
   position: absolute;
   z-index: 9;
   width: 100%;
-  height: $top-bar-height;
+  height: $bar-height;
   @include display(flex);
   @include justify-content(center);
   @include align-items(center);
@@ -165,86 +178,6 @@ a, a:hover, a:active, a:visited, a:focus {
 }
 
 
-
-#chat-info {
-  border-bottom: 1px solid #DDD;
-  font-weight: bold;
-  height: 44px;
-  padding: 10px;
-  z-index: 9999;
-}
-#chat-output {
-  margin: 44px 1rem 100px 1rem;
-  overflow: auto;
-  padding: .5rem .5rem 0 .5rem;
-}
-.chat-self {
-  clear: both;
-  display: inline-block;
-  float: right;
-  max-width: 70%;
-  position: relative;
-  img {
-    display: none;
-  }
-  .chat-text {
-    background-color: $green;
-    border-radius: 15px 15px 0 15px;
-    color: #FFF;
-    display: inline-block;
-    padding: 10px 15px;
-    text-align: right;
-  }
-  .triangle-left {
-    display: none;
-  }
-  .triangle-right {
-    display: inline-block;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 10px 0 0 10px;
-    border-color: transparent transparent transparent $green;
-    position: absolute;
-    bottom: 10px;
-    right: -8px;
-  }
-}
-
-.chat-partner {
-  clear: both;
-  display: inline-block;
-  float: left;
-  img {
-    border-radius: 100%;
-    display: inline-block;
-    max-width: 50px;
-    position: relative;
-    top: 14px;
-  }
-  .chat-text {
-    background-color: #DDD;
-    border-radius: 15px 15px 15px 0;
-    color: #333;
-    display: inline-block;
-    max-width: 70%;
-    padding: 10px 15px;
-    text-align: left;
-  }
-  .triangle-left {
-    display: none;
-  }
-  .triangle-left {
-    display: inline-block;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 0 10px 10px;
-    border-color: transparent transparent #DDD transparent;
-    position: relative;
-    top: 15px;
-  }
-}
 
 .editable-field {
   background-color: #EEE;

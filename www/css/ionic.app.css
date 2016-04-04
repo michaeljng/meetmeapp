@@ -3475,25 +3475,25 @@ ion-infinite-scroll {
 
 /* If you change these, change platform.scss as well */
 .has-header {
-  top: 44px; }
+  top: 50px; }
 
 .no-header {
   top: 0; }
 
 .has-subheader {
-  top: 88px; }
+  top: 100px; }
 
 .has-tabs-top {
-  top: 93px; }
+  top: 99px; }
 
 .has-header.has-subheader.has-tabs-top {
-  top: 137px; }
+  top: 149px; }
 
 .has-footer {
-  bottom: 44px; }
+  bottom: 50px; }
 
 .has-subfooter {
-  bottom: 88px; }
+  bottom: 100px; }
 
 .has-tabs,
 .bar-footer.has-tabs {
@@ -3504,7 +3504,7 @@ ion-infinite-scroll {
     height: auto; }
 
 .has-footer.has-tabs {
-  bottom: 93px; }
+  bottom: 99px; }
 
 .pane {
   -webkit-transform: translate3d(0, 0, 0);
@@ -3847,7 +3847,7 @@ a.subdued {
   box-sizing: border-box;
   padding: 5px;
   width: 100%;
-  height: 44px;
+  height: 50px;
   border-width: 0;
   border-style: solid;
   border-top: 1px solid transparent;
@@ -3968,13 +3968,13 @@ a.subdued {
     overflow: hidden;
     margin: 0 10px;
     min-width: 30px;
-    height: 43px;
+    height: 49px;
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 17px;
     font-weight: 500;
-    line-height: 44px; }
+    line-height: 50px; }
     .bar .title.title-left {
       text-align: left; }
     .bar .title.title-right {
@@ -4054,7 +4054,7 @@ a.subdued {
 
 .platform-android .bar .title {
   font-size: 19px;
-  line-height: 44px; }
+  line-height: 50px; }
 
 .bar-light .button {
   border-color: #ddd;
@@ -4262,7 +4262,7 @@ a.subdued {
   border-top-width: 1px;
   border-bottom-width: 0;
   background-position: top;
-  height: 44px; }
+  height: 50px; }
   .bar-footer.item-input-inset {
     position: absolute; }
 
@@ -4270,14 +4270,14 @@ a.subdued {
   padding: 0; }
 
 .bar-subheader {
-  top: 44px;
+  top: 50px;
   display: block;
-  height: 44px; }
+  height: 50px; }
 
 .bar-subfooter {
-  bottom: 44px;
+  bottom: 50px;
   display: block;
-  height: 44px; }
+  height: 50px; }
 
 .nav-bar-block {
   position: absolute;
@@ -5014,7 +5014,7 @@ ion-tabs.tabs-color-active-dark .tab-item {
 /* If you change this, change platform.scss as well */
 .tabs-top > .tabs,
 .tabs.tabs-top {
-  top: 44px;
+  top: 50px;
   padding-top: 0;
   background-position: bottom;
   border-top-width: 0;
@@ -5278,21 +5278,21 @@ ion-tabs.tabs-color-active-dark .tab-item {
   .modal.ng-leave-active {
     bottom: 0; }
   .platform-ios.platform-cordova .modal-wrapper .modal .bar-header:not(.bar-subheader) {
-    height: 44px; }
+    height: 50px; }
     .platform-ios.platform-cordova .modal-wrapper .modal .bar-header:not(.bar-subheader) > * {
       margin-top: 0; }
   .platform-ios.platform-cordova .modal-wrapper .modal .tabs-top > .tabs,
   .platform-ios.platform-cordova .modal-wrapper .modal .tabs.tabs-top {
-    top: 44px; }
+    top: 50px; }
   .platform-ios.platform-cordova .modal-wrapper .modal .has-header,
   .platform-ios.platform-cordova .modal-wrapper .modal .bar-subheader {
-    top: 44px; }
+    top: 50px; }
   .platform-ios.platform-cordova .modal-wrapper .modal .has-subheader {
-    top: 88px; }
+    top: 100px; }
   .platform-ios.platform-cordova .modal-wrapper .modal .has-header.has-tabs-top {
-    top: 93px; }
+    top: 99px; }
   .platform-ios.platform-cordova .modal-wrapper .modal .has-header.has-subheader.has-tabs-top {
-    top: 137px; }
+    top: 149px; }
   .modal-backdrop-bg {
     -webkit-transition: opacity 300ms ease-in-out;
     transition: opacity 300ms ease-in-out;
@@ -8850,7 +8850,7 @@ a.button {
  * Platform specific tweaks
  */
 .platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) {
-  height: 64px; }
+  height: 70px; }
   .platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader).item-input-inset .item-input-wrapper {
     margin-top: 19px !important; }
   .platform-ios.platform-cordova:not(.fullscreen) .bar-header:not(.bar-subheader) > * {
@@ -8858,23 +8858,23 @@ a.button {
 
 .platform-ios.platform-cordova:not(.fullscreen) .tabs-top > .tabs,
 .platform-ios.platform-cordova:not(.fullscreen) .tabs.tabs-top {
-  top: 64px; }
+  top: 70px; }
 
 .platform-ios.platform-cordova:not(.fullscreen) .has-header,
 .platform-ios.platform-cordova:not(.fullscreen) .bar-subheader {
-  top: 64px; }
+  top: 70px; }
 
 .platform-ios.platform-cordova:not(.fullscreen) .has-subheader {
-  top: 108px; }
+  top: 120px; }
 
 .platform-ios.platform-cordova:not(.fullscreen) .has-header.has-tabs-top {
-  top: 113px; }
+  top: 119px; }
 
 .platform-ios.platform-cordova:not(.fullscreen) .has-header.has-subheader.has-tabs-top {
-  top: 157px; }
+  top: 169px; }
 
 .platform-ios.platform-cordova .popover .bar-header:not(.bar-subheader) {
-  height: 44px; }
+  height: 50px; }
   .platform-ios.platform-cordova .popover .bar-header:not(.bar-subheader).item-input-inset .item-input-wrapper {
     margin-top: -1px; }
   .platform-ios.platform-cordova .popover .bar-header:not(.bar-subheader) > * {
@@ -8882,10 +8882,10 @@ a.button {
 
 .platform-ios.platform-cordova .popover .has-header,
 .platform-ios.platform-cordova .popover .bar-subheader {
-  top: 44px; }
+  top: 50px; }
 
 .platform-ios.platform-cordova .popover .has-subheader {
-  top: 88px; }
+  top: 100px; }
 
 .platform-ios.platform-cordova.status-bar-hide {
   margin-bottom: 20px; }
@@ -9075,6 +9075,16 @@ a.button {
   color: #4f4f4f;
   line-height: 1.5; }
 
+.has-header {
+  top: 50px; }
+  .has-header.has-info-top {
+    top: 100px; }
+
+.has-footer {
+  bottom: 50px; }
+  .has-footer.has-info-bottom {
+    bottom: 100px; }
+
 h1 {
   font-size: 24px; }
 
@@ -9246,76 +9256,6 @@ a, a:hover, a:active, a:visited, a:focus {
     opacity: 1;
     pointer-events: all; }
 
-#chat-info {
-  border-bottom: 1px solid #DDD;
-  font-weight: bold;
-  height: 44px;
-  padding: 10px;
-  z-index: 9999; }
-
-#chat-output {
-  margin: 44px 1rem 100px 1rem;
-  overflow: auto;
-  padding: .5rem .5rem 0 .5rem; }
-
-.chat-self {
-  clear: both;
-  display: inline-block;
-  float: right;
-  max-width: 70%;
-  position: relative; }
-  .chat-self img {
-    display: none; }
-  .chat-self .chat-text {
-    background-color: #37c88f;
-    border-radius: 15px 15px 0 15px;
-    color: #FFF;
-    display: inline-block;
-    padding: 10px 15px;
-    text-align: right; }
-  .chat-self .triangle-left {
-    display: none; }
-  .chat-self .triangle-right {
-    display: inline-block;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 10px 0 0 10px;
-    border-color: transparent transparent transparent #37c88f;
-    position: absolute;
-    bottom: 10px;
-    right: -8px; }
-
-.chat-partner {
-  clear: both;
-  display: inline-block;
-  float: left; }
-  .chat-partner img {
-    border-radius: 100%;
-    display: inline-block;
-    max-width: 50px;
-    position: relative;
-    top: 14px; }
-  .chat-partner .chat-text {
-    background-color: #DDD;
-    border-radius: 15px 15px 15px 0;
-    color: #333;
-    display: inline-block;
-    max-width: 70%;
-    padding: 10px 15px;
-    text-align: left; }
-  .chat-partner .triangle-left {
-    display: none; }
-  .chat-partner .triangle-left {
-    display: inline-block;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 0 10px 10px;
-    border-color: transparent transparent #DDD transparent;
-    position: relative;
-    top: 15px; }
-
 .editable-field {
   background-color: #EEE;
   border: none; }
@@ -9393,6 +9333,180 @@ a, a:hover, a:active, a:visited, a:focus {
 #invite-reminder .title {
   color: #666;
   height: 122px; }
+
+.chat-container .info-bar {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-justify-content: space-between;
+  justify-content: space-between;
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 50px;
+  background: #f4f4f4;
+  border-bottom: 1px solid #e8e8e8;
+  z-index: 9;
+  font-size: 16px;
+  padding: 0 20px; }
+  .chat-container .info-bar .username {
+    font-weight: 700; }
+
+.chat-container .chat-output {
+  padding: 0 20px; }
+
+.chat-container .chat-self {
+  clear: both;
+  display: inline-block;
+  float: right;
+  max-width: 70%;
+  position: relative; }
+  .chat-container .chat-self img {
+    display: none; }
+  .chat-container .chat-self .chat-text {
+    background: #37c88f;
+    border-radius: 15px 15px 0 15px;
+    color: #fff;
+    display: inline-block;
+    padding: 10px 15px;
+    text-align: right; }
+    .chat-container .chat-self .chat-text:after {
+      content: '';
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 10px 0 0 10px;
+      border-color: transparent transparent transparent #37c88f;
+      position: absolute;
+      bottom: 10px;
+      right: -8px; }
+
+.chat-container .chat-partner {
+  clear: both;
+  display: inline-block;
+  float: left; }
+  .chat-container .chat-partner img {
+    border-radius: 50%;
+    display: inline-block;
+    max-width: 50px;
+    position: relative;
+    top: 14px; }
+  .chat-container .chat-partner .chat-text {
+    background: #e8e8e8;
+    border-radius: 15px 15px 15px 0;
+    color: #4f4f4f;
+    display: inline-block;
+    max-width: 70%;
+    padding: 10px 15px;
+    text-align: left; }
+    .chat-container .chat-partner .chat-text:after {
+      content: '';
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 0 10px 10px;
+      border-color: transparent transparent #37c88f transparent;
+      position: relative;
+      top: 15px; }
+
+.chat-container .chat-input-bar {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  background: #f4f4f4;
+  height: 50px;
+  width: 100%;
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  margin: 0;
+  border-top: 1px solid #e8e8e8; }
+  .chat-container .chat-input-bar .chat-input {
+    border: none;
+    height: 100%;
+    background: none;
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-grow: 1;
+    -moz-flex-grow: 1;
+    flex-grow: 1;
+    -ms-flex-positive: 1;
+    padding: 0 20px;
+    color: #4f4f4f; }
+  .chat-container .chat-input-bar .btn {
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center;
+    border-radius: 0;
+    font-size: 30px;
+    width: 50px;
+    height: 100%;
+    padding: 0;
+    color: #37c88f;
+    background: none; }
+    .chat-container .chat-input-bar .btn:active {
+      -webkit-transform: translateX(50%);
+      transform: translateX(50%); }
+    .chat-container .chat-input-bar .btn .icon {
+      display: -webkit-box;
+      display: -moz-box;
+      display: box;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: flex; }
 
 .available-users .title {
   font-weight: 700;
