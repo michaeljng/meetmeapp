@@ -9117,6 +9117,8 @@ a.button {
     color: #fff;
     font-weight: 700;
     font-size: 20px; }
+    .top-bar .time-remaining .icon {
+      margin-right: 5px; }
 
 .tabs {
   border: none;
