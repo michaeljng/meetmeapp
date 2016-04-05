@@ -1,5 +1,16 @@
 // Ionic Starter App
 
+//Non-ionic functions
+//IS THERE A BETTER PLACE FOR THESE?
+var showLogin = function(){
+  document.getElementById("fb-login-instructions").className += " open";
+  document.getElementById("login-overlay").className += " open";
+}
+var hideLogin = function(){
+  document.getElementById("fb-login-instructions").className -= " open";
+  document.getElementById("login-overlay").className = "overlay";
+}
+
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
@@ -69,11 +80,21 @@ angular.module('meetme', ['ionic',
 
       })
 
+
+// iOS style bottom nav for both platforms.
+.config(function($ionicConfigProvider) {
+  $ionicConfigProvider.tabs.position("bottom");
+  $ionicConfigProvider.tabs.style("standard");
+})
+
+
 .controller('ApplicationController', function ($scope, $interval) {
 
   $scope.applicationName = 'QuiikMeet'
   $scope.availableSecondsLeft = 0;
   $scope.timer = null;
+  $scope.headerText = "";
+  $scope.showLogo = true;
 
   $scope.clearTimer = function() {
     $interval.cancel($scope.timer);
@@ -85,6 +106,7 @@ angular.module('meetme', ['ionic',
       $scope.clearTimer();
     }
 
+    $scope.showLogo = false;
     $scope.availableSecondsLeft = seconds;
 
     $scope.timer = $interval(function(){
@@ -109,7 +131,8 @@ angular.module('meetme', ['ionic',
   }
 
   $scope.showTitle = function() {
-    $scope.headerText = $scope.applicationName;
+    $scope.headerText = "";
+    $scope.showLogo = true;
     $scope.clearTimer();
   }
 
@@ -129,6 +152,7 @@ angular.module('meetme', ['ionic',
       }
     });
   });
+
 
   $scope.doLogin = function() {
     FacebookService.login(function(response) {

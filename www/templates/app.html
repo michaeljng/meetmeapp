@@ -1,5 +1,9 @@
 <div class="top-bar">
-  <h1 class="title">{{headerText}}</h1>
+	<div class="time-remaining" ng-show="!showLogo">
+		<i class="icon ion-ios-stopwatch"></i>
+		{{headerText}}
+	</div>
+  	<img ng-show="showLogo" class="logo" src="../img/quiikmeet-logo.svg" />
 </div>
 
 <div ui-view></div>

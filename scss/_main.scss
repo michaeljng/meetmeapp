@@ -1,0 +1,302 @@
+*, *:before, *:after {
+  @include transition(all 0.3s ease-in-out);
+}
+.scroll{
+  @include transition(none);
+}
+
+.container {
+  padding: 20px;
+  color: $text-color;
+  font-size: $fs-body;
+  line-height: 1.5;
+  //font-weight: 300;
+  &.no-padding {
+    padding: 0;
+  }
+}
+
+.has-header {
+  top: $bar-height;
+  &.has-info-top {
+    top: $bar-height * 2;
+  }
+}
+.has-footer {
+  bottom: $bar-height;
+  &.has-info-bottom {
+    bottom: $bar-height * 2;
+  }
+}
+
+.top-bar {
+  background: $primary-color;
+  position: absolute;
+  z-index: 9;
+  width: 100%;
+  height: $bar-height;
+  @include display(flex);
+  @include justify-content(center);
+  @include align-items(center);
+  .logo {
+    width: 140px;
+  }
+  .time-remaining {
+    color: $white;
+    font-weight: 700;
+    font-size: $fs-h2;
+    .icon {
+      margin-right: 5px;
+    }
+  }
+}
+
+.tabs {
+  border: none;
+  background: $green;
+  height: $bar-height;
+  .tab-item {
+    .icon {
+      color: $white;
+      @include display(flex);
+      @include justify-content(center);
+      @include align-items(center);
+      height: 100%;
+    }
+  }
+}
+
+h1 {
+  font-size: $fs-h1;
+}
+h2 {
+  font-size: $fs-h2;
+}
+p {
+  font-size: $fs-body;
+}
+h1, h2, p {
+  color: $text-color;
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+a, a:hover, a:active, a:visited, a:focus {
+  text-decoration: none;
+  color: $text-color;
+}
+
+.fixed-circle {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  z-index: 100000;
+  @include display(flex);
+  @include justify-content(center);
+  @include align-items(center);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  text-transform: lowercase;
+  background: $primary-color;
+  color: $white;
+  font-size: $fs-h2;
+  @include transition(all 0.15s ease-in-out);
+  &:active {
+    @include transform(rotate(45deg));
+    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  }
+}
+
+.btn {
+  border: none;
+  text-transform: lowercase;
+  background: $primary-color;
+  color: $white;
+  font-size: $fs-body;
+  border-radius: 5px;
+  padding: 15px 20px;
+  &:hover {
+  }
+  &:active {
+    background: darken($primary-color, 10%);
+  }
+  &.secondary {
+    background: $white;
+    color: $text-color;
+    &:active {
+      background: $light-gray;
+    }
+  }
+}
+
+
+.fb-login-outer {
+  @include display(flex);
+  @include justify-content(center);
+  @include flex-direction(column);
+  @include flex-grow(1);
+  height: 100vh;
+  background: $primary-color;
+  .fb-login-inner {
+
+  }
+  #fb-login-instructions{
+    background: $white;
+    height: 300px;
+    bottom: -300px;
+    left: 0;
+    position: absolute;
+    padding:$padding;
+    h1, h2{
+      color:$text-color;
+    }
+
+    &.open{
+      bottom:0;
+    }
+    .btn{
+      border-top:1px solid $light-gray;
+    }
+
+
+  }
+  h1 {
+    font-weight: 700;
+    color: $white;
+  }
+  h2 {
+    color: $white;
+  }
+  .btn {
+    width: 100%;
+    font-weight: 700;
+    background: #FFF;
+    left: 0;
+    bottom: 0;
+    color: $text-color;
+    border-radius: 0;
+    position: absolute;
+    &:active {
+      background: $white;
+      color: $primary-color;
+    }
+  }
+}
+.overlay{
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  background: rgba(0,0,0,.8);
+  opacity: 0;
+  pointer-events: none;
+
+  &.open{
+    opacity:1;
+    pointer-events: all;
+  }
+
+}
+
+
+
+.editable-field {
+  background-color: #EEE;
+  border: none;
+}
+.empty-chat {
+  color: #666;
+  font-style: italic;
+  text-align: center;
+}
+.extended-inv {
+  height: 36px;
+}
+.extended-opt {
+  height: 65px;
+}
+.extended-all {
+  height: 101px;
+}
+#saved-notification {
+  font-weight: bold;
+  display: none;
+  padding-top: 10px;
+  text-align: center;
+}
+#warning-popup-notification {
+  background-color: #EF473A;
+  border-radius: 5px;
+  color: #FFF;
+  display: none;
+  padding: 5px;
+  position: absolute;
+  text-align: center;
+  top: 15px;
+  left: 0;
+  right: 0;
+}
+#sub-no,
+#sub-yes,
+#inv-no,
+#inv-yes {
+  margin: 10px;
+}
+.available-button {
+  border-radius: 200px;
+  border: 0;
+  color: #ffffff;
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0;
+  background: $green;
+  margin: 200px auto;
+  width: 200px;
+  height: 200px;
+  text-align: center;
+}
+.invite-button {
+  margin-top: 10px;
+}
+.inviter {
+  color: #666;
+}
+.invite-time {
+  color: #333;
+}
+#option-notification {
+  height: 66px;
+  text-align: center;
+}
+#invite-reminder {
+  display: none;
+  height: 102px;
+  text-align: center;
+}
+#invite-reminder .title {
+  color: #666;
+  height: 122px;
+}
+/*********************
+****PROFILE STUFF*****
+**********************/
+
+#profile-header{
+
+}
+#profile-header img{
+  width:35%;
+  margin-top: 30px;
+  height:auto;
+}
+
+#profile-header div {
+    float: right;
+    margin-top: 50px;
+    width: 56%;
+}
