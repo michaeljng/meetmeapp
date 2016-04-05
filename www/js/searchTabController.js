@@ -50,6 +50,14 @@ angular.module('meetme.searchTabController', [])
 .controller('UnavailableSearchController', function ($scope, $state, $ionicPopup, $timeout, uuid2, currentUser, ParseService, TimerService) {
 
   $scope.currentUser = currentUser;
+  $scope.data = {};
+  $scope.categoryArray = [
+    {"category":"eat a meal",               "active":false},
+    {"category":"game",                     "active":false},
+    {"category":"attend a gathering",       "active":false},
+    {"category":"play sports",              "active":false},
+    {"category":"grab coffee",              "active":false}];
+  $scope.savedCategoryArray = JSON.parse(JSON.stringify($scope.categoryArray));
 
   $scope.secondsUntil = function(time) {
     return Math.floor((time - moment())/1000);
@@ -58,45 +66,137 @@ angular.module('meetme.searchTabController', [])
   if ($scope.currentUser.isAvailable == true) {
     $state.go('app.logged-in.search-tab.available', {'postId':$scope.currentUser.activePost.objectId,'currentUser':JSON.stringify($scope.currentUser), 'availableSecondsLeft': $scope.secondsUntil(new Date($scope.currentUser.activePost.expiresAt.iso))});
   }
-  
-  $scope.showNewPost = function() {
-    $scope.data = {};
 
+  $scope.noCategoriesChosen = function() {
+    for (i = 0; i < $scope.categoryArray.length; i++) {
+      if($scope.categoryArray[i]["active"] == true) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  $scope.showNewPost = function() {
+    if (!$scope.data.postExpiresAt) {
+      $scope.showPopupWarning("Please set a time for when you are availability until");
+    } else if (!$scope.data.postDescription && $scope.noCategoriesChosen) {
+      $scope.showPopupWarning("Please add at least 1 activitiy");
+    } else {
+      var expiresAt = new Date();
+      expiresAt.setHours($scope.data.postExpiresAt.getHours());
+      expiresAt.setMinutes($scope.data.postExpiresAt.getMinutes());
+
+      if ($scope.secondsUntil(expiresAt) < 0) {
+        expiresAt = moment(expiresAt).add(1,'days');
+      }
+
+      var seconds = $scope.secondsUntil(expiresAt);
+      var description = $scope.stringDescription();
+      $scope.setAvailable(seconds, description);
+    }
+  };
+
+  $scope.editPostTime = function() {
+    if($scope.data.postExpiresAt != null) {
+      var savedTime = $scope.data.postExpiresAt;
+    }
     var myPopup = $ionicPopup.show({
-    template: '</div>When are you available until?<input ng-model="data.postExpiresAt" type="time"> <p/>What do you want to do?<textarea id="description" ng-model="data.postDescription" rows="8"></textarea> <p/><div id="warning-popup-notification"></div>',
-    title: 'Enter Post Info',
-    subTitle: 'This is what is going to be shown to other available users!',
+    template: '<input ng-model="data.postExpiresAt" type="time">',
+    title: 'until when?',
     scope: $scope,
     buttons: [
-    { text: 'Cancel' },
+    { text: 'Cancel',
+      onTap: function(e) {
+        $scope.data.postExpiresAt = savedTime;
+      }
+    },
     {
       text: '<b>Save</b>',
       type: 'button-balanced',
       onTap: function(e) {
         if (!$scope.data.postExpiresAt) {
-            $scope.showPopupWarning("Please set an end time for when your post will expire.");
-            e.preventDefault();
-          } else if (!$scope.data.postDescription) {
-            $scope.showPopupWarning("Please add a short description of what you want to do.");
-            e.preventDefault();
-          } else {
-            var expiresAt = new Date();
-            expiresAt.setHours($scope.data.postExpiresAt.getHours());
-            expiresAt.setMinutes($scope.data.postExpiresAt.getMinutes());
+          $scope.showPopupWarning("Please set a time for when you are availability until");
+          e.preventDefault();
+        } else {
+          var expiresAt = new Date();
+          expiresAt.setHours($scope.data.postExpiresAt.getHours());
+          expiresAt.setMinutes($scope.data.postExpiresAt.getMinutes());
 
-            if ($scope.secondsUntil(expiresAt) < 0) {
-              expiresAt = moment(expiresAt).add(1,'days');
-            }
-
-            var seconds = $scope.secondsUntil(expiresAt);
-            var description = $scope.data.postDescription;
-            $scope.setAvailable(seconds, description);
+          if ($scope.secondsUntil(expiresAt) < 0) {
+            expiresAt = moment(expiresAt).add(1,'days');
           }
+
+          var seconds = $scope.secondsUntil(expiresAt);
+
+          $(".time-container").addClass("completed-container");
+
+          var hours = $scope.data.postExpiresAt.getHours();
+          var minutes = $scope.data.postExpiresAt.getMinutes();
+          var ampm = hours >= 12 ? 'pm' : 'am';
+          hours = hours % 12;
+          hours = hours ? hours : 12;
+          minutes = minutes < 10 ? '0'+minutes : minutes;
+          var strTime = hours + ':' + minutes + ' ' + ampm;
+          $(".time-container span").html("until " + strTime);
         }
+      }
       }
       ]
     });
   };
+
+  $scope.editPostActivity = function() {
+    if($scope.data.postDescription != null) {
+      var savedDescription = $scope.data.postDescription;
+    }
+    var myPopup = $ionicPopup.show({
+    template: '<div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[0][\'active\']}" ng-click="toggleCategory(1)"><i class="ion-fork"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[1][\'active\']}" ng-click="toggleCategory(2)"><i class="ion-ios-game-controller-a"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[2][\'active\']}" ng-click="toggleCategory(3)"><i class="ion-ios-people"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[3][\'active\']}" ng-click="toggleCategory(4)"><i class="ion-ios-basketball"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[4][\'active\']}" ng-click="toggleCategory(5)"><i class="ion-coffee"></i></div><p/><textarea id="description" ng-model="data.postDescription" rows="1" placeholder="other..."></textarea>',
+    title: 'to do what?',
+    scope: $scope,
+    buttons: [
+    { text: 'Cancel',
+      onTap: function(e) {
+        $scope.categoryArray = JSON.parse(JSON.stringify($scope.savedCategoryArray));
+        $scope.data.postDescription = savedDescription;
+      }
+    },
+    {
+      text: '<b>Save</b>',
+      type: 'button-balanced',
+      onTap: function(e) {
+        if ($scope.data.postDescription || !$scope.noCategoriesChosen()) {
+          $scope.savedCategoryArray = JSON.parse(JSON.stringify($scope.categoryArray));
+          $(".activity-container").addClass("completed-container");
+          $(".activity-container span").html("to " + $scope.stringDescription());
+        } else {
+          $scope.showPopupWarning("Please add at least 1 activitiy");
+          e.preventDefault();
+        }
+      }
+      }
+      ]
+    });
+  };
+
+  $scope.stringDescription = function() {
+    var finalString = "";
+    for (i = 0; i < $scope.categoryArray.length; i++) {
+      if($scope.categoryArray[i]["active"] == true) {
+        finalString = finalString + $scope.categoryArray[i]["category"] + ", ";
+      }
+    }
+    if ($scope.data.postDescription == null || $scope.data.postDescription.length === 0) {
+      finalString = finalString.slice(0, -2);
+      var customDescription = "";
+    } else {
+      var customDescription = $scope.data.postDescription;
+    }
+    return finalString + customDescription;
+  }
+
+  $scope.toggleCategory = function(category) {
+    $scope.categoryArray[category-1]["active"] = !$scope.categoryArray[category-1]["active"];
+  }
 
   $scope.showPopupWarning = function(content) {
     $('#warning-popup-notification').html(content);

@@ -1,5 +1,9 @@
 <ion-view title="unavailable-search">
 
-	<button class="available-button" ng-click="showNewPost()">I'm Available</button>
+  <div id="warning-popup-notification"></div>
+  <div class="edit-post-title">are you available now?</div>
+	<button class="edit-post-button time-container" ng-click="editPostTime()"><i class="ion-ios-clock-outline"></i><br/><span>until when?</span></button>
+  <button class="edit-post-button activity-container" ng-click="editPostActivity()"><i class="ion-compose"></i><br/><span>to do what?</span></button>
+  <button class="find-button" ng-click="showNewPost()"><i class="ion-arrow-right-c"></i><br/>find people</button>
 
 </ion-view>
