@@ -52,6 +52,10 @@
   .tab-item {
     .icon {
       color: $white;
+      @include display(flex);
+      @include justify-content(center);
+      @include align-items(center);
+      height: 100%;
     }
   }
 }

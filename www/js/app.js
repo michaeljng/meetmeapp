@@ -80,6 +80,14 @@ angular.module('meetme', ['ionic',
 
       })
 
+
+// iOS style bottom nav for both platforms.
+.config(function($ionicConfigProvider) {
+  $ionicConfigProvider.tabs.position("bottom");
+  $ionicConfigProvider.tabs.style("standard");
+})
+
+
 .controller('ApplicationController', function ($scope, $interval) {
 
   $scope.applicationName = 'QuiikMeet'
