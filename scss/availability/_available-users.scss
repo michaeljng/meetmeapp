@@ -37,6 +37,7 @@
 			}
 			.wants-to {
 				margin-bottom: 10px;
+				color: $text-secondary;
 			}
 			.details {
 				@include display(flex);

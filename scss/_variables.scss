@@ -12,10 +12,11 @@ $white: #fff;
 $lighter-gray: #f4f4f4;
 $light-gray: #e8e8e8;
 $gray: #ccc;
-$dark-gray: #4f4f4f;
+$dark-gray: #999;
+$darker-gray: #4f4f4f;
 
-$text-color: $dark-gray;
-$text-secondary: $gray;
+$text-color: $darker-gray;
+$text-secondary: $dark-gray;
 
 // Font Sizes
 $fs-h1: 24px;

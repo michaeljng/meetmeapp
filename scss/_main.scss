@@ -5,8 +5,12 @@
 .container {
   padding: 20px;
   color: $text-color;
+  font-size: $fs-body;
   line-height: 1.5;
   //font-weight: 300;
+  &.no-padding {
+    padding: 0;
+  }
 }
 
 .has-header {
