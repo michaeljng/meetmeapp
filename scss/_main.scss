@@ -26,6 +26,36 @@
   }
 }
 
+.top-bar {
+  background: $primary-color;
+  position: absolute;
+  z-index: 9;
+  width: 100%;
+  height: $bar-height;
+  @include display(flex);
+  @include justify-content(center);
+  @include align-items(center);
+  .logo {
+    width: 140px;
+  }
+  .time-remaining {
+    color: $white;
+    font-weight: 700;
+    font-size: $fs-h2;
+  }
+}
+
+.tabs {
+  border: none;
+  background: $green;
+  height: $bar-height;
+  .tab-item {
+    .icon {
+      color: $white;
+    }
+  }
+}
+
 h1 {
   font-size: $fs-h1;
 }
@@ -89,25 +119,6 @@ a, a:hover, a:active, a:visited, a:focus {
     &:active {
       background: $light-gray;
     }
-  }
-}
-
-.top-bar {
-  background: $primary-color;
-  position: absolute;
-  z-index: 9;
-  width: 100%;
-  height: $bar-height;
-  @include display(flex);
-  @include justify-content(center);
-  @include align-items(center);
-  .logo {
-    width: 140px;
-  }
-  .time-remaining {
-    color: $white;
-    font-weight: 700;
-    font-size: $fs-h2;
   }
 }
 

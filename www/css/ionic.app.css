@@ -9088,6 +9088,43 @@ a.button {
   .has-footer.has-info-bottom {
     bottom: 100px; }
 
+.top-bar {
+  background: #37c88f;
+  position: absolute;
+  z-index: 9;
+  width: 100%;
+  height: 50px;
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center; }
+  .top-bar .logo {
+    width: 140px; }
+  .top-bar .time-remaining {
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px; }
+
+.tabs {
+  border: none;
+  background: #37c88f;
+  height: 50px; }
+  .tabs .tab-item .icon {
+    color: #fff; }
+
 h1 {
   font-size: 24px; }
 
@@ -9159,36 +9196,6 @@ a, a:hover, a:active, a:visited, a:focus {
     color: #4f4f4f; }
     .btn.secondary:active {
       background: #e8e8e8; }
-
-.top-bar {
-  background: #37c88f;
-  position: absolute;
-  z-index: 9;
-  width: 100%;
-  height: 50px;
-  display: -webkit-box;
-  display: -moz-box;
-  display: box;
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  -moz-justify-content: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  -moz-align-items: center;
-  align-items: center; }
-  .top-bar .logo {
-    width: 140px; }
-  .top-bar .time-remaining {
-    color: #fff;
-    font-weight: 700;
-    font-size: 20px; }
 
 .fb-login-outer {
   display: -webkit-box;

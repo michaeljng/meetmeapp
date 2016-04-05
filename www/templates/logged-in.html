@@ -2,25 +2,29 @@
 	<div class="inviter"></div>
 	<div class="invite-time">Invitation ends in {{secondsLeft}} seconds.</div>
 	<div class="invite-options">
-		<button class="button button-stable invite-button" id="sub-no" ng-click="declineInvitation(interactingWithUser.objectId)">No, thanks.</button>
-		<button class="button button-balanced invite-button" id="sub-yes" ng-click="acceptInvitation()">Let's meet up!</button>
+		<button class="button button-stable invite-button" id="sub-no" ng-click="declineInvitation(interactingWithUser.objectId)">
+      No, thanks.
+    </button>
+		<button class="button button-balanced invite-button" id="sub-yes" ng-click="acceptInvitation()">
+      Let's meet up!
+    </button>
 	</div>
 </div>
 
 <div ui-view>
 </div>
 
-<ion-tabs class="tabs-balanced tabs-color-light tabs-icon-top">
+<ion-tabs class="bottom-nav">
 
-  <ion-tab title="Search" icon-on="ion-search" icon-off="ion-search" href="#/app/logged-in/search-tab/unavailable">
+  <ion-tab title="" icon-on="ion-search" icon-off="ion-search" href="#/app/logged-in/search-tab/unavailable">
     Search
   </ion-tab>
 
-  <ion-tab title="Chat" icon-on="ion-chatbubbles" icon-off="ion-chatbubbles" href="#/app/logged-in/chat-tab/chats-list">
+  <ion-tab title="" icon-on="ion-chatbubbles" icon-off="ion-chatbubbles" href="#/app/logged-in/chat-tab/chats-list">
     Chat
   </ion-tab>
 
-  <ion-tab title="Profile" icon-on="ion-person" icon-off="ion-person" href="#/app/logged-in/user-tab/user-detail/{{currentUser.objectId}}">
+  <ion-tab title="" icon-on="ion-person" icon-off="ion-person" href="#/app/logged-in/user-tab/user-detail/{{currentUser.objectId}}">
     Profile
   </ion-tab>
 
