@@ -1,11 +1,17 @@
 <ion-view title="chat-log">
-	<ion-content class="has-header has-footer">
+	<ion-content class="has-header has-footer chat-container container">
     <div class="extended-all" ng-show="pageExtended"></div>
 		<ion-list ng-repeat="chat in chats">
-			<a class="item item-thumbnail-left" href="#/app/logged-in/chat-tab/chat-log/{{chat.objectId}}/{{currentUser.objectId}}/{{chat.otherUser.objectId}}">
-				<img src="http://graph.facebook.com/{{chat.otherUser.facebookId}}/picture?width=270&height=270"/>
-				<h2>{{chat.otherUser.facebookName}}</h2>
-				<p>{{chat.lastChatText}}</p>
+			<a class="chat-list-item" href="#/app/logged-in/chat-tab/chat-log/{{chat.objectId}}/{{currentUser.objectId}}/{{chat.otherUser.objectId}}">
+				<img class="user-img" src="http://graph.facebook.com/{{chat.otherUser.facebookId}}/picture?width=270&height=270"/>
+
+				<div class="chat-list-item-inner">
+					<div class="username">{{chat.otherUser.facebookName}}</div>
+				
+					<!-- If you said the last thing, it should say "You: ..." -->
+					<div class="last-said">{{chat.lastChatText}}</div>
+				</div>
+
 			</a>
 		</ion-list>
 	</ion-content>

@@ -10,11 +10,12 @@
     <div class="extended-inv" ng-show="pageExtended"></div>
     <div class="extended-opt"></div>
     <ion-list>
-      <ion-item class="text-center">
+      <ion-item id="profile-header">
         <img src="http://graph.facebook.com/{{displayUser.facebookId}}/picture?width=300&height=300"/>
-      </ion-item>
-      <ion-item>
-        <h1>{{displayUser.facebookName}}</h1>
+        <div>
+          <h1>{{displayUser.facebookName}}</h1>
+        </div>
+       
       </ion-item>
       <ion-item>
         Nickname: <br/><input id="nickName" class="editable-field" ng-model="displayUser.nickName" ng-hide="!editable"><span ng-hide="editable">{{displayUser.nickName}}</span>

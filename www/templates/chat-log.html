@@ -1,24 +1,32 @@
-<ion-view title="chat-log" class="wrapper">
-	<div class="bar bar-subheader" id="chat-info">
-    {{otherUser.facebookName}}
-  </div>
-  <ion-content scroll="true" class="has-header has-footer">
-    <div class="extended-all" ng-show="pageExtended"></div>
-    <div id="chat-output">
-      <div class="empty-chat" ng-show="!chatMessages.length">This chat log is empty. Start the conversation!</div>
-      <ion-list ng-repeat="chatMessage in chatMessages" my-repeat-directive>
-        <div class="{{chatStyle(chatMessage.fromUser.objectId)}}">
-          <img src="http://graph.facebook.com/{{otherUser.facebookId}}/picture?width=80&height=80"/>
-          <div class="triangle-left"></div><p class="chat-text">{{chatMessage.message}}<div class="triangle-right"></div>
-        </div>
-      </ion-list>
-    </div>
-  </ion-content>
+<ion-view title="chat-log" class="wrapper container chat-container">
+	<div class="info-bar" id="chat-info">
+		<div class="username">{{otherUser.facebookName}}</div>
 
-  <div class="bar bar-footer" style="height:100px">
-    <div style="height:60px">
-      <input id="chat-input"></input>
-      <button ng-click="sendMessage()">Send</button>
-    </div>
-  </div>
+		<!-- Need dynamic data here -->
+		<div class="met-when">Met on 4/6</div>
+	</div>
+
+	<ion-content scroll="true" class="has-header has-footer has-info-top has-info-bottom">
+		<div class="extended-all" ng-show="pageExtended"></div>
+		<div class="chat-output" id="chat-output">
+			<div class="empty-chat" ng-show="!chatMessages.length">
+				Send a message to get a conversation started!
+			</div>
+			<ion-list ng-repeat="chatMessage in chatMessages" my-repeat-directive>
+				<div class="{{chatStyle(chatMessage.fromUser.objectId)}}">
+					<img src="http://graph.facebook.com/{{otherUser.facebookId}}/picture?width=80&height=80"/>
+					<div class="chat-text">
+						{{chatMessage.message}}
+					</div>
+				</div>
+			</ion-list>
+		</div>
+	</ion-content>
+
+	<div class="chat-input-bar">
+		<input placeholder="Send a message." class="chat-input" id="chat-input"></input>
+		<button class="btn" ng-click="sendMessage()">
+			<i class="icon ion-android-send"></i>
+		</button>
+	</div>
 </ion-view>
