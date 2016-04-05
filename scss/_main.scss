@@ -1,6 +1,9 @@
 *, *:before, *:after {
   @include transition(all 0.3s ease-in-out);
 }
+.scroll{
+  @include transition(none);
+}
 
 .container {
   padding: 20px;
@@ -280,8 +283,13 @@ a, a:hover, a:active, a:visited, a:focus {
 
 }
 #profile-header img{
-  width:120px;
+  width:35%;
+  margin-top: 30px;
   height:auto;
 }
 
-
+#profile-header div {
+    float: right;
+    margin-top: 50px;
+    width: 56%;
+}

@@ -9070,6 +9070,10 @@ a.button {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out; }
 
+.scroll {
+  -webkit-transition: none;
+  transition: none; }
+
 .container {
   padding: 20px;
   color: #4f4f4f;
@@ -9348,8 +9352,14 @@ a, a:hover, a:active, a:visited, a:focus {
 ****PROFILE STUFF*****
 **********************/
 #profile-header img {
-  width: 120px;
+  width: 35%;
+  margin-top: 30px;
   height: auto; }
+
+#profile-header div {
+  float: right;
+  margin-top: 50px;
+  width: 56%; }
 
 .chat-container.container {
   padding: 20px 0; }
