@@ -2,7 +2,7 @@
 	<ion-content class="has-header has-footer container available-users">
 		<div class="extended-all" ng-show="pageExtended"></div>
 
-		<h1 class="title">available users</h1>
+		<h1 class="title">Available Users</h1>
 
 		<ion-list ng-repeat="matchedUser in matchedUsers">
 			<a class="user-card" href="#/app/logged-in/user-tab/user-detail/{{matchedUser.objectId}}">
@@ -14,10 +14,10 @@
 					<div class="wants-to">Interested in {{matchedUser.activePost.description}}</div>
 					<div class="details">
 						<div class="distance">
-							<i class="icon ion-ios-location"></i> {{matchedUser.searchDistance}} mi
+							<i class="icon ion-android-pin"></i> {{matchedUser.searchDistance}} mi
 						</div>
 						<div class="time-available">
-							<i class="icon ion-ios-stopwatch"></i> {{matchedUser.minutesLeftAvailable}}
+							<i class="icon ion-android-stopwatch"></i> {{matchedUser.minutesLeftAvailable}}
 						</div>
 					</div>
 				</div>
