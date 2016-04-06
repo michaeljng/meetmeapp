@@ -89,12 +89,12 @@
 				display: none;
 			}
 			.chat-text {
-				background: $green;
+				background: $primary-color;
 				border-radius: 15px 15px 0 15px;
 				color: $white;
 				&:after {
 					border-width: 10px 0 0 10px;
-					border-color: transparent transparent transparent $green;
+					border-color: transparent transparent transparent $primary-color;
 					bottom: 0px;
 					right: -10px;
 				}
@@ -155,7 +155,7 @@
 			width: 50px;
 			height: 100%;
 			padding: 0;
-			color: $green;
+			color: $primary-color;
 			background: none;
 			&:active {
 				@include transform(translateX(50%));
