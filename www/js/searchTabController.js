@@ -79,7 +79,7 @@ angular.module('meetme.searchTabController', [])
   $scope.showNewPost = function() {
     if (!$scope.data.postExpiresAt) {
       $scope.showPopupWarning("Please set a time for when you are availability until");
-    } else if (!$scope.data.postDescription && $scope.noCategoriesChosen) {
+    } else if (!$scope.data.postDescription && $scope.noCategoriesChosen()) {
       $scope.showPopupWarning("Please add at least 1 activitiy");
     } else {
       var expiresAt = new Date();
