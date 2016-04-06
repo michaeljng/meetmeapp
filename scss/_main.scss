@@ -5,6 +5,10 @@
   @include transition(none);
 }
 
+.available-users .ng-animate {
+  transition: none; keyframe:0s none;
+}
+
 .container {
   padding: 20px;
   color: $text-color;
