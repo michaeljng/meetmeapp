@@ -1,5 +1,7 @@
 <div class="top-bar">
-	<button ng-show="showBack" ng-click="back()">Back</button>
+	<div class="back-button" ng-show="showBack" ng-click="back()">
+		<i class="icon ion-android-arrow-back"></i>
+	</div>
 	<div class="time-remaining" ng-show="!showLogo">
 		<i class="icon ion-ios-stopwatch"></i>
 		{{headerText}}
