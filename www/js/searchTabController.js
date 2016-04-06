@@ -268,7 +268,7 @@ angular.module('meetme.searchTabController', [])
 
   var reloadInterval = $interval(function() {
     $scope.reload();
-  }, 15000);
+  }, 5000);
 
   $scope.$on("$destroy", function (event) {
     if ( reloadInterval ) {
