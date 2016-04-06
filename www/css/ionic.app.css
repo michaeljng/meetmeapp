@@ -9656,8 +9656,7 @@ a, a:hover, a:active, a:visited, a:focus {
     font-size: 16px;
     margin: 0; }
   .available-users .user-card .card-right .wants-to {
-    margin-bottom: 10px;
-    color: #999; }
+    margin-bottom: 10px; }
   .available-users .user-card .card-right .details {
     display: -webkit-box;
     display: -moz-box;
@@ -9675,7 +9674,6 @@ a, a:hover, a:active, a:visited, a:focus {
     .available-users .user-card .card-right .details .distance {
       margin-right: 15px; }
 
-<<<<<<< HEAD
 .post-button {
   height: calc(25vh - 25px);
   width: 100%;
@@ -9695,34 +9693,6 @@ a, a:hover, a:active, a:visited, a:focus {
 .find-button {
   background-color: #3794c8;
   color: #FFF; }
-=======
-.edit-post-title {
-  align-items: center;
-  background-color: #3794c8;
-  color: #FFF;
-  display: flex;
-  font-size: 18px;
-  justify-content: center;
-  margin-top: 50px;
-  height: 20%;
-  width: 100%; }
-
-.edit-post-button {
-  border: none;
-  display: block;
-  font-size: 18px;
-  height: 20%;
-  width: 100%; }
-
-.find-button {
-  background-color: #d76646;
-  border: none;
-  color: #FFF;
-  display: block;
-  font-size: 18px;
-  height: 20%;
-  width: 100%; }
->>>>>>> b7480d681fa25657b67cab95b5eb18986a7a63d7
 
 .clickable-category {
   border: 2px solid;
