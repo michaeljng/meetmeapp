@@ -227,7 +227,7 @@ angular.module('meetme.searchTabController', [])
 })
 
 
-.controller('AvailableSearchController', function ($scope, $state, $interval, $stateParams, ParseService, PubNubService) {
+.controller('AvailableSearchController', function ($scope, $state, $interval, $stateParams, ParseService, PubNubService, LocationService) {
 
   $scope.matchedUsers = [];
   $scope.currentUser = JSON.parse($stateParams.currentUser);
@@ -239,7 +239,15 @@ angular.module('meetme.searchTabController', [])
         $scope.matchedUsers = results;
         for (userIdx in $scope.matchedUsers) {
           var postExpiresAt = new Date($scope.matchedUsers[userIdx].activePost.expiresAt.iso);
-          $scope.matchedUsers[userIdx].minutesLeftAvailable = Math.floor((postExpiresAt - moment())/60000);
+          var totalMinutes = Math.floor((postExpiresAt - moment())/60000);
+          var computedHours = Math.floor(totalMinutes / 60);
+          var computedMinutes = totalMinutes % 60;
+          $scope.matchedUsers[userIdx].minutesLeftAvailable = computedHours + "hr " + computedMinutes + "min";
+          var distance = LocationService.milesBetween($scope.currentUser.userLocation.latitude, $scope.currentUser.userLocation.longitude,
+                                                $scope.matchedUsers[userIdx].userLocation.latitude, $scope.matchedUsers[userIdx].userLocation.longitude);
+          // Remove decimals
+          distance = distance.toFixed(1);
+          $scope.matchedUsers[userIdx].searchDistance = distance;
         }
     });
     ParseService.getById('Users', $scope.currentUser.objectId, function(user) {
@@ -257,7 +265,7 @@ angular.module('meetme.searchTabController', [])
 
   var reloadInterval = $interval(function() {
     $scope.reload();
-  }, 5000);
+  }, 15000);
 
   $scope.$on("$destroy", function (event) {
     if ( reloadInterval ) {
