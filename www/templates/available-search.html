@@ -11,7 +11,10 @@
 				</div>
 				<div class="card-right">
 					<h2>{{matchedUser.facebookName}}</h2>
-					<div class="wants-to">Interested in {{matchedUser.activePost.description}}</div>
+					<div class="wants-to">
+						<img class="icon-ii" src="../img/ii.svg" />
+						{{matchedUser.activePost.description}}
+					</div>
 					<div class="details">
 						<div class="distance">
 							<i class="icon ion-android-pin"></i> {{matchedUser.searchDistance}} mi
