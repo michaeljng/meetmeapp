@@ -95,6 +95,8 @@ angular.module('meetme', ['ionic',
   $scope.timer = null;
   $scope.headerText = "";
   $scope.showLogo = true;
+  $scope.showBack = false;
+  $scope.backBlock = null;
 
   $scope.clearTimer = function() {
     $interval.cancel($scope.timer);
@@ -134,6 +136,23 @@ angular.module('meetme', ['ionic',
     $scope.headerText = "";
     $scope.showLogo = true;
     $scope.clearTimer();
+  }
+
+  $scope.showBackButton = function(args,block) {
+    $scope.backBlock = function () {
+       block.apply(this,args);
+    }
+    $scope.showBack = true;
+  }
+
+  $scope.hideBackButton = function() {
+    $scope.backBlock = null;
+    $scope.showBack = false;
+  }
+
+  $scope.back = function() {
+    $scope.backBlock();
+    $scope.hideBackButton();
   }
 
   $scope.showTitle();

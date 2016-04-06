@@ -49,6 +49,7 @@ angular.module('meetme.userTabController', [])
 
   if ($scope.currentUser.objectId == $scope.displayUser.objectId) {
     $scope.editable = true;
+    $scope.$parent.$parent.$parent.hideBackButton();
   } else {
     // Calculate distance between the current user and the display user
     if ($scope.currentUser.userLocation != null && $scope.displayUser.userLocation != null) {

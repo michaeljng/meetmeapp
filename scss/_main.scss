@@ -38,6 +38,22 @@
   @include display(flex);
   @include justify-content(center);
   @include align-items(center);
+  .back-button {
+    @include display(flex);
+    @include justify-content(center);
+    @include align-items(center);
+    position: absolute;
+    cursor: pointer;
+    height: 100%;
+    left: 0;
+    padding: 0 20px;
+    color: $white;
+    font-size: $fs-h1;
+    &:active {
+      //Make this translate eventually
+      @include transform(scale(0.8));
+    }
+  }
   .logo {
     width: 140px;
   }
@@ -275,9 +291,9 @@ a, a:hover, a:active, a:visited, a:focus {
 }
 
 #profile-header div {
-    float: right;
-    margin-top: 50px;
-    width: 56%;
+  float: right;
+  margin-top: 50px;
+  width: 56%;
 }
 .edit-post-title {
   align-items: center;
