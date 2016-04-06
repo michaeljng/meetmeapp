@@ -5,7 +5,7 @@
 		<h1 class="title">available users</h1>
 
 		<ion-list ng-repeat="matchedUser in matchedUsers">
-			<a class="user-card" href="#/app/logged-in/user-tab/user-detail/{{matchedUser.objectId}}">
+			<a class="user-card" ng-click="tapUser(matchedUser.objectId)">
 				<div class="card-left">
 					<img class="profile-picture" src="http://graph.facebook.com/{{matchedUser.facebookId}}/picture?width=270&height=270"/>
 				</div>

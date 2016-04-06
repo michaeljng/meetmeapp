@@ -35,10 +35,12 @@ angular.module('meetme.chatTabController', [])
   $urlRouterProvider.otherwise('/app/home');
 })
 
-.controller('ChatListController', function ($scope, currentUser, ParseService, PubNubService) {
+.controller('ChatListController', function ($scope, $state, currentUser, ParseService, PubNubService) {
 
   $scope.currentUser = currentUser;
   $scope.chats = [];
+
+  $scope.$parent.$parent.$parent.hideBackButton();
 
   $scope.getOtherUserInChat = function(chat) {
     if (chat.user1.objectId == $scope.currentUser.objectId) {
@@ -56,6 +58,13 @@ angular.module('meetme.chatTabController', [])
         return chat;
       }
     }
+  }
+
+  $scope.tapChat = function(chat) {
+    $state.go('app.logged-in.chat-tab.chat-log', {'chatId':chat.objectId,'currentUserId':$scope.currentUser.objectId, 'otherUserId': chat.otherUser.objectId});
+    $scope.$parent.$parent.$parent.showBackButton([],function() {
+      $state.go('app.logged-in.chat-tab.chats-list');
+    });
   }
 
   ParseService.getWithInclude("Chats",{"$or":[{"user1"   : {"__type":"Pointer",

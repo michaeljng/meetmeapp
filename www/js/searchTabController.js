@@ -26,7 +26,7 @@ angular.module('meetme.searchTabController', [])
         })
 
         .state('app.logged-in.search-tab.available', {
-          url: '/available/:postId?currentUser&availableSecondsLeft',
+          url: '/available/:activePost?currentUser&availableSecondsLeft',
           templateUrl: 'templates/available-search.html',
           controller: 'AvailableSearchController'
         })
@@ -59,12 +59,14 @@ angular.module('meetme.searchTabController', [])
     {"category":"grab coffee",              "active":false}];
   $scope.savedCategoryArray = JSON.parse(JSON.stringify($scope.categoryArray));
 
+  $scope.$parent.$parent.$parent.hideBackButton();
+
   $scope.secondsUntil = function(time) {
     return Math.floor((time - moment())/1000);
   }
 
   if ($scope.currentUser.isAvailable == true) {
-    $state.go('app.logged-in.search-tab.available', {'postId':$scope.currentUser.activePost.objectId,'currentUser':JSON.stringify($scope.currentUser), 'availableSecondsLeft': $scope.secondsUntil(new Date($scope.currentUser.activePost.expiresAt.iso))});
+    $state.go('app.logged-in.search-tab.available', {'activePost':JSON.stringify($scope.currentUser.activePost), 'currentUser':JSON.stringify($scope.currentUser), 'availableSecondsLeft': $scope.secondsUntil(new Date($scope.currentUser.activePost.expiresAt.iso))});
   }
 
   $scope.noCategoriesChosen = function() {
@@ -221,7 +223,7 @@ angular.module('meetme.searchTabController', [])
           $scope.$parent.$parent.availabilityTimerId = timerId;
           TimerService.setAvailabilityTimer(postSeconds,currentUser.objectId,timerId,response.objectId);
 
-          $state.go('app.logged-in.search-tab.available', {'postId':response.objectId, 'currentUser':JSON.stringify($scope.currentUser), 'availableSecondsLeft':postSeconds});
+          $state.go('app.logged-in.search-tab.available', {'activePost':JSON.stringify(response), 'currentUser':JSON.stringify($scope.currentUser), 'availableSecondsLeft':postSeconds});
         });
 	}
 })
@@ -231,6 +233,7 @@ angular.module('meetme.searchTabController', [])
 
   $scope.matchedUsers = [];
   $scope.currentUser = JSON.parse($stateParams.currentUser);
+  $scope.activePost = JSON.parse($stateParams.activePost);
   console.log(JSON.stringify($stateParams, null, 2));
   $scope.$parent.$parent.$parent.setAvailableTimer($stateParams.availableSecondsLeft);
 
@@ -265,8 +268,15 @@ angular.module('meetme.searchTabController', [])
     }
   });
 
+  $scope.tapUser = function(userId) {
+    $state.go('app.logged-in.user-tab.user-detail', {'displayUserId': userId});
+    $scope.$parent.$parent.$parent.showBackButton([JSON.stringify($scope.activePost),JSON.stringify($scope.currentUser)], function(activePost, currentUser) {
+      $state.go('app.logged-in.search-tab.available', {'activePost':activePost,'currentUser':currentUser, 'availableSecondsLeft': $scope.availableSecondsLeft});
+    });
+  }
+
   $scope.setUnavailable = function() {
-    ParseService.update('Posts', $stateParams.postId, {"status":'I'}, function(response){
+    ParseService.update('Posts', $scope.activePost.objectId, {"status":'I'}, function(response){
         $scope.$parent.$parent.availabilityTimerId = null;
         $scope.$parent.$parent.$parent.showTitle();
         $state.go('app.logged-in.search-tab.unavailable');
