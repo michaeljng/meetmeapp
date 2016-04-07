@@ -9476,6 +9476,7 @@ a, a:hover, a:active, a:visited, a:focus {
   width: 100%;
   height: 50px;
   background: #f4f4f4;
+  color: #4f4f4f;
   border-bottom: 1px solid #e8e8e8;
   z-index: 9;
   font-size: 16px;
@@ -9760,11 +9761,6 @@ a, a:hover, a:active, a:visited, a:focus {
   justify-content: center;
   margin-top: 50px;
   border: none; }
-
-.find-button {
-  background-color: #3794c8;
-  border: none;
-  color: #FFF; }
 
 .clickable-category {
   border: 2px solid;
