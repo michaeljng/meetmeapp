@@ -9198,6 +9198,48 @@ a, a:hover, a:active, a:visited, a:focus {
   text-decoration: none;
   color: #4f4f4f; }
 
+.popup-container {
+  background: rgba(0, 0, 0, 0.5); }
+  .popup-container .popup {
+    width: 80%;
+    color: #4f4f4f;
+    padding: 30px;
+    background: #e8e8e8; }
+    .popup-container .popup .popup-head {
+      padding: 0;
+      margin: 0;
+      text-align: left;
+      border: none; }
+      .popup-container .popup .popup-head .popup-title {
+        text-transform: lowercase;
+        font-size: 20px;
+        font-weight: 700;
+        color: #4f4f4f; }
+    .popup-container .popup .popup-body {
+      font-size: 20px;
+      line-height: 1.5;
+      padding: 0;
+      margin: 30px 0 30px 0; }
+    .popup-container .popup .popup-buttons {
+      padding: 10px 0; }
+      .popup-container .popup .popup-buttons .button {
+        text-transform: lowercase;
+        border: none;
+        border-radius: 5px;
+        margin-right: 10px; }
+        .popup-container .popup .popup-buttons .button:last-child {
+          margin-right: 0; }
+        .popup-container .popup .popup-buttons .button:active {
+          box-shadow: none; }
+        .popup-container .popup .popup-buttons .button.button-default {
+          background: #fff; }
+          .popup-container .popup .popup-buttons .button.button-default:active {
+            background: #ccc; }
+        .popup-container .popup .popup-buttons .button.button-balanced {
+          background: #37c88f; }
+          .popup-container .popup .popup-buttons .button.button-balanced:active {
+            background: #2ca072; }
+
 .icon-ii {
   width: 14px;
   height: 14px;
@@ -9329,11 +9371,6 @@ a, a:hover, a:active, a:visited, a:focus {
 .editable-field {
   background-color: #EEE;
   border: none; }
-
-.empty-chat {
-  color: #666;
-  font-style: italic;
-  text-align: center; }
 
 .extended-inv {
   height: 36px; }
@@ -9474,8 +9511,25 @@ a, a:hover, a:active, a:visited, a:focus {
   .chat-container .chat-list-item .chat-list-item-inner .last-said {
     color: #999; }
 
+.chat-container .empty-chat {
+  padding: 20px 0;
+  color: #999;
+  font-style: italic; }
+
 .chat-container .chat-output {
-  padding: 0 20px; }
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column; }
   .chat-container .chat-output .chat-text {
     display: inline-block;
     padding: 10px 15px;
@@ -9706,6 +9760,11 @@ a, a:hover, a:active, a:visited, a:focus {
   justify-content: center;
   margin-top: 50px;
   border: none; }
+
+.find-button {
+  background-color: #3794c8;
+  border: none;
+  color: #FFF; }
 
 .clickable-category {
   border: 2px solid;
