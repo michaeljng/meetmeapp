@@ -9656,8 +9656,7 @@ a, a:hover, a:active, a:visited, a:focus {
     font-size: 16px;
     margin: 0; }
   .available-users .user-card .card-right .wants-to {
-    margin-bottom: 10px;
-    color: #999; }
+    margin-bottom: 10px; }
   .available-users .user-card .card-right .details {
     display: -webkit-box;
     display: -moz-box;
@@ -9696,12 +9695,11 @@ a, a:hover, a:active, a:visited, a:focus {
   color: #FFF;
   display: flex;
   justify-content: center;
-  margin-top: 50px;
-  border: none; }
+
+  margin-top: 50px; }
 
 .find-button {
   background-color: #3794c8;
-  border: none;
   color: #FFF; }
 
 .clickable-category {

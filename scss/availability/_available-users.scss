@@ -37,11 +37,12 @@
 			}
 			.wants-to {
 				margin-bottom: 10px;
-				color: $text-secondary;
+				//color: $text-secondary;
 			}
 			.details {
 				@include display(flex);
 				@include flex-direction(row);
+				//color: $text-secondary;
 				.distance {
 					margin-right: 15px;
 				}
