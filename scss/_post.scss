@@ -1,0 +1,49 @@
+.post-button{
+  height:$post-button-height;
+  width: 100%;
+  border:none;
+  display: block;
+  font-size: 18px;
+  color:$blue;
+  background-color:#FFF;
+  font-weight:700;
+  @include box-sizing(border-box);
+
+  i{
+    font-size:$fs-h1;
+  }
+
+}
+.edit-post-title {
+  align-items: center;
+  background-color: $primary-color;
+  color: #FFF;
+  font-weight:500;
+  display: flex;
+  justify-content: center;
+  margin-top: $bar-height;
+  border:none
+}
+
+.clickable-category {
+  border: 2px solid;
+  display: inline-block;
+  font-size: 30px;
+  margin: 0 3px 10px 3px;
+  padding: 4px;
+  text-align: center;
+  height: 40px;
+  width: 40px;
+}
+.chosen-category {
+  background-color: #333;
+  color: #FFF;
+}
+.completed-container {
+  background-color: #87bfde;
+  color: #FFF;
+  font-weight:500;
+}  
+.cool-icon{
+  fill:#FF0;
+}

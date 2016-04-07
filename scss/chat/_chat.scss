@@ -16,6 +16,7 @@
 		width: 100%;
 		height: $bar-height;
 		background: $lighter-gray;
+		color: $text-color;
 		border-bottom: 1px solid $light-gray;
 		z-index: 9;
 		font-size: $fs-body;
@@ -55,8 +56,15 @@
 		}
 	}
 
+	.empty-chat {
+		padding: 20px 0;
+		color: $text-secondary;
+		font-style: italic;
+	}
+
 	.chat-output {
-		padding: 0 20px;
+		@include display(flex);
+		@include flex-direction(column);
 		.chat-text {
 			display: inline-block;
 			padding: 10px 15px;
