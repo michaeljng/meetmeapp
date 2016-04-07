@@ -1,12 +1,12 @@
-<ion-view title="chat-log" class="wrapper container chat-container">
+<ion-view title="chat-log" class="wrapper chat-container">
 	<div class="info-bar" id="chat-info">
 		<div class="username">{{otherUser.facebookName}}</div>
 
 		<!-- Need dynamic data here -->
-		<div class="met-when">Met on 4/6</div>
+		<!-- <div class="met-when">Met on 4/6</div> -->
 	</div>
 
-	<ion-content scroll="true" class="has-header has-footer has-info-top has-info-bottom">
+	<ion-content scroll="true" class="has-header has-footer has-info-top has-info-bottom container">
 		<div class="extended-all" ng-show="pageExtended"></div>
 		<div class="chat-output" id="chat-output">
 			<div class="empty-chat" ng-show="!chatMessages.length">

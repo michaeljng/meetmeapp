@@ -55,8 +55,15 @@
 		}
 	}
 
+	.empty-chat {
+		padding: 20px 0;
+		color: $text-secondary;
+		font-style: italic;
+	}
+
 	.chat-output {
-		padding: 0 20px;
+		@include display(flex);
+		@include flex-direction(column);
 		.chat-text {
 			display: inline-block;
 			padding: 10px 15px;

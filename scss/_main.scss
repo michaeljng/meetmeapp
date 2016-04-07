@@ -102,6 +102,64 @@ a, a:hover, a:active, a:visited, a:focus {
   color: $text-color;
 }
 
+.popup-container {
+  background: rgba(0,0,0,0.5);
+  &.popup-showing {
+
+  }
+  .popup {
+    width: 80%;
+    color: $text-color;
+    padding: 30px;
+    background: $light-gray;
+    .popup-head {
+      padding: 0;
+      margin: 0;
+      text-align: left;
+      border: none;
+      .popup-title {
+        text-transform: lowercase;
+        font-size: $fs-h2;
+        font-weight: 700;
+        color: $text-color;
+      }
+    }
+    .popup-body {
+      font-size: $fs-h2;
+      line-height: 1.5;
+      padding: 0;
+      margin: 30px 0 30px 0;
+    }
+    .popup-buttons {
+      padding: 10px 0;
+      .button {
+        text-transform: lowercase;
+        border: none;
+        border-radius: 5px;
+        margin-right: 10px;
+        &:last-child {
+          margin-right: 0;
+        }
+        &:active {
+          box-shadow: none;
+        }
+        &.button-default {
+          background: $white;
+          &:active {
+            background: $gray;
+          }
+        }
+        &.button-balanced {
+          background: $primary-color;
+          &:active {
+            background: darken($primary-color, 10%);
+          }
+        }
+      }
+    }
+  }
+}
+
 .icon-ii {
   width: 14px;
   height: 14px;
@@ -230,11 +288,7 @@ a, a:hover, a:active, a:visited, a:focus {
   background-color: #EEE;
   border: none;
 }
-.empty-chat {
-  color: #666;
-  font-style: italic;
-  text-align: center;
-}
+
 .extended-inv {
   height: 36px;
 }
