@@ -198,8 +198,13 @@ angular.module('meetme.services', [])
 
 .factory('ParseService', function ($http, FacebookService) {
 
-	var headers = {	"X-Parse-Application-Id": "EvhQWhNkOQrt9FOkJaEAe3tX5qJDfq7K8NMMnpd8",
-					"X-Parse-REST-API-Key": "GPHw7mJbToX9Tyw7suXilsbkoUoSKN7wpXuTUqJK"}
+	//Standard
+	// var headers = {	"X-Parse-Application-Id": "EvhQWhNkOQrt9FOkJaEAe3tX5qJDfq7K8NMMnpd8",
+	// 				"X-Parse-REST-API-Key": "GPHw7mJbToX9Tyw7suXilsbkoUoSKN7wpXuTUqJK"}
+
+	//Rise
+	var headers = {	"X-Parse-Application-Id": "LmB0uFwS57tbG9O4JYXvMhe1dBOF0Xmnagio1EhV",
+					"X-Parse-REST-API-Key": "7CG6T7BjtYnnCrjoKqaSqsbY8s8ge6fYCp9z81hY"}
 
 	var obj = {};
 

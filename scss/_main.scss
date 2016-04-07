@@ -8,6 +8,10 @@
   color:$primary-color;
 }
 
+.available-users .ng-animate {
+  transition: none; keyframe:0s none;
+}
+
 .container {
   padding: 20px;
   color: $text-color;
