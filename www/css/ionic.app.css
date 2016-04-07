@@ -9074,6 +9074,9 @@ a.button {
   -webkit-transition: none;
   transition: none; }
 
+.green-text {
+  color: #37c88f; }
+
 .container {
   padding: 20px;
   color: #4f4f4f;
@@ -9394,8 +9397,13 @@ a, a:hover, a:active, a:visited, a:focus {
 
 #profile-header div {
   float: right;
-  margin-top: 50px;
+  margin-top: 40px;
   width: 56%; }
+
+#profile-header div .item {
+  padding: 0;
+  margin-top: 5px;
+  border: none; }
 
 .chat-container.container {
   padding: 20px 0; }
@@ -9680,8 +9688,8 @@ a, a:hover, a:active, a:visited, a:focus {
   border: none;
   display: block;
   font-size: 18px;
-  color: #FFF;
-  background-color: #ccc;
+  color: #3794c8;
+  background-color: #FFF;
   font-weight: 700;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -9693,14 +9701,11 @@ a, a:hover, a:active, a:visited, a:focus {
   align-items: center;
   background-color: #37c88f;
   color: #FFF;
+  font-weight: 500;
   display: flex;
   justify-content: center;
-
-  margin-top: 50px; }
-
-.find-button {
-  background-color: #3794c8;
-  color: #FFF; }
+  margin-top: 50px;
+  border: none; }
 
 .clickable-category {
   border: 2px solid;
@@ -9718,7 +9723,8 @@ a, a:hover, a:active, a:visited, a:focus {
 
 .completed-container {
   background-color: #87bfde;
-  color: #FFF; }
+  color: #FFF;
+  font-weight: 500; }
 
 .cool-icon {
   fill: #FF0; }

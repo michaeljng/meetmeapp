@@ -4,8 +4,8 @@
   border:none;
   display: block;
   font-size: 18px;
-  color:#FFF;
-  background-color:$gray;
+  color:$blue;
+  background-color:#FFF;
   font-weight:700;
   @include box-sizing(border-box);
 
@@ -18,19 +18,13 @@
   align-items: center;
   background-color: $primary-color;
   color: #FFF;
+  font-weight:500;
   display: flex;
   justify-content: center;
   margin-top: $bar-height;
   border:none
 }
-.edit-post-button {
-  // border-bottom: 1px #FFF solid;
-}
-.find-button {
-  background-color: $blue;
-  border:none;
-  color: #FFF;
-}
+
 .clickable-category {
   border: 2px solid;
   display: inline-block;
@@ -48,6 +42,7 @@
 .completed-container {
   background-color: #87bfde;
   color: #FFF;
+  font-weight:500;
 }  
 .cool-icon{
   fill:#FF0;

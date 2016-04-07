@@ -4,6 +4,9 @@
 .scroll{
   @include transition(none);
 }
+.green-text{
+  color:$primary-color;
+}
 
 .container {
   padding: 20px;
@@ -298,6 +301,11 @@ a, a:hover, a:active, a:visited, a:focus {
 
 #profile-header div {
   float: right;
-  margin-top: 50px;
+  margin-top: 40px;
   width: 56%;
+}
+#profile-header div .item{
+  padding:0;
+  margin-top:5px;
+  border:none;
 }
