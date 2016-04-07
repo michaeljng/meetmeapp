@@ -9734,7 +9734,14 @@ a, a:hover, a:active, a:visited, a:focus {
   border: none;
   display: block;
   font-size: 18px;
-  background-color: #ccc; }
+  color: #FFF;
+  background-color: #ccc;
+  font-weight: 700;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+  .post-button i {
+    font-size: 24px; }
 
 .edit-post-title {
   align-items: center;
@@ -9742,10 +9749,12 @@ a, a:hover, a:active, a:visited, a:focus {
   color: #FFF;
   display: flex;
   justify-content: center;
-  margin-top: 50px; }
+  margin-top: 50px;
+  border: none; }
 
 .find-button {
   background-color: #3794c8;
+  border: none;
   color: #FFF; }
 
 .clickable-category {
@@ -9765,3 +9774,6 @@ a, a:hover, a:active, a:visited, a:focus {
 .completed-container {
   background-color: #87bfde;
   color: #FFF; }
+
+.cool-icon {
+  fill: #FF0; }
