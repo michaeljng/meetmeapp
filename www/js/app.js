@@ -75,6 +75,12 @@ angular.module('meetme', ['ionic',
           }
         })
 
+        .state('app.onboarding', {
+          url: '/home',
+          templateUrl: 'templates/onboarding.html',
+          controller: 'OnboardingController'
+        })
+
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/app/home');
 
@@ -181,7 +187,7 @@ angular.module('meetme', ['ionic',
           ParseService.get('Users', {"facebookId":user.id}, function(results) {
 
             var finishLogin = function() {
-              $state.go('app.logged-in.search-tab.unavailable', {"userId": $scope.userId});
+              $state.go('app.onboarding');
             }
 
             if (results.length == 0) {
@@ -208,4 +214,10 @@ angular.module('meetme', ['ionic',
     })
   }
 
+})
+
+.controller('OnboardingController', function ($scope, $state, $interval, $stateParams) {
+  $scope.completeOnboarding = function() {
+    $state.go('app.logged-in.search-tab.unavailable', {"userId": $scope.userId});
+  }
 })
