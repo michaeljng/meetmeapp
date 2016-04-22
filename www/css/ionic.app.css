@@ -9087,7 +9087,7 @@ body {
   line-height: 1.5;
   font-weight: 400; }
 
-h1, h2, h3, h4, h5, h6, p, a, input {
+h1, h2, h3, h4, h5, h6, p, a, input, button, select, textarea {
   line-height: 1.5;
   font-weight: 400;
   font-family: "Fira Sans", "Roboto", sans-serif;
@@ -9345,11 +9345,13 @@ a, a:hover, a:active, a:visited, a:focus {
     display: -ms-flexbox;
     display: flex; }
   .fixed-circle:active {
-    -webkit-transform: rotate(45deg);
-    transform: rotate(45deg);
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); }
+    .fixed-circle:active .icon {
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg); }
 
 .btn {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
   border: none;
   text-transform: lowercase;
   background: #0ebb73;
@@ -9435,7 +9437,7 @@ a, a:hover, a:active, a:visited, a:focus {
     pointer-events: all; }
 
 .editable-field {
-  background-color: #EEE;
+  background: #fff;
   border: none; }
 
 .extended-inv {
@@ -9492,21 +9494,6 @@ a, a:hover, a:active, a:visited, a:focus {
 #invite-reminder .title {
   color: #666;
   height: 122px; }
-
-#profile-header img {
-  width: 35%;
-  margin-top: 30px;
-  height: auto; }
-
-#profile-header div {
-  float: right;
-  margin-top: 40px;
-  width: 56%; }
-
-#profile-header div .item {
-  padding: 0;
-  margin-top: 5px;
-  border: none; }
 
 .onboarding-container {
   padding: 75px 30px 100px 30px;
@@ -9876,6 +9863,20 @@ a, a:hover, a:active, a:visited, a:focus {
     flex-direction: row; }
     .available-users .user-card .card-right .details .distance {
       margin-right: 15px; }
+
+.profile-container #profile-header img {
+  width: 35%;
+  margin-top: 30px;
+  height: auto; }
+
+.profile-container #profile-header div {
+  float: right;
+  margin-top: 40px;
+  width: 56%; }
+  .profile-container #profile-header div .item {
+    padding: 0;
+    margin-top: 5px;
+    border: none; }
 
 .post-button {
   height: calc(25vh - 25px);

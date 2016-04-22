@@ -20,7 +20,7 @@ body {
   line-height: 1.5;
   font-weight: $normal;
 }
-h1, h2, h3, h4, h5, h6, p, a, input {
+h1, h2, h3, h4, h5, h6, p, a, input, button, select, textarea {
   line-height: 1.5;
   font-weight: $normal;
   font-family: $font-stack;
@@ -237,12 +237,15 @@ a, a:hover, a:active, a:visited, a:focus {
     @include display(flex);
   }
   &:active {
-    @include transform(rotate(45deg));
     box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    .icon {
+      @include transform(rotate(45deg));
+    }
   }
 }
 
 .btn {
+  @include box-shadow-1();
   border: none;
   text-transform: lowercase;
   background: $primary-color;
@@ -281,7 +284,7 @@ a, a:hover, a:active, a:visited, a:focus {
     bottom: -300px;
     left: 0;
     position: absolute;
-    padding:$padding;
+    padding: $padding;
     h1, h2{
       color:$text-color;
     }
@@ -290,7 +293,7 @@ a, a:hover, a:active, a:visited, a:focus {
       bottom:0;
     }
     .btn{
-      border-top:1px solid $light-gray;
+      border-top: 1px solid $light-gray;
     }
 
 
@@ -337,7 +340,7 @@ a, a:hover, a:active, a:visited, a:focus {
 
 
 .editable-field {
-  background-color: #EEE;
+  background: $white;
   border: none;
 }
 
@@ -395,20 +398,4 @@ a, a:hover, a:active, a:visited, a:focus {
 #invite-reminder .title {
   color: #666;
   height: 122px;
-}
-#profile-header img{
-  width:35%;
-  margin-top: 30px;
-  height:auto;
-}
-
-#profile-header div {
-  float: right;
-  margin-top: 40px;
-  width: 56%;
-}
-#profile-header div .item{
-  padding:0;
-  margin-top:5px;
-  border:none;
 }
