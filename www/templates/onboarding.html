@@ -1,6 +1,32 @@
 <ion-view>
-  <div style="margin-top:45px">
-    <p/>Test Onboarding Page
-    <p/><b><a href="#" ng-click="completeOnboarding()">Continue</a></b>
-  </div>
+<div class="container onboarding-container">
+
+<!-- 	<div class="user-and-nickname">
+		<div class="title">Hey, it's you!</div>
+
+		<div class="profile-picture">
+			<img src="http://placehold.it/500x500" />
+		</div>
+
+		<div class="name-of-user">Erik Spiekermann</div>
+
+		<div class="subtitle">Do you have a nickname?</div>
+		<input placeholder="Enter it here! If not, just press next." class="onboarding-input"></input>
+	</div> -->
+
+	<div class="tell-us-about-yourself">
+		<div class="title">Tell us about yourself.</div>
+
+		<div class="profile-fill-in">
+			<div class="hey-im-x">Hey, I'm <span class="first-name">Erik</span>.</div>
+			<div class="work-school">I work/school at P98a as a type designer.</div>
+		</div>
+	</div>
+
+	<div class="bottom-bar">
+		<button class="btn secondary" ng-click="">back</button>
+		<button class="btn secondary" ng-click="completeOnboarding()">next</button>
+	</div>
+
+</div>
 </ion-view>

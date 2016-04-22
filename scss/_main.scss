@@ -76,7 +76,7 @@
 
 .tabs {
   border: none;
-  background: $green;
+  background: $primary-color;
   height: $bar-height;
   .tab-item {
     .icon {
@@ -107,6 +107,10 @@ h1, h2, p {
 a, a:hover, a:active, a:visited, a:focus {
   text-decoration: none;
   color: $text-color;
+}
+
+.title {
+  font-weight: 700;
 }
 
 .popup-container {
