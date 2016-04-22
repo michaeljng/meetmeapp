@@ -4,12 +4,40 @@
 .scroll{
   @include transition(none);
 }
+
 .green-text{
-  color:$primary-color;
+  color: $primary-color;
 }
 
 .available-users .ng-animate {
-  transition: none; keyframe:0s none;
+  transition: none; 
+  keyframe: 0s none;
+}
+
+body {
+  font-family: $font-stack;
+  color: $text-color;
+  line-height: 1.5;
+  font-weight: $normal;
+}
+h1, h2, h3, h4, h5, h6, p, a, input {
+  line-height: 1.5;
+  font-weight: $normal;
+  font-family: $font-stack;
+  color: $text-color;
+}
+h1 {
+  font-size: $fs-h1;
+}
+h2 {
+  font-size: $fs-h2;
+}
+p {
+  font-size: $fs-body;
+}
+a, a:hover, a:active, a:visited, a:focus {
+  text-decoration: none;
+  color: $text-color;
 }
 
 .container {
@@ -66,7 +94,7 @@
   }
   .time-remaining {
     color: $white;
-    font-weight: 700;
+    font-weight: $bold;
     font-size: $fs-h2;
     .icon {
       margin-right: 5px;
@@ -89,28 +117,9 @@
   }
 }
 
-h1 {
-  font-size: $fs-h1;
-}
-h2 {
-  font-size: $fs-h2;
-}
-p {
-  font-size: $fs-body;
-}
-h1, h2, p {
-  color: $text-color;
-  line-height: 1.5;
-  font-weight: 300;
-}
-
-a, a:hover, a:active, a:visited, a:focus {
-  text-decoration: none;
-  color: $text-color;
-}
 
 .title {
-  font-weight: 700;
+  font-weight: $bold;
 }
 
 .popup-container {
@@ -131,7 +140,7 @@ a, a:hover, a:active, a:visited, a:focus {
       .popup-title {
         text-transform: lowercase;
         font-size: $fs-h2;
-        font-weight: 700;
+        font-weight: $bold;
         color: $text-color;
       }
     }
@@ -163,7 +172,7 @@ a, a:hover, a:active, a:visited, a:focus {
         padding: 10px;
         font-size: $fs-body;
         color: $text-color;
-        font-weight: 700;
+        font-weight: $bold;
       }
     }
     .popup-buttons {
@@ -196,6 +205,10 @@ a, a:hover, a:active, a:visited, a:focus {
   }
 }
 
+.icon {
+  //@include display(flex);
+}
+
 .icon-ii {
   width: 14px;
   height: 14px;
@@ -203,6 +216,7 @@ a, a:hover, a:active, a:visited, a:focus {
 }
 
 .fixed-circle {
+  @include transition(all 0.15s ease-in-out);
   position: fixed;
   bottom: 80px;
   right: 20px;
@@ -219,7 +233,9 @@ a, a:hover, a:active, a:visited, a:focus {
   background: $primary-color;
   color: $white;
   font-size: $fs-h2;
-  @include transition(all 0.15s ease-in-out);
+  .icon {
+    @include display(flex);
+  }
   &:active {
     @include transform(rotate(45deg));
     box-shadow: 0 3px 6px rgba(0,0,0,0.2);
@@ -280,7 +296,7 @@ a, a:hover, a:active, a:visited, a:focus {
 
   }
   h1 {
-    font-weight: 700;
+    font-weight: $bold;
     color: $white;
   }
   h2 {
@@ -288,7 +304,7 @@ a, a:hover, a:active, a:visited, a:focus {
   }
   .btn {
     width: 100%;
-    font-weight: 700;
+    font-weight: $bold;
     background: #FFF;
     left: 0;
     bottom: 0;

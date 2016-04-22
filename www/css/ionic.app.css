@@ -9081,6 +9081,31 @@ a.button {
   transition: none;
   keyframe: 0s none; }
 
+body {
+  font-family: "Fira Sans", "Roboto", sans-serif;
+  color: #4f4f4f;
+  line-height: 1.5;
+  font-weight: 400; }
+
+h1, h2, h3, h4, h5, h6, p, a, input {
+  line-height: 1.5;
+  font-weight: 400;
+  font-family: "Fira Sans", "Roboto", sans-serif;
+  color: #4f4f4f; }
+
+h1 {
+  font-size: 24px; }
+
+h2 {
+  font-size: 20px; }
+
+p {
+  font-size: 16px; }
+
+a, a:hover, a:active, a:visited, a:focus {
+  text-decoration: none;
+  color: #4f4f4f; }
+
 .container {
   padding: 20px;
   color: #4f4f4f;
@@ -9184,24 +9209,6 @@ a.button {
     align-items: center;
     height: 100%; }
 
-h1 {
-  font-size: 24px; }
-
-h2 {
-  font-size: 20px; }
-
-p {
-  font-size: 16px; }
-
-h1, h2, p {
-  color: #4f4f4f;
-  line-height: 1.5;
-  font-weight: 300; }
-
-a, a:hover, a:active, a:visited, a:focus {
-  text-decoration: none;
-  color: #4f4f4f; }
-
 .title {
   font-weight: 700; }
 
@@ -9297,6 +9304,8 @@ a, a:hover, a:active, a:visited, a:focus {
   display: inline-block; }
 
 .fixed-circle {
+  -webkit-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
   position: fixed;
   bottom: 80px;
   right: 20px;
@@ -9326,9 +9335,15 @@ a, a:hover, a:active, a:visited, a:focus {
   text-transform: lowercase;
   background: #0ebb73;
   color: #fff;
-  font-size: 20px;
-  -webkit-transition: all 0.15s ease-in-out;
-  transition: all 0.15s ease-in-out; }
+  font-size: 20px; }
+  .fixed-circle .icon {
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex; }
   .fixed-circle:active {
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
@@ -9524,11 +9539,22 @@ a, a:hover, a:active, a:visited, a:focus {
     border: none;
     border-radius: 5px;
     padding: 10px;
-    width: 100%; }
+    width: 100%;
+    margin: 0; }
   .onboarding-container .user-and-nickname .title {
     text-align: center; }
   .onboarding-container .profile-fill-in {
     font-size: 24px; }
+    .onboarding-container .profile-fill-in .natural-language-input {
+      overflow: hidden; }
+      .onboarding-container .profile-fill-in .natural-language-input input {
+        border: none;
+        border-bottom: 1px solid #fff;
+        background: none;
+        color: #fff;
+        width: auto;
+        font-size: 24px;
+        margin: 0; }
   .onboarding-container .bottom-bar {
     display: -webkit-box;
     display: -moz-box;
@@ -9794,7 +9820,7 @@ a, a:hover, a:active, a:visited, a:focus {
   flex-direction: row;
   background: #f4f4f4;
   border-radius: 3px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
   margin-bottom: 8px;
   padding: 12px; }
   .available-users .user-card:active {
@@ -9858,7 +9884,7 @@ a, a:hover, a:active, a:visited, a:focus {
   display: block;
   font-size: 18px;
   color: #3794c8;
-  background-color: #FFF;
+  background: #fff;
   font-weight: 700;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -9867,12 +9893,26 @@ a, a:hover, a:active, a:visited, a:focus {
     font-size: 24px; }
 
 .edit-post-title {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
   align-items: center;
   background-color: #0ebb73;
-  color: #FFF;
+  color: #fff;
   font-weight: 500;
-  display: flex;
-  justify-content: center;
   margin-top: 50px;
   border: none; }
 
@@ -9888,11 +9928,11 @@ a, a:hover, a:active, a:visited, a:focus {
 
 .chosen-category {
   background-color: #333;
-  color: #FFF; }
+  color: #fff; }
 
 .completed-container {
   background-color: #87bfde;
-  color: #FFF;
+  color: #fff;
   font-weight: 500; }
 
 .cool-icon {

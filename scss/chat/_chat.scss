@@ -22,7 +22,7 @@
 		font-size: $fs-body;
 		padding: 0 20px;
 		.username {
-			font-weight: 700;
+			font-weight: $bold;
 			//@include display(flex);
 		}
 		.met-when {
@@ -48,7 +48,7 @@
 		}
 		.chat-list-item-inner {
 			.username {
-				font-weight: 700;
+				font-weight: $bold;
 			}
 			.last-said {
 				color: $text-secondary;

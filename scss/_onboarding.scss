@@ -28,7 +28,7 @@
 	.name-of-user {
 		font-size: $fs-h2;
 		text-align: center;
-		font-weight: 700;
+		font-weight: $bold;
 		color: $white;
 	}
 	.onboarding-input {
@@ -36,6 +36,7 @@
 		border-radius: 5px;
 		padding: 10px;
 		width: 100%;
+		margin: 0;
 	}
 	.user-and-nickname {
 		.title {
@@ -44,6 +45,19 @@
 	}
 	.profile-fill-in {
 		font-size: $fs-h1;
+		.natural-language-input {
+			overflow: hidden;
+			input {
+				border: none;
+				border-bottom: 1px solid $white;
+				background: none;
+				color: $white;
+				width: auto;
+				font-size: $fs-h1;
+				margin: 0;
+				//overflow: hidden;
+			}
+		}
 	}
 	.bottom-bar {
 		@include display(flex);
@@ -56,7 +70,7 @@
 		height: 100px;
 		.btn {
 			padding: 8px 15px;
-			font-weight: 700;
+			font-weight: $bold;
 			@include box-shadow-1();
 			&.secondary {
 			}
