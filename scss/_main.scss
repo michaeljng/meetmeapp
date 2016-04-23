@@ -1,6 +1,12 @@
 *, *:before, *:after {
   @include transition(all 0.3s ease-in-out);
 }
+
+@include selection {
+  background: $primary-color;
+  color: $white;
+}
+
 .scroll{
   @include transition(none);
 }
