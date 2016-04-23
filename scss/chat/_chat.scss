@@ -118,7 +118,6 @@
 				border-radius: 15px 15px 15px 0;
 				color: $text-color;
 				&:after {
-					border-style: solid;
 					border-width: 0 0 10px 10px;
 					border-color: transparent transparent $light-gray transparent;
 					left: -10px;
@@ -153,6 +152,7 @@
 			@include flex-grow(1);
 			padding: 0 20px;
 			color: $text-color;
+			box-shadow: none;
 		}
 		.btn {
 			@include display(flex);
@@ -165,6 +165,7 @@
 			padding: 0;
 			color: $primary-color;
 			background: none;
+			box-shadow: none;
 			&:active {
 				@include transform(translateX(50%));
 			}

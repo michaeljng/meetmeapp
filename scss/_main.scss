@@ -2,22 +2,17 @@
   @include transition(all 0.3s ease-in-out);
 }
 
-@include selection {
-  background: $primary-color;
-  color: $white;
+.available-users .ng-animate {
+  transition: none; 
+  keyframe: 0s none;
 }
-
 .scroll{
   @include transition(none);
 }
 
-.green-text{
-  color: $primary-color;
-}
-
-.available-users .ng-animate {
-  transition: none; 
-  keyframe: 0s none;
+@include selection {
+  background: $primary-color;
+  color: $white;
 }
 
 body {
@@ -26,7 +21,7 @@ body {
   line-height: 1.5;
   font-weight: $normal;
 }
-h1, h2, h3, h4, h5, h6, p, a, input, button, select, textarea {
+h1, h2, h3, h4, h5, h6, p, a, input, button, form, select, textarea {
   line-height: 1.5;
   font-weight: $normal;
   font-family: $font-stack;
@@ -44,6 +39,9 @@ p {
 a, a:hover, a:active, a:visited, a:focus {
   text-decoration: none;
   color: $text-color;
+}
+form, select, textarea, input {
+  @include box-shadow-1();
 }
 
 .container {
@@ -108,6 +106,10 @@ a, a:hover, a:active, a:visited, a:focus {
   }
 }
 
+.green-text {
+  color: $primary-color;
+}
+
 .tabs {
   border: none;
   background: $primary-color;
@@ -122,7 +124,6 @@ a, a:hover, a:active, a:visited, a:focus {
     }
   }
 }
-
 
 .title {
   font-weight: $bold;
@@ -212,7 +213,7 @@ a, a:hover, a:active, a:visited, a:focus {
 }
 
 .icon {
-  //@include display(flex);
+  @include display(inline-flex);
 }
 
 .icon-ii {
@@ -274,74 +275,7 @@ a, a:hover, a:active, a:visited, a:focus {
 }
 
 
-.fb-login-outer {
-  @include display(flex);
-  @include justify-content(center);
-  @include flex-direction(column);
-  @include flex-grow(1);
-  height: 100vh;
-  background: $primary-color;
-  .fb-login-inner {
 
-  }
-  #fb-login-instructions{
-    background: $white;
-    height: 300px;
-    bottom: -300px;
-    left: 0;
-    position: absolute;
-    padding: $padding;
-    h1, h2{
-      color:$text-color;
-    }
-
-    &.open{
-      bottom:0;
-    }
-    .btn{
-      border-top: 1px solid $light-gray;
-    }
-
-
-  }
-  h1 {
-    font-weight: $bold;
-    color: $white;
-  }
-  h2 {
-    color: $white;
-  }
-  .btn {
-    width: 100%;
-    font-weight: $bold;
-    background: #FFF;
-    left: 0;
-    bottom: 0;
-    color: $text-color;
-    border-radius: 0;
-    position: absolute;
-    &:active {
-      background: $white;
-      color: $primary-color;
-    }
-  }
-}
-.overlay{
-  position:absolute;
-  top:0;
-  bottom:0;
-  left:0;
-  right:0;
-  background: rgba(0,0,0,.8);
-  opacity: 0;
-  pointer-events: none;
-
-  &.open{
-    opacity:1;
-    pointer-events: all;
-  }
-
-}
 
 
 

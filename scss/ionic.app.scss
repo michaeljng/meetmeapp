@@ -9,7 +9,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "www/lib/ionic/scss/ionic";
 
 @import "main";
-@import "onboarding";
+@import "onboarding/onboarding";
 @import "chat/chat";
 @import "availability/available-users";
 @import "profile/profile";

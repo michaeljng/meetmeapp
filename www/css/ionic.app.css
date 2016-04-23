@@ -9070,6 +9070,14 @@ a.button {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out; }
 
+.available-users .ng-animate {
+  transition: none;
+  keyframe: 0s none; }
+
+.scroll {
+  -webkit-transition: none;
+  transition: none; }
+
 ::-moz-selection {
   background: #0ebb73;
   color: #fff; }
@@ -9078,24 +9086,13 @@ a.button {
   background: #0ebb73;
   color: #fff; }
 
-.scroll {
-  -webkit-transition: none;
-  transition: none; }
-
-.green-text {
-  color: #0ebb73; }
-
-.available-users .ng-animate {
-  transition: none;
-  keyframe: 0s none; }
-
 body {
   font-family: "Fira Sans", "Roboto", sans-serif;
   color: #4f4f4f;
   line-height: 1.5;
   font-weight: 400; }
 
-h1, h2, h3, h4, h5, h6, p, a, input, button, select, textarea {
+h1, h2, h3, h4, h5, h6, p, a, input, button, form, select, textarea {
   line-height: 1.5;
   font-weight: 400;
   font-family: "Fira Sans", "Roboto", sans-serif;
@@ -9113,6 +9110,9 @@ p {
 a, a:hover, a:active, a:visited, a:focus {
   text-decoration: none;
   color: #4f4f4f; }
+
+form, select, textarea, input {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2); }
 
 .container {
   padding: 20px;
@@ -9191,6 +9191,9 @@ a, a:hover, a:active, a:visited, a:focus {
     font-size: 20px; }
     .top-bar .time-remaining .icon {
       margin-right: 5px; }
+
+.green-text {
+  color: #0ebb73; }
 
 .tabs {
   border: none;
@@ -9306,6 +9309,15 @@ a, a:hover, a:active, a:visited, a:focus {
           .popup-container .popup .popup-buttons .button.button-balanced:active {
             background: #0a8c56; }
 
+.icon {
+  display: -webkit-inline-box;
+  display: -moz-inline-box;
+  display: inline-box;
+  display: -webkit-inline-flex;
+  display: -moz-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex; }
+
 .icon-ii {
   width: 14px;
   height: 14px;
@@ -9374,75 +9386,6 @@ a, a:hover, a:active, a:visited, a:focus {
     color: #4f4f4f; }
     .btn.secondary:active {
       background: #e8e8e8; }
-
-.fb-login-outer {
-  display: -webkit-box;
-  display: -moz-box;
-  display: box;
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  -moz-justify-content: center;
-  justify-content: center;
-  -webkit-box-direction: normal;
-  -webkit-box-orient: vertical;
-  -webkit-flex-direction: column;
-  -moz-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-flex-grow: 1;
-  -moz-flex-grow: 1;
-  flex-grow: 1;
-  -ms-flex-positive: 1;
-  height: 100vh;
-  background: #0ebb73; }
-  .fb-login-outer #fb-login-instructions {
-    background: #fff;
-    height: 300px;
-    bottom: -300px;
-    left: 0;
-    position: absolute;
-    padding: 30px; }
-    .fb-login-outer #fb-login-instructions h1, .fb-login-outer #fb-login-instructions h2 {
-      color: #4f4f4f; }
-    .fb-login-outer #fb-login-instructions.open {
-      bottom: 0; }
-    .fb-login-outer #fb-login-instructions .btn {
-      border-top: 1px solid #e8e8e8; }
-  .fb-login-outer h1 {
-    font-weight: 700;
-    color: #fff; }
-  .fb-login-outer h2 {
-    color: #fff; }
-  .fb-login-outer .btn {
-    width: 100%;
-    font-weight: 700;
-    background: #FFF;
-    left: 0;
-    bottom: 0;
-    color: #4f4f4f;
-    border-radius: 0;
-    position: absolute; }
-    .fb-login-outer .btn:active {
-      background: #fff;
-      color: #0ebb73; }
-
-.overlay {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.8);
-  opacity: 0;
-  pointer-events: none; }
-  .overlay.open {
-    opacity: 1;
-    pointer-events: all; }
 
 .editable-field {
   background: #fff;
@@ -9515,30 +9458,8 @@ a, a:hover, a:active, a:visited, a:focus {
     padding: 75px 30px 100px 30px;
     width: 100%;
     height: 100%; }
-  .onboarding-container p {
-    color: #fff; }
-  .onboarding-container .title {
-    color: #fff;
-    font-size: 36px;
-    margin-bottom: 40px; }
-  .onboarding-container .subtitle {
-    font-size: 20px; }
-  .onboarding-container .label {
-    font-size: 16px;
-    color: #fff;
-    margin: 40px 0 5px 0; }
-  .onboarding-container .profile-picture {
-    text-align: center; }
-    .onboarding-container .profile-picture img {
-      border-radius: 50%;
-      width: 50%;
-      border: 5px solid #fff;
-      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2); }
-  .onboarding-container .name-of-user {
-    font-size: 20px;
-    text-align: center;
-    font-weight: 700;
-    color: #fff; }
+  .onboarding-container .onboarding-form {
+    margin-top: 20px; }
   .onboarding-container .onboarding-select {
     display: -webkit-box;
     display: -moz-box;
@@ -9552,9 +9473,9 @@ a, a:hover, a:active, a:visited, a:focus {
     -webkit-align-items: center;
     -moz-align-items: center;
     align-items: center;
-    font-size: 20px;
+    font-size: 16px;
     border: none;
-    padding: 5px 10px;
+    padding: 10px 10px;
     width: 100%;
     border-radius: 5px; }
   .onboarding-container .onboarding-input {
@@ -9570,10 +9491,10 @@ a, a:hover, a:active, a:visited, a:focus {
     -webkit-align-items: center;
     -moz-align-items: center;
     align-items: center;
-    font-size: 20px;
+    font-size: 16px;
     border: none;
     border-radius: 5px;
-    padding: 5px 10px;
+    padding: 10px 10px;
     width: 100%;
     margin: 0; }
     .onboarding-container .onboarding-input[value] {
@@ -9589,23 +9510,60 @@ a, a:hover, a:active, a:visited, a:focus {
       -webkit-align-items: center;
       -moz-align-items: center;
       align-items: center; }
+  .onboarding-container p {
+    color: #fff; }
+  .onboarding-container .title {
+    color: #fff;
+    font-size: 36px;
+    margin-bottom: 40px; }
+  .onboarding-container .subtitle {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px; }
+  .onboarding-container .label {
+    font-size: 16px;
+    color: #fff;
+    margin: 0 0 5px 0; }
+  .onboarding-container .profile-picture {
+    text-align: center; }
+    .onboarding-container .profile-picture img {
+      border-radius: 50%;
+      width: 50%;
+      border: 5px solid #fff;
+      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2); }
+  .onboarding-container .name-of-user {
+    font-size: 20px;
+    text-align: center;
+    font-weight: 700;
+    color: #fff; }
   .onboarding-container .user-and-nickname .title {
     text-align: center; }
   .onboarding-container .profile-fill-in {
     margin-top: 40px;
-    font-size: 24px;
-    padding-left: 10px;
-    border-left: 3px solid #fff; }
-    .onboarding-container .profile-fill-in .natural-language-input {
-      overflow: hidden; }
-      .onboarding-container .profile-fill-in .natural-language-input input {
-        border: none;
-        border-bottom: 1px solid #fff;
-        background: none;
-        color: #fff;
-        width: auto;
-        font-size: 24px;
-        margin: 0; }
+    font-size: 20px;
+    position: relative;
+    padding: 10px;
+    margin-left: 20%;
+    line-height: 1.5;
+    background: #fff;
+    color: #4f4f4f;
+    border-radius: 5px 5px 0px 5px;
+    font-style: italic;
+    -webkit-filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.2)); }
+    .onboarding-container .profile-fill-in:after {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 10px 0 0 10px;
+      border-color: transparent transparent transparent #fff;
+      bottom: 0px;
+      right: -10px; }
+    .onboarding-container .profile-fill-in .dynamic {
+      color: #0ebb73; }
   .onboarding-container .bottom-bar {
     display: -webkit-box;
     display: -moz-box;
@@ -9631,8 +9589,76 @@ a, a:hover, a:active, a:visited, a:focus {
     height: 100px; }
     .onboarding-container .bottom-bar .btn {
       padding: 8px 15px;
-      font-weight: 700;
-      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2); }
+      font-weight: 700; }
+
+.fb-login-outer {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  justify-content: center;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-grow: 1;
+  -moz-flex-grow: 1;
+  flex-grow: 1;
+  -ms-flex-positive: 1;
+  height: 100vh;
+  background: #0ebb73; }
+  .fb-login-outer #fb-login-instructions {
+    background: #fff;
+    height: 300px;
+    bottom: -300px;
+    left: 0;
+    position: absolute;
+    padding: 30px; }
+    .fb-login-outer #fb-login-instructions h1, .fb-login-outer #fb-login-instructions h2 {
+      color: #4f4f4f; }
+    .fb-login-outer #fb-login-instructions.open {
+      bottom: 0; }
+    .fb-login-outer #fb-login-instructions .btn {
+      border-top: 1px solid #e8e8e8; }
+  .fb-login-outer h1 {
+    font-weight: 700;
+    color: #fff; }
+  .fb-login-outer h2 {
+    color: #fff; }
+  .fb-login-outer .btn {
+    width: 100%;
+    font-weight: 700;
+    background: #FFF;
+    left: 0;
+    bottom: 0;
+    color: #4f4f4f;
+    border-radius: 0;
+    position: absolute; }
+    .fb-login-outer .btn:active {
+      background: #fff;
+      color: #0ebb73; }
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  pointer-events: none; }
+  .overlay.open {
+    opacity: 1;
+    pointer-events: all; }
 
 .chat-container.container {
   padding: 20px 0; }
@@ -9769,7 +9795,6 @@ a, a:hover, a:active, a:visited, a:focus {
       border-radius: 15px 15px 15px 0;
       color: #4f4f4f; }
       .chat-container .chat-output .chat-partner .chat-text:after {
-        border-style: solid;
         border-width: 0 0 10px 10px;
         border-color: transparent transparent #e8e8e8 transparent;
         left: -10px;
@@ -9814,7 +9839,8 @@ a, a:hover, a:active, a:visited, a:focus {
     flex-grow: 1;
     -ms-flex-positive: 1;
     padding: 0 20px;
-    color: #4f4f4f; }
+    color: #4f4f4f;
+    box-shadow: none; }
   .chat-container .chat-input-bar .btn {
     display: -webkit-box;
     display: -moz-box;
@@ -9839,7 +9865,8 @@ a, a:hover, a:active, a:visited, a:focus {
     height: 100%;
     padding: 0;
     color: #0ebb73;
-    background: none; }
+    background: none;
+    box-shadow: none; }
     .chat-container .chat-input-bar .btn:active {
       -webkit-transform: translateX(50%);
       transform: translateX(50%); }
