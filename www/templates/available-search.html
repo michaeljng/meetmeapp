@@ -10,7 +10,8 @@
 					<img class="profile-picture" src="http://graph.facebook.com/{{matchedUser.facebookId}}/picture?width=270&height=270"/>
 				</div>
 				<div class="card-right">
-					<h2>{{matchedUser.facebookName}}</h2>
+					<h2 ng-show="!matchedUser.nickName">{{matchedUser.facebookName}}</h2>
+					<h2 ng-show="matchedUser.nickName">{{matchedUser.nickName}}</h2>
 					<div class="wants-to">
 						<img class="icon-ii" src="../img/ii.svg" />
 						{{matchedUser.activePost.description}}

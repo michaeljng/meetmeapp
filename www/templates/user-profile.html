@@ -13,7 +13,7 @@
       <ion-item class="profile-header" id="profile-header">
         <img src="http://graph.facebook.com/{{displayUser.facebookId}}/picture?width=300&height=300"/>
         <div>
-          <h1>{{displayUser.facebookName}}</h1>
+          <h1><input id="nickname" class="editable-field" ng-model="displayUser.nickName" ng-hide="!editable"><span ng-hide="editable">{{displayName}}</span></h1>
           <ion-item id="distanceFrom" ng-hide="editable">
             Currently <span id="distance"></span> mi. from you
           </ion-item>
@@ -21,13 +21,13 @@
             <input id="age" class="editable-field" ng-model="displayUser.userAge" type="number" ng-hide="!editable"><span ng-hide="editable">{{displayUser.userAge}}</span> years old
           </ion-item>
         </div>
-       
+
       </ion-item>
 <!--       <ion-item>
         Nickname: <br/><input id="nickName" class="editable-field" ng-model="displayUser.nickName" ng-hide="!editable"><span ng-hide="editable">{{displayUser.nickName}}</span>
       </ion-item> -->
-      
-      
+
+
       <ion-item class="item-text-wrap">
         about <br/><textarea id="description" class="editable-field" ng-model="displayUser.userDescription" cols="40" rows="5" ng-hide="!editable"></textarea><div ng-hide="editable">{{displayUser.userDescription}}</div>
       </ion-item>

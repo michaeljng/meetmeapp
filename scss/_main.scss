@@ -3,11 +3,14 @@
 }
 
 .available-users .ng-animate {
-  transition: none; 
+  transition: none;
   keyframe: 0s none;
 }
 .scroll{
   @include transition(none);
+}
+.ng-hide.ng-hide-animate{
+  display: none !important;
 }
 
 @include selection {

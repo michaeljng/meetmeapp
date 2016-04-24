@@ -76,9 +76,17 @@ angular.module('meetme', ['ionic',
         })
 
         .state('app.onboarding', {
-          url: '/home',
+          url: '/onboarding/:displayUserId',
           templateUrl: 'templates/onboarding.html',
-          controller: 'OnboardingController'
+          controller: 'OnboardingController',
+          resolve: {
+            currentUser: function(PreloadFunctions) {
+              return PreloadFunctions.currentUser();
+            },
+            displayUser: function(PreloadFunctions, $stateParams) {
+              return PreloadFunctions.userById($stateParams.displayUserId);
+            }
+          }
         })
 
         // if none of the above states are matched, use this as the fallback
@@ -187,7 +195,7 @@ angular.module('meetme', ['ionic',
           ParseService.get('Users', {"facebookId":user.id}, function(results) {
 
             var finishLogin = function() {
-              $state.go('app.onboarding');
+              $state.go('app.onboarding', {'displayUserId':$scope.userId});
             }
 
             if (results.length == 0) {
@@ -216,8 +224,50 @@ angular.module('meetme', ['ionic',
 
 })
 
-.controller('OnboardingController', function ($scope, $state, $interval, $stateParams) {
+.controller('OnboardingController', function ($scope, $state, $interval, $stateParams, $ionicSlideBoxDelegate, currentUser, displayUser, FacebookService, ParseService) {
+  $scope.currentUser = currentUser;
+  $scope.displayUser = displayUser;
+
+  $scope.ob = {nickname : "", role : "school", school : "", job : "", activity1 : "", activity2 : "", activity3 : ""};
+
+  $scope.slideIndex = 0;
+
+  $scope.slideChanged = function(index) {
+    $scope.slideIndex = index;
+  };
+
+  $scope.next = function() {
+    if($scope.slideIndex != 2) {
+      if($scope.ob.nickname == "") {
+        $scope.ob.nickname = displayUser.facebookName;
+      }
+      $ionicSlideBoxDelegate.next();
+    } else {
+      $scope.completeOnboarding();
+    }
+  };
+  $scope.previous = function() {
+    $ionicSlideBoxDelegate.previous();
+  };
+
   $scope.completeOnboarding = function() {
+    totalDescription = "Hey, I'm " + $scope.ob.nickname;
+    if($scope.ob.role == "school") {
+      totalDescription += ", a student at " + $scope.ob.school + ".";
+    } else if($scope.ob.role == "work") {
+      totalDescription += ", I work at " + $scope.ob.job + ".";
+    } else {
+      totalDescription += ". Nice to meet you!";
+    }
+    totalDescription += " I like to " + $scope.ob.activity1 + ", " + $scope.ob.activity2 + ", " + $scope.ob.activity3;
+
+    $scope.displayUser.nickName = $scope.ob.nickname;
+    $scope.displayUser.userDescription = totalDescription;
+
+    ParseService.updateAndRetrieve('Users',$scope.currentUser.objectId,$scope.displayUser, function(user) {
+      $scope.displayUser = user;
+    });
+
     $state.go('app.logged-in.search-tab.unavailable', {"userId": $scope.userId});
   }
 })
