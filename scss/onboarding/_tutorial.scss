@@ -1,32 +1,37 @@
-.fb-login-outer {
+&.tutorial-and-login {
 	@include display(flex);
 	@include justify-content(center);
 	@include flex-direction(column);
 	@include flex-grow(1);
 	height: 100vh;
 	background: $primary-color;
-	.fb-login-inner {
-
+	.what-is-quiikmeet {
+		@include display(flex);
+		@include justify-content(center);
+		@include flex-direction(column);
+		height: 100vh;
+		h2 {
+			font-style: italic;
+		}
 	}
-	#fb-login-instructions{
+	#fb-login-instructions {
 		background: $white;
 		height: 300px;
-		bottom: -300px;
+		bottom: 0;
 		left: 0;
+		@include transform(translateY(100%));
 		position: absolute;
+		z-index: 5;
 		padding: $padding;
-		h1, h2{
-			color:$text-color;
+		h1, h2, p {
+			color: $text-color;
 		}
-
-		&.open{
-			bottom:0;
+		&.open {
+			@include transform(translateY(0%));
 		}
 		.btn{
 			border-top: 1px solid $light-gray;
 		}
-
-
 	}
 	h1 {
 		font-weight: $bold;
@@ -45,25 +50,33 @@
 		color: $text-color;
 		border-radius: 0;
 		position: absolute;
+		//box-shadow: 0 -2px 3px rgba(0,0,0,0.2);
 		&:active {
 			background: $white;
 			color: $primary-color;
 		}
 	}
-}
-.overlay{
-	position:absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	background: rgba(0,0,0,0.8);
-	opacity: 0;
-	pointer-events: none;
 
-	&.open{
-		opacity:1;
-		pointer-events: all;
+	.slider {
+		.slider-pager {
+			bottom: 50px;
+		}
 	}
 
+	.overlay {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background: rgba(0,0,0,0.8);
+		z-index: 4;
+		opacity: 0;
+		pointer-events: none;
+
+		&.open{
+			opacity: 1;
+			pointer-events: all;
+		}
+	}
 }

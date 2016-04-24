@@ -1,88 +1,10 @@
-.onboarding-container {
+&.create-profile {
 	padding: 0;
 	height: 100%;
 	width: 100%;
 	background: $primary-color;
 	color: $white;
-	.slider {
-		height: 100%;
-	}
-	.onboarding-slide {
-		padding: 75px 30px 100px 30px;
-		width: 100%;
-		height: 100%;
-	}
-	.onboarding-form {
-		margin-top: 20px;
-	}
 
-	$input-height: 50px;
-	.onboarding-select-outer {
-		position: relative;
-		&:before {
-			content: '';
-			font-family: "Ionicons";
-			font-size: 20px;
-			@include display(flex);
-			@include align-items(center);
-			@include justify-content(center);
-			color: $text-color;
-			position: absolute;
-			z-index: 10000;
-			height: 100%;
-			right: 10px;
-			top: 0;
-		}
-	}
-	.onboarding-select {
-		@include display(flex);
-		@include align-items(center);
-		font-size: $fs-body;
-		border: none;
-		padding: 10px 10px;
-		width: 100%;
-		position: relative;
-		border-radius: 5px;
-		height: $input-height;
-		@include appearance(none);
-		option {
-
-		}
-	}
-	.onboarding-input {
-		@include display(flex);
-		@include align-items(center);
-		font-size: $fs-body;
-		border: none;
-		border-radius: 5px;
-		padding: 10px 10px;
-		width: 100%;
-		margin: 0;
-		height: $input-height;
-		&[value] {
-			@include display(flex);
-			@include align-items(center);
-		}
-	}
-	p {
-		color: $white;
-	}
-	.title {
-		color: $white;
-		font-size: $fs-big;
-		margin-bottom: 40px;
-	}
-	.subtitle {
-		font-size: $fs-h1;
-		font-weight: 700;
-		margin-bottom: 20px;
-	}
-	.label {
-		font-size: $fs-body;
-		color: $white;
-		font-style: italic;
-		margin: 0 0 5px 0;
-	}
 	.profile-picture {
 		text-align: center;
 		img {
@@ -146,21 +68,4 @@
 		}
 	}
 
-	.bottom-bar {
-		@include display(flex);
-		@include justify-content(space-between);
-		@include align-items(flex-end);
-		position: absolute;
-		z-index: 1000;
-		bottom: 30px;
-		left: 30px;
-		right: 30px;
-		height: 100px;
-		.btn {
-			padding: 8px 15px;
-			font-weight: $bold;
-			&.secondary {
-			}
-		}
-	}
 }
