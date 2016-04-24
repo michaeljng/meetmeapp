@@ -138,6 +138,7 @@ form, select, textarea, input {
     width: 80%;
     color: $text-color;
     padding: 30px;
+    border-radius: 5px;
     background: $light-gray;
     .popup-head {
       padding: 0;
@@ -161,7 +162,14 @@ form, select, textarea, input {
         @include display(flex);
         @include justify-content(space-between);
         .clickable-category {
+          @include display(flex);
+          @include justify-content(center);
+          @include align-items(center);
           margin: 0;
+          border-radius: 50%;
+          border: none;
+          background: $dark-gray;
+          color: $white;
           .icon {
             @include display(flex);
             @include justify-content(center);
@@ -169,9 +177,10 @@ form, select, textarea, input {
           }
         }
         .chosen-category {
-          background: $text-color;
+          background: $secondary-color;
+          border: none;
           color: $white;
-          border-color: $text-color;
+
         }
       }
       .other-box {
@@ -180,6 +189,8 @@ form, select, textarea, input {
         font-size: $fs-body;
         color: $text-color;
         font-weight: $bold;
+        border-radius: 5px;
+        box-shadow: none;
       }
     }
     .popup-buttons {
