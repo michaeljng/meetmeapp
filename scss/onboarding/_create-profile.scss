@@ -112,11 +112,19 @@
 			color: $primary-color;
 		}
 	}
+
+	.tell-us-about-yourself {
+		.add-another-interest {
+			margin-top: 20px;
+		}
+	}
+
 	.bottom-bar {
 		@include display(flex);
 		@include justify-content(space-between);
 		@include align-items(flex-end);
 		position: absolute;
+		z-index: 1000;
 		bottom: 30px;
 		left: 30px;
 		right: 30px;

@@ -259,7 +259,7 @@ form, select, textarea, input {
   color: $white;
   font-size: $fs-body;
   border-radius: 5px;
-  padding: 15px 20px;
+  padding: 10px 20px;
   &:hover {
   }
   &:active {
@@ -269,7 +269,7 @@ form, select, textarea, input {
     background: $white;
     color: $text-color;
     &:active {
-      background: $light-gray;
+      background: $gray;
     }
   }
 }
