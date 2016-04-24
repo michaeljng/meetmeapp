@@ -1,15 +1,47 @@
 *, *:before, *:after {
   @include transition(all 0.3s ease-in-out);
 }
+
+.available-users .ng-animate {
+  transition: none; 
+  keyframe: 0s none;
+}
 .scroll{
   @include transition(none);
 }
-.green-text{
-  color:$primary-color;
+
+@include selection {
+  background: $primary-color;
+  color: $white;
 }
 
-.available-users .ng-animate {
-  transition: none; keyframe:0s none;
+body {
+  font-family: $font-stack;
+  color: $text-color;
+  line-height: 1.5;
+  font-weight: $normal;
+}
+h1, h2, h3, h4, h5, h6, p, a, input, button, form, select, textarea {
+  line-height: 1.5;
+  font-weight: $normal;
+  font-family: $font-stack;
+  color: $text-color;
+}
+h1 {
+  font-size: $fs-h1;
+}
+h2 {
+  font-size: $fs-h2;
+}
+p {
+  font-size: $fs-body;
+}
+a, a:hover, a:active, a:visited, a:focus {
+  text-decoration: none;
+  color: $text-color;
+}
+form, select, textarea, input {
+  @include box-shadow-1();
 }
 
 .container {
@@ -66,7 +98,7 @@
   }
   .time-remaining {
     color: $white;
-    font-weight: 700;
+    font-weight: $bold;
     font-size: $fs-h2;
     .icon {
       margin-right: 5px;
@@ -74,9 +106,13 @@
   }
 }
 
+.green-text {
+  color: $primary-color;
+}
+
 .tabs {
   border: none;
-  background: $green;
+  background: $primary-color;
   height: $bar-height;
   .tab-item {
     .icon {
@@ -89,24 +125,8 @@
   }
 }
 
-h1 {
-  font-size: $fs-h1;
-}
-h2 {
-  font-size: $fs-h2;
-}
-p {
-  font-size: $fs-body;
-}
-h1, h2, p {
-  color: $text-color;
-  line-height: 1.5;
-  font-weight: 300;
-}
-
-a, a:hover, a:active, a:visited, a:focus {
-  text-decoration: none;
-  color: $text-color;
+.title {
+  font-weight: $bold;
 }
 
 .popup-container {
@@ -127,7 +147,7 @@ a, a:hover, a:active, a:visited, a:focus {
       .popup-title {
         text-transform: lowercase;
         font-size: $fs-h2;
-        font-weight: 700;
+        font-weight: $bold;
         color: $text-color;
       }
     }
@@ -159,7 +179,7 @@ a, a:hover, a:active, a:visited, a:focus {
         padding: 10px;
         font-size: $fs-body;
         color: $text-color;
-        font-weight: 700;
+        font-weight: $bold;
       }
     }
     .popup-buttons {
@@ -192,6 +212,10 @@ a, a:hover, a:active, a:visited, a:focus {
   }
 }
 
+.icon {
+  @include display(inline-flex);
+}
+
 .icon-ii {
   width: 14px;
   height: 14px;
@@ -199,6 +223,7 @@ a, a:hover, a:active, a:visited, a:focus {
 }
 
 .fixed-circle {
+  @include transition(all 0.15s ease-in-out);
   position: fixed;
   bottom: 80px;
   right: 20px;
@@ -215,21 +240,26 @@ a, a:hover, a:active, a:visited, a:focus {
   background: $primary-color;
   color: $white;
   font-size: $fs-h2;
-  @include transition(all 0.15s ease-in-out);
+  .icon {
+    @include display(flex);
+  }
   &:active {
-    @include transform(rotate(45deg));
     box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    .icon {
+      @include transform(rotate(45deg));
+    }
   }
 }
 
 .btn {
+  @include box-shadow-1();
   border: none;
   text-transform: lowercase;
   background: $primary-color;
   color: $white;
   font-size: $fs-body;
   border-radius: 5px;
-  padding: 15px 20px;
+  padding: 10px 20px;
   &:hover {
   }
   &:active {
@@ -239,85 +269,18 @@ a, a:hover, a:active, a:visited, a:focus {
     background: $white;
     color: $text-color;
     &:active {
-      background: $light-gray;
+      background: $gray;
     }
   }
 }
 
 
-.fb-login-outer {
-  @include display(flex);
-  @include justify-content(center);
-  @include flex-direction(column);
-  @include flex-grow(1);
-  height: 100vh;
-  background: $primary-color;
-  .fb-login-inner {
 
-  }
-  #fb-login-instructions{
-    background: $white;
-    height: 300px;
-    bottom: -300px;
-    left: 0;
-    position: absolute;
-    padding:$padding;
-    h1, h2{
-      color:$text-color;
-    }
-
-    &.open{
-      bottom:0;
-    }
-    .btn{
-      border-top:1px solid $light-gray;
-    }
-
-
-  }
-  h1 {
-    font-weight: 700;
-    color: $white;
-  }
-  h2 {
-    color: $white;
-  }
-  .btn {
-    width: 100%;
-    font-weight: 700;
-    background: #FFF;
-    left: 0;
-    bottom: 0;
-    color: $text-color;
-    border-radius: 0;
-    position: absolute;
-    &:active {
-      background: $white;
-      color: $primary-color;
-    }
-  }
-}
-.overlay{
-  position:absolute;
-  top:0;
-  bottom:0;
-  left:0;
-  right:0;
-  background: rgba(0,0,0,.8);
-  opacity: 0;
-  pointer-events: none;
-
-  &.open{
-    opacity:1;
-    pointer-events: all;
-  }
-
-}
 
 
 
 .editable-field {
-  background-color: #EEE;
+  background: $white;
   border: none;
 }
 
@@ -375,20 +338,4 @@ a, a:hover, a:active, a:visited, a:focus {
 #invite-reminder .title {
   color: #666;
   height: 122px;
-}
-#profile-header img{
-  width:35%;
-  margin-top: 30px;
-  height:auto;
-}
-
-#profile-header div {
-  float: right;
-  margin-top: 40px;
-  width: 56%;
-}
-#profile-header div .item{
-  padding:0;
-  margin-top:5px;
-  border:none;
 }
