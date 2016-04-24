@@ -1,3 +1,5 @@
+$font-stack: 'Fira Sans', 'Roboto', sans-serif;
+
 $bar-height: 50px;
 $post-button-height: calc(25vh - 25px);
 
@@ -5,9 +7,10 @@ $post-button-height: calc(25vh - 25px);
 $red: #d75346;
 $blue: #3794c8;
 $green: #37c88f;
+$green2: #0ebb73;
 $balanced: #37c88f;
 
-$primary-color: $green;
+$primary-color: $green2;
 $secondary-color: $blue;
 
 $white: #fff;
@@ -21,11 +24,15 @@ $text-color: $darker-gray;
 $text-secondary: $dark-gray;
 
 // Font Sizes
+$fs-big: 36px;
 $fs-h1: 24px;
 $fs-h2: 20px;
 $fs-body: 16px;
 $fs-small: 12px;
 
+// Font weights
+$normal: 400;
+$bold: 700;
 
 // Spacing
 $padding: 30px;

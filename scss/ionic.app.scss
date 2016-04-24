@@ -1,5 +1,6 @@
 @import "node_modules/bourbon/app/assets/stylesheets/bourbon";
 @import "variables";
+@import "mixins";
 
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
@@ -8,6 +9,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "www/lib/ionic/scss/ionic";
 
 @import "main";
+@import "onboarding/onboarding";
 @import "chat/chat";
 @import "availability/available-users";
+@import "profile/profile";
 @import "post";

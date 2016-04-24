@@ -1,0 +1,22 @@
+@import "create-profile";
+@import "tutorial";
+
+.onboarding-container {
+	.slider {
+		.slider-pager {
+			height: 40px;
+			bottom: 30px;
+			@include display(flex);
+			@include align-items(center);
+			@include justify-content(center);
+			@include flex-direction(row);
+			.slider-pager-page {
+				@include display(flex);
+				color: $white;
+				font-size: 12px;
+				margin: 0px 6px;
+				width: auto;
+			}
+		}
+	}
+}
