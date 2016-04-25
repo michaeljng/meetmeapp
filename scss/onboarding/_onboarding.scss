@@ -33,6 +33,12 @@
 		&.hidden {
 			visibility: hidden;
 		}
+		&.disabled {
+			input {
+				background: $gray;
+				pointer-events: none;
+			}
+		}
 		.none {
 			display: none;
 		}

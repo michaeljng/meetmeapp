@@ -9603,6 +9603,9 @@ input {
     margin-top: 20px; }
     .onboarding-container .onboarding-form.hidden {
       visibility: hidden; }
+    .onboarding-container .onboarding-form.disabled input {
+      background: #ccc;
+      pointer-events: none; }
     .onboarding-container .onboarding-form .none {
       display: none; }
   .onboarding-container .onboarding-select-outer {

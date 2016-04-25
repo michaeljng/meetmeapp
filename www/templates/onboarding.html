@@ -47,7 +47,6 @@
 					</div>
 
 					<!-- If "work" is selected -->
-					<!-- Add class of "hidden" to hide -->
 					<div class="what-do-you-do onboarding-form" ng-show="ob.role=='work'">
 						<div class="label">What do you do there?</div>
 						<input placeholder="Enter your job title." class="onboarding-input" ng-model="ob.job">
@@ -70,6 +69,7 @@
 						<div ng-show="ob.role=='work'">
 							<div class="check-grammar">Tap the "a" to change to "an".</div>
 							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}</span>, I work as 
+							<!-- Replace a with an (low priority) -->
 							<span class="connector as-an">a</span>
 							<span class="job dynamic"> {{ob.job}}</span>
 							<span class="connector"> at </span>
@@ -87,16 +87,17 @@
 				<div class="tell-us-about-yourself onboarding-slide">
 					<div class="subtitle">What do you like to do?</div>
 
+					<!-- Add class of "disabled" to disable -->
 					<div class="interest-visible onboarding-form">
 						<div class="label">Enter 3 things you like to do.</div>
 						<input placeholder="ex. discover new food" class="onboarding-input" ng-model="ob.activity1">
 					</div>
 
-					<div class="interest-hidden onboarding-form">
+					<div class="interest-hidden onboarding-form disabled">
 						<input placeholder="ex. hike" class="onboarding-input" ng-model="ob.activity2">
 					</div>
 
-					<div class="interest-hidden onboarding-form">
+					<div class="interest-hidden onboarding-form disabled">
 						<input placeholder="ex. play basketball" class="onboarding-input" ng-model="ob.activity3">
 					</div>
 
