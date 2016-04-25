@@ -1,8 +1,9 @@
-<ion-view class="onboarding-container">
+<ion-view class="onboarding-container create-profile">
+	<div class="ii-background"></div>
 
-
-		<ion-slide-box on-slide-changed="slideChanged(index)" auto-play="false">
-			<ion-slide>
+	<ion-slide-box on-slide-changed="slideChanged(index)" auto-play="false">
+		<ion-slide>
+			<ion-scroll zooming="false" direction="y" style="width: 100%; height: 100%;">
 				<div class="user-and-nickname onboarding-slide">
 					<div class="title">Hey, it&rsquo;s you!</div>
 
@@ -17,19 +18,27 @@
 						<input placeholder="Enter it here! (not required)" class="onboarding-input nickname-input" ng-model="ob.nickname">
 					</div>
 
+					<div class="how-old-are-you onboarding-form">
+						<div class="label">How old are you?</div>
+						<input placeholder="" type="number" class="onboarding-input half">
+					</div>
 				</div>
-			</ion-slide>
-			<ion-slide>
+			</ion-scroll>
+		</ion-slide>
+		<ion-slide>
+			<ion-scroll zooming="false" direction="y" style="width: 100%; height: 100%;">
 				<div class="tell-us-about-yourself onboarding-slide">
 					<div class="subtitle">Let's build your profile!</div>
 
 					<div class="what-do-you-do onboarding-form">
 						<div class="label">What do you currently do?</div>
-						<select class="onboarding-select" name="work-school" ng-model="ob.role">
-							<option value="school">I&rsquo;m going to school.</option>
-							<option value="work">I&rsquo;m working.</option>
-							<option value="nothing">None of the above.</option>
-						</select>
+						<div class="onboarding-select-outer">
+							<select class="onboarding-select" name="work-school" ng-model="ob.role">
+								<option value="school">I&rsquo;m going to school.</option>
+								<option value="work">I&rsquo;m working.</option>
+								<option value="nothing">None of the above.</option>
+							</select>
+						</div>
 					</div>
 
 					<div class="where onboarding-form" ng-show="ob.role=='school'">
@@ -58,8 +67,10 @@
 						</div>
 					</div>
 				</div>
-			</ion-slide>
-			<ion-slide>
+			</ion-scroll>
+		</ion-slide>
+		<ion-slide>
+			<ion-scroll zooming="false" direction="y" style="width: 100%; height: 100%;">
 				<div class="tell-us-about-yourself onboarding-slide">
 					<div class="subtitle">What do you like to do?</div>
 
@@ -94,8 +105,9 @@
 						<span class="an-interest dynamic">{{ob.activity3}}</span>.
 					</div>
 				</div>
-			</ion-slide>
-		</ion-slide-box>
+			</ion-scroll>
+		</ion-slide>
+	</ion-slide-box>
 
 
 		<div class="bottom-bar">

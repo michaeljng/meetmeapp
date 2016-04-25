@@ -1,4 +1,10 @@
 <svg id="ii-circle" data-name="ii-circle" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+	<style>
+		.cls-1 {
+		fill: #000;
+		}
+	</style>
+
 	<path class="cool-icon"/>
 	<path class="cls-1" d="M59.61,19.33a5.5,5.5,0,0,1,5.81,5.36,5.75,5.75,0,0,1-11.47,0A5.51,5.51,0,0,1,59.61,19.33Zm-4.39,17.5h8.94V72.58H55.21V36.83Z"/>
 	<path class="cls-1" d="M40.24,27.29a5.38,5.38,0,1,1,0,10.73A5.37,5.37,0,1,1,40.24,27.29Zm-4.39,17.5h8.94V80.54H35.85V44.79Z"/>

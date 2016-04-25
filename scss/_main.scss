@@ -46,6 +46,17 @@ a, a:hover, a:active, a:visited, a:focus {
 form, select, textarea, input {
   @include box-shadow-1();
 }
+input {
+  @include display(flex);
+  @include align-items(center);
+  font-size: $fs-body;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 10px;
+  width: 100%;
+  margin: 0;
+  height: $input-height;
+}
 
 .container {
   padding: 20px;
@@ -100,11 +111,14 @@ form, select, textarea, input {
     width: 140px;
   }
   .time-remaining {
+    @include display(flex);
+    @include justify-content(center);
+    @include align-items(center);
     color: $white;
     font-weight: $bold;
     font-size: $fs-h2;
     .icon {
-      margin-right: 5px;
+      margin-right: 10px;
     }
   }
 }
@@ -160,6 +174,17 @@ form, select, textarea, input {
       line-height: 1.5;
       padding: 0;
       margin: 30px 0 30px 0;
+      input {
+        box-shadow: none;
+        color: $text-color;
+        font-weight: 700;
+        &[type="time"] {
+          height: auto;
+          font-size: $fs-h2;
+          padding: 10px;
+          height: 50px;
+        }
+      }
       .do-what-icons {
         margin-bottom: 15px;
         @include display(flex);
@@ -227,7 +252,19 @@ form, select, textarea, input {
 }
 
 .icon {
-  @include display(inline-flex);
+  @include display(flex);
+  @include align-items(center);
+}
+
+.ii-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.025;
+  @include transform(scale(1.3) translateX(0%));
+  background: url(../img/ii-circle-black.svg) no-repeat 50% fixed;
 }
 
 .icon-ii {
@@ -236,34 +273,7 @@ form, select, textarea, input {
   display: inline-block;
 }
 
-.fixed-circle {
-  @include transition(all 0.15s ease-in-out);
-  position: fixed;
-  bottom: 80px;
-  right: 20px;
-  z-index: 100000;
-  @include display(flex);
-  @include justify-content(center);
-  @include align-items(center);
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: none;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  text-transform: lowercase;
-  background: $primary-color;
-  color: $white;
-  font-size: $fs-h2;
-  .icon {
-    @include display(flex);
-  }
-  &:active {
-    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-    .icon {
-      @include transform(rotate(45deg));
-    }
-  }
-}
+
 
 .btn {
   @include box-shadow-1();
@@ -283,7 +293,35 @@ form, select, textarea, input {
     background: $white;
     color: $text-color;
     &:active {
-      background: $gray;
+      background: $dark-gray;
+    }
+  }
+  &.disabled {
+    background: $gray;
+  }
+  &.fixed {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    z-index: 1000;
+    &.circle {
+      @include transition(all 0.15s ease-in-out);
+      @include display(flex);
+      @include justify-content(center);
+      @include align-items(center);
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: $fs-h2;
+      .icon {
+        @include display(flex);
+      }
+      &:active {
+        box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+        .icon {
+          //@include transform(rotate(45deg));
+        }
+      }
     }
   }
 }

@@ -1,8 +1,11 @@
-@import "create-profile";
-@import "tutorial";
-
 .onboarding-container {
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	background: $primary-color;
+	color: $white;
 	.slider {
+		height: 100%;
 		.slider-pager {
 			height: 40px;
 			bottom: 30px;
@@ -19,4 +22,106 @@
 			}
 		}
 	}
+	.onboarding-slide {
+		padding: 75px 30px 100px 30px;
+		width: 100%;
+		height: 100%;
+		z-index: 3;
+	}
+	.onboarding-form {
+		margin-top: 20px;
+	}
+
+	.onboarding-select-outer {
+		position: relative;
+		&:before {
+			content: '';
+			font-family: "Ionicons";
+			font-size: 20px;
+			@include display(flex);
+			@include align-items(center);
+			@include justify-content(center);
+			color: $text-color;
+			position: absolute;
+			z-index: 10;
+			height: 100%;
+			right: 10px;
+			top: 0;
+		}
+	}
+	.onboarding-select {
+		@include display(flex);
+		@include align-items(center);
+		font-size: $fs-body;
+		border: none;
+		padding: 10px 10px;
+		width: 100%;
+		position: relative;
+		border-radius: 5px;
+		height: $input-height;
+		@include appearance(none);
+		option {
+
+		}
+	}
+	.onboarding-input {
+		@include display(flex);
+		@include align-items(center);
+		font-size: $fs-body;
+		border: none;
+		border-radius: 5px;
+		padding: 10px 10px;
+		width: 100%;
+		margin: 0;
+		height: $input-height;
+		&[value] {
+			@include display(flex);
+			@include align-items(center);
+		}
+		&.half {
+			width: 50%;
+		}
+	}
+	p {
+		color: $white;
+	}
+	.title {
+		color: $white;
+		font-size: $fs-big;
+		margin-bottom: 40px;
+	}
+	.subtitle {
+		font-size: $fs-h1;
+		font-weight: 700;
+		margin-bottom: 20px;
+	}
+	.label {
+		font-size: $fs-body;
+		color: $white;
+		font-style: italic;
+		margin: 0 0 5px 0;
+	}
+
+	.bottom-bar {
+		@include display(flex);
+		@include justify-content(space-between);
+		@include align-items(flex-end);
+		position: absolute;
+		z-index: 10;
+		bottom: 30px;
+		left: 30px;
+		right: 30px;
+		height: auto;
+		pointer-events: none;
+		.btn {
+			pointer-events: all;
+			padding: 8px 15px;
+			font-weight: $bold;
+			&.secondary {
+			}
+		}
+	}
+
+	@import "create-profile";
+	@import "tutorial";
 }
