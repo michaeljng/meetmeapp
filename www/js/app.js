@@ -228,19 +228,19 @@ angular.module('meetme', ['ionic',
   $scope.currentUser = currentUser;
   $scope.displayUser = displayUser;
 
-  $scope.ob = {nickname : "", role : "school", school : "", job : "", activity1 : "", activity2 : "", activity3 : ""};
+  $scope.ob = {nickname : "", age : 0, role : "school", school : "", job : "", company : "", activity1 : "", activity2 : "", activity3 : ""};
 
   $scope.slideIndex = 0;
 
   $scope.slideChanged = function(index) {
     $scope.slideIndex = index;
+    if($scope.ob.nickname == "") {
+      $scope.ob.nickname = displayUser.facebookName.split(' ')[0];
+    }
   };
 
   $scope.next = function() {
     if($scope.slideIndex != 2) {
-      if($scope.ob.nickname == "") {
-        $scope.ob.nickname = displayUser.facebookName;
-      }
       $ionicSlideBoxDelegate.next();
     } else {
       $scope.completeOnboarding();
@@ -255,13 +255,14 @@ angular.module('meetme', ['ionic',
     if($scope.ob.role == "school") {
       totalDescription += ", a student at " + $scope.ob.school + ".";
     } else if($scope.ob.role == "work") {
-      totalDescription += ", I work at " + $scope.ob.job + ".";
+      totalDescription += ", I work as a " + $scope.ob.job + " at " + $scope.ob.company + ".";
     } else {
       totalDescription += ". Nice to meet you!";
     }
-    totalDescription += " I like to " + $scope.ob.activity1 + ", " + $scope.ob.activity2 + ", " + $scope.ob.activity3;
+    totalDescription += " I like to " + $scope.ob.activity1 + ", " + $scope.ob.activity2 + ", and " + $scope.ob.activity3 + ".";
 
     $scope.displayUser.nickName = $scope.ob.nickname;
+    $scope.displayUser.userAge = $scope.ob.age;
     $scope.displayUser.userDescription = totalDescription;
 
     ParseService.updateAndRetrieve('Users',$scope.currentUser.objectId,$scope.displayUser, function(user) {

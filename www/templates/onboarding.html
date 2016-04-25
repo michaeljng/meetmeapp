@@ -20,7 +20,7 @@
 
 					<div class="how-old-are-you onboarding-form">
 						<div class="label">How old are you?</div>
-						<input placeholder="" type="number" class="onboarding-input half">
+						<input placeholder="" type="number" class="onboarding-input half"  ng-model="ob.age">
 					</div>
 				</div>
 			</ion-scroll>
@@ -52,6 +52,11 @@
 						<input placeholder="Enter your job title." class="onboarding-input" ng-model="ob.job">
 					</div>
 
+					<div class="where-company onboarding-form" ng-show="ob.role=='work'">
+						<div class="label">Where?</div>
+						<input placeholder="Enter the company name." class="onboarding-input" ng-model="ob.company">
+					</div>
+
 					<div class="profile-fill-in onboarding-form">
 						<div ng-show="ob.role=='school'">
 							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}</span>, a
@@ -60,7 +65,8 @@
 						</div>
 						<div ng-show="ob.role=='work'">
 							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}</span>, I work as a
-							<span class="location dynamic">{{ob.job}}</span>.
+							<span class="job dynamic">{{ob.job}}</span> at
+							<span class="company dynamic">{{ob.company}}</span>.
 						</div>
 						<div ng-show="ob.role=='nothing'">
 							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}</span>. Nice to meet you!
@@ -95,7 +101,8 @@
 						</div>
 						<div ng-show="ob.role=='work'">
 							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}</span>, I work as a
-							<span class="location dynamic">{{ob.job}}</span>.
+							<span class="job dynamic">{{ob.job}}</span> at
+							<span class="company dynamic">{{ob.company}}</span>.
 						</div>
 						<div ng-show="ob.role=='nothing'">
 							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}</span>. Nice to meet you!
