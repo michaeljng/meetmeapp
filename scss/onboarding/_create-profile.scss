@@ -31,14 +31,6 @@
 		border-radius: 5px 5px 0px 5px;
 		font-style: italic;
 		@include filter(drop-shadow(3px 3px 5px rgba(0,0,0,0.2)));
-		&:before {
-			//content: 'Your profile';
-			position: absolute;
-			font-size: $fs-body;
-			color: $white;
-			top: -25px;
-			left: 0;
-		}
 		&:after {
 			content: '';
 			display: inline-block;
@@ -51,8 +43,23 @@
 			bottom: 0px;
 			right: -10px;
 		}
+		.check-grammar {
+			position: absolute;
+			color: $white;
+			font-size: 12px;
+			width: 100%;
+			top: 0;
+			left: 0;
+			@include transform(translateY(-100%));
+		}
 		.dynamic {
 			color: $primary-color;
+		}
+		.as-an {
+			cursor: pointer;
+			border-bottom: 2px solid $primary-color;
+			color: $primary-color;
+			position: relative;
 		}
 	}
 

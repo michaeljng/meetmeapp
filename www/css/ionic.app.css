@@ -9363,6 +9363,8 @@ input {
         font-weight: 700;
         border-radius: 5px;
         box-shadow: none; }
+      .popup-container .popup .popup-body .icon-translation {
+        color: #d75346; }
     .popup-container .popup .popup-buttons {
       padding: 10px 0; }
       .popup-container .popup .popup-buttons .button {
@@ -9599,6 +9601,13 @@ input {
     z-index: 3; }
   .onboarding-container .onboarding-form {
     margin-top: 20px; }
+    .onboarding-container .onboarding-form.hidden {
+      visibility: hidden; }
+    .onboarding-container .onboarding-form.disabled input {
+      background: #ccc;
+      pointer-events: none; }
+    .onboarding-container .onboarding-form .none {
+      display: none; }
   .onboarding-container .onboarding-select-outer {
     position: relative; }
     .onboarding-container .onboarding-select-outer:before {
@@ -9731,6 +9740,7 @@ input {
       padding: 8px 15px;
       font-weight: 700; }
       .onboarding-container .bottom-bar .btn.first-slide {
+        visibility: hidden;
         background: #ccc;
         text-decoration: line-through; }
   .onboarding-container.create-profile .profile-picture {
@@ -9760,12 +9770,6 @@ input {
     font-style: italic;
     -webkit-filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.2));
     filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.2)); }
-    .onboarding-container.create-profile .profile-fill-in:before {
-      position: absolute;
-      font-size: 16px;
-      color: #fff;
-      top: -25px;
-      left: 0; }
     .onboarding-container.create-profile .profile-fill-in:after {
       content: '';
       display: inline-block;
@@ -9777,8 +9781,22 @@ input {
       border-color: transparent transparent transparent #fff;
       bottom: 0px;
       right: -10px; }
+    .onboarding-container.create-profile .profile-fill-in .check-grammar {
+      position: absolute;
+      color: #fff;
+      font-size: 12px;
+      width: 100%;
+      top: 0;
+      left: 0;
+      -webkit-transform: translateY(-100%);
+      transform: translateY(-100%); }
     .onboarding-container.create-profile .profile-fill-in .dynamic {
       color: #0ebb73; }
+    .onboarding-container.create-profile .profile-fill-in .as-an {
+      cursor: pointer;
+      border-bottom: 2px solid #0ebb73;
+      color: #0ebb73;
+      position: relative; }
   .onboarding-container.create-profile .tell-us-about-yourself .add-another-interest {
     margin-top: 20px; }
   .onboarding-container.tutorial-and-login {

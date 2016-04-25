@@ -30,6 +30,18 @@
 	}
 	.onboarding-form {
 		margin-top: 20px;
+		&.hidden {
+			visibility: hidden;
+		}
+		&.disabled {
+			input {
+				background: $gray;
+				pointer-events: none;
+			}
+		}
+		.none {
+			display: none;
+		}
 	}
 
 	.onboarding-select-outer {
@@ -121,6 +133,7 @@
 
 			}
 			&.first-slide {
+				visibility: hidden;
 				background: $gray;
 				text-decoration: line-through;
 			}
