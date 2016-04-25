@@ -3,15 +3,16 @@
 		<div class="extended-all" ng-show="pageExtended"></div>
 
 		<!-- <h1 class="title">Your Post</h1> -->
-		
+
 		<div class="your-post">
-			<ion-list ng-repeat="matchedUser in matchedUsers">
-				<a class="user-card your-card" ng-click="tapUser(matchedUser.objectId)">
+			<ion-list ng-repeat="matchedUser in selfUser">
+				<a class="user-card your-card">
 					<div class="card-left">
 						<img class="profile-picture" src="http://graph.facebook.com/{{matchedUser.facebookId}}/picture?width=270&height=270"/>
 					</div>
 					<div class="card-right">
-						<h2>The User's Name</h2>
+						<h2 ng-show="!matchedUser.nickName">{{matchedUser.facebookName}}</h2>
+						<h2 ng-show="matchedUser.nickName">{{matchedUser.nickName}}</h2>
 						<div class="wants-to">
 							<img class="icon-ii" src="../img/ii.svg" />
 							{{matchedUser.activePost.description}}

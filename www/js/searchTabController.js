@@ -231,26 +231,34 @@ angular.module('meetme.searchTabController', [])
 
 .controller('AvailableSearchController', function ($scope, $state, $interval, $stateParams, ParseService, PubNubService, LocationService) {
 
+  $scope.activeUsers = [];
   $scope.matchedUsers = [];
+  $scope.selfUser = [];
   $scope.currentUser = JSON.parse($stateParams.currentUser);
   $scope.activePost = JSON.parse($stateParams.activePost);
   console.log(JSON.stringify($stateParams, null, 2));
   $scope.$parent.$parent.$parent.setAvailableTimer($stateParams.availableSecondsLeft);
 
   $scope.reload = function() {
-    ParseService.getWithInclude('Users', {"isAvailable":true, "objectId": {"$ne":$scope.currentUser.objectId}}, 'activePost', function(results) {
-        $scope.matchedUsers = results;
-        for (userIdx in $scope.matchedUsers) {
-          var postExpiresAt = new Date($scope.matchedUsers[userIdx].activePost.expiresAt.iso);
+    ParseService.getWithInclude('Users', {"isAvailable":true}, 'activePost', function(results) {
+        $scope.activeUsers = results;
+        $scope.matchedUsers = results.filter(function (el) {
+          return el.objectId != $scope.currentUser.objectId;
+        });;
+        $scope.selfUser = results.filter(function (el) {
+          return el.objectId == $scope.currentUser.objectId;
+        });;
+        for (userIdx in $scope.activeUsers) {
+          var postExpiresAt = new Date($scope.activeUsers[userIdx].activePost.expiresAt.iso);
           var totalMinutes = Math.floor((postExpiresAt - moment())/60000);
           var computedHours = Math.floor(totalMinutes / 60);
           var computedMinutes = totalMinutes % 60;
-          $scope.matchedUsers[userIdx].minutesLeftAvailable = computedHours + "hr " + computedMinutes + "min";
+          $scope.activeUsers[userIdx].minutesLeftAvailable = computedHours + "hr " + computedMinutes + "min";
           var distance = LocationService.milesBetween($scope.currentUser.userLocation.latitude, $scope.currentUser.userLocation.longitude,
-                                                $scope.matchedUsers[userIdx].userLocation.latitude, $scope.matchedUsers[userIdx].userLocation.longitude);
+                                                $scope.activeUsers[userIdx].userLocation.latitude, $scope.activeUsers[userIdx].userLocation.longitude);
           // Remove decimals
           distance = distance.toFixed(1);
-          $scope.matchedUsers[userIdx].searchDistance = distance;
+          $scope.activeUsers[userIdx].searchDistance = distance;
         }
     });
     ParseService.getById('Users', $scope.currentUser.objectId, function(user) {
