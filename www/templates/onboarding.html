@@ -47,6 +47,7 @@
 					</div>
 
 					<!-- If "work" is selected -->
+					<!-- Add class of "hidden" to hide -->
 					<div class="what-do-you-do onboarding-form" ng-show="ob.role=='work'">
 						<div class="label">What do you do there?</div>
 						<input placeholder="Enter your job title." class="onboarding-input" ng-model="ob.job">
@@ -58,18 +59,24 @@
 					</div>
 
 					<div class="profile-fill-in onboarding-form">
+
 						<div ng-show="ob.role=='school'">
-							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}</span>, a
-							<span class="profession dynamic">student</span> at
-							<span class="location dynamic">{{ob.school}}</span>.
+							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}, a</span>
+							<!-- Add class of "none" to span to hide it (display: none). -->
+							<span class="profession dynamic">student</span>
+							<span class="connector"> at </span>
+							<span class="location dynamic">{{ob.school}}.</span>
 						</div>
 						<div ng-show="ob.role=='work'">
-							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}</span>, I work as a
-							<span class="job dynamic">{{ob.job}}</span> at
+							<div class="check-grammar">Tap the "a" to change to "an".</div>
+							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}</span>, I work as 
+							<span class="connector as-an">a</span>
+							<span class="job dynamic"> {{ob.job}}</span>
+							<span class="connector"> at </span>
 							<span class="company dynamic">{{ob.company}}</span>.
 						</div>
 						<div ng-show="ob.role=='nothing'">
-							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}</span>. Nice to meet you!
+							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}.</span> Nice to meet you!
 						</div>
 					</div>
 				</div>
@@ -96,20 +103,22 @@
 					<div class="profile-fill-in onboarding-form final-form">
 						<div ng-show="ob.role=='school'">
 							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}</span>, a
-							<span class="profession dynamic">student</span> at
-							<span class="location dynamic">{{ob.school}}</span>.
+							<span class="profession">student</span> at
+							<span class="location">{{ob.school}}</span>.
 						</div>
 						<div ng-show="ob.role=='work'">
-							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}</span>, I work as a
-							<span class="job dynamic">{{ob.job}}</span> at
-							<span class="company dynamic">{{ob.company}}</span>.
+							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}</span>, I work as a 
+							<span class="job">{{ob.job}}</span> at
+							<span class="company">{{ob.company}}.</span>
 						</div>
 						<div ng-show="ob.role=='nothing'">
 							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}</span>. Nice to meet you!
 						</div>
-						I like to <span class="an-interest dynamic">{{ob.activity1}}</span>,
-						<span class="an-interest dynamic">{{ob.activity2}}</span>, and
-						<span class="an-interest dynamic">{{ob.activity3}}</span>.
+						<span class="connector">I like to </span>
+						<span class="an-interest dynamic">{{ob.activity1}},</span>
+						<span class="an-interest dynamic">{{ob.activity2}},</span>
+						<span class="connector"> and </span>
+						<span class="an-interest dynamic">{{ob.activity3}}.</span>
 					</div>
 				</div>
 			</ion-scroll>
