@@ -40,6 +40,7 @@
 	h2 {
 		color: $white;
 	}
+
 	.btn {
 		width: 100%;
 		font-weight: $bold;
@@ -56,13 +57,18 @@
 			color: $primary-color;
 		}
 	}
-
 	.slider {
 		.slider-pager {
 			bottom: 50px;
 		}
 	}
-
+	.step {
+		margin-top: 40px;
+		.screenshot {
+			width: 100%;
+			@include box-shadow-1();
+		}
+	}
 	.overlay {
 		position: absolute;
 		top: 0;

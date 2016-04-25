@@ -1,5 +1,5 @@
 <ion-view title="logged-out">
-	<!-- <ion-content class=""> -->
+	<div class="ii-background"></div>
 
 	<div class="tutorial-and-login onboarding-container">
 		<div class="overlay" id="login-overlay" onClick="hideLogin()"></div>
@@ -9,8 +9,12 @@
 				<ion-scroll zooming="false" direction="y" style="width: 100%; height: 100%;">
 					<div class="what-is-quiikmeet onboarding-slide">
 
-						<h1>What is QuiikMeet?</h1>
+						<div class="subtitle">What is QuiikMeet?</div>
 
+
+						<h2>
+							QuiikMeet is a realtime friend finding service that allows you to search for nearby people and do something together.
+						</h2>
 						<h2>
 							Have a break? Meet someone new over a cup of coffee! QuiikMeet fills gaps in your schedule with social interaction. 
 						</h2>
@@ -22,9 +26,24 @@
 			</ion-slide>
 			<ion-slide>
 				<ion-scroll zooming="false" direction="y" style="width: 100%; height: 100%;">
-					<div class="fb-login-inner onboarding-slide">
+					<div class="create-a-post onboarding-slide">
 
-						<h1>How to use it</h1>
+						<div class="title">How to Use It</div>
+
+						<div class="step">
+							<div class="label">Set what time you're available until.</div>
+							<img class="screenshot" src="http://placehold.it/500x300" />
+						</div>
+						
+						<div class="step">
+							<div class="label">Pick what you want to do.</div>
+							<img class="screenshot" src="http://placehold.it/500x300" />
+						</div>
+
+						<div class="step">
+							<div class="label">Use chat to decide where to meet.</div>
+							<img class="screenshot" src="http://placehold.it/500x300" />
+						</div>
 
 					</div>
 				</ion-scroll>
@@ -47,7 +66,4 @@
 
 		</div>
 	</div>
-
-	<!-- </ion-content> -->
-
 </ion-view>
