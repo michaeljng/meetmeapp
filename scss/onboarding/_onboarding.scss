@@ -1,5 +1,5 @@
 .onboarding-container {
-		padding: 0;
+	padding: 0;
 	height: 100%;
 	width: 100%;
 	background: $primary-color;
@@ -32,7 +32,6 @@
 		margin-top: 20px;
 	}
 
-	$input-height: 50px;
 	.onboarding-select-outer {
 		position: relative;
 		&:before {
@@ -79,6 +78,9 @@
 			@include display(flex);
 			@include align-items(center);
 		}
+		&.half {
+			width: 50%;
+		}
 	}
 	p {
 		color: $white;
@@ -109,8 +111,10 @@
 		bottom: 30px;
 		left: 30px;
 		right: 30px;
-		height: 100px;
+		height: auto;
+		pointer-events: none;
 		.btn {
+			pointer-events: all;
 			padding: 8px 15px;
 			font-weight: $bold;
 			&.secondary {

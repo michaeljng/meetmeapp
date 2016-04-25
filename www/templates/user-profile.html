@@ -1,39 +1,62 @@
 <ion-view class="profile-container" title="user-profile">
 
-  <div class="bar bar-subheader bar-dark" id="saved-notification">Profile changes saved!</div>
+	<div class="bar bar-subheader bar-dark" id="saved-notification">Profile changes saved!</div>
 
-  <div class="bar bar-subheader" id="option-notification" ng-hide="pageExtended || editable">
-    <button class="button button-balanced invite-button" ng-click="sendInvitation(displayUser)" ng-disabled="!inviteEnabled">{{inviteButtonText}}</button>
-  </div>
+	
+	<div class="" id="option-notification" ng-hide="pageExtended || editable">
 
-  <ion-content class="has-footer" id="ion-user-profile">
-    <div class="extended-inv" ng-show="pageExtended"></div>
-    <div class="extended-opt"></div>
-    <ion-list>
-      <ion-item class="profile-header" id="profile-header">
-        <img src="http://graph.facebook.com/{{displayUser.facebookId}}/picture?width=300&height=300"/>
-        <div>
-          <h1>{{displayUser.facebookName}}</h1>
-          <ion-item id="distanceFrom" ng-hide="editable">
-            Currently <span id="distance"></span> mi. from you
-          </ion-item>
-          <ion-item>
-            <input id="age" class="editable-field" ng-model="displayUser.userAge" type="number" ng-hide="!editable"><span ng-hide="editable">{{displayUser.userAge}}</span> years old
-          </ion-item>
-        </div>
-       
-      </ion-item>
-<!--       <ion-item>
-        Nickname: <br/><input id="nickName" class="editable-field" ng-model="displayUser.nickName" ng-hide="!editable"><span ng-hide="editable">{{displayUser.nickName}}</span>
-      </ion-item> -->
-      
-      
-      <ion-item class="item-text-wrap">
-        about <br/><textarea id="description" class="editable-field" ng-model="displayUser.userDescription" cols="40" rows="5" ng-hide="!editable"></textarea><div ng-hide="editable">{{displayUser.userDescription}}</div>
-      </ion-item>
-      <ion-item id="editButton" ng-hide="!editable">
-        <button class="btn" ng-click="saveProfile()">Save</button>
-        <!-- <button class="button button-calm" ng-click="logout()">Logout</button> -->
-      </ion-item>
-  </ion-content>
+		<!-- Add class of "disabled" when "invitation sent" -->
+		<button class="btn fixed" ng-click="sendInvitation(displayUser)" ng-disabled="!inviteEnabled">
+			{{inviteButtonText}}
+		</button>
+	</div>
+
+	<ion-content class="has-footer has-header container" id="ion-user-profile">
+		<div class="extended-inv" ng-show="pageExtended"></div>
+		<!-- <div class="extended-opt"></div> -->
+		<ion-list>
+				<ion-item class="profile-header" id="profile-header">
+					<div class="profile-picture">
+						<img src="http://graph.facebook.com/{{displayUser.facebookId}}/picture?width=300&height=300"/>
+					</div>
+
+					<div class="user-info">
+						<h1>{{displayUser.facebookName}}</h1>
+						<ion-item class="distance" id="distanceFrom" ng-hide="editable">
+							<i class="icon ion-android-pin"></i> <span id="distance"></span> mi.
+						</ion-item>
+						<ion-item class="age">
+							<input id="age" class="editable-field" ng-model="displayUser.userAge" type="number" ng-hide="!editable">
+							<span ng-hide="editable">{{displayUser.userAge}}</span>
+							 years old
+						</ion-item>
+					</div>
+				</ion-item>
+				<ion-item>
+					<div class="label">Nickname</div>
+					<input id="nickName" class="editable-field" ng-model="displayUser.nickName" ng-hide="!editable"><span ng-hide="editable">{{displayUser.nickName}}</span>
+				</ion-item>
+				
+				
+				<ion-item class="about">
+					<h1>about me</h1>
+					
+					<div class="about-bubble">
+					<textarea id="description" class="editable-field" ng-model="displayUser.userDescription" ng-hide="!editable"></textarea>
+						<div ng-hide="editable">{{displayUser.userDescription}}</div>
+					</div>
+
+				</ion-item>
+			</ion-list>
+
+	</ion-content>
+
+	<div id="editButton" ng-hide="!editable">
+		<button class="btn fixed circle" ng-click="saveProfile()">
+			<i class="icon ion-checkmark"></i>
+			<!-- save -->
+		</button>
+		<!-- <button class="fixed-btn" ng-click="logout()">Logout</button> -->
+	</div>
+
 </ion-view>

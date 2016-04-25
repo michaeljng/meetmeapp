@@ -9114,6 +9114,27 @@ a, a:hover, a:active, a:visited, a:focus {
 form, select, textarea, input {
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2); }
 
+input {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 10px;
+  width: 100%;
+  margin: 0;
+  height: 50px; }
+
 .container {
   padding: 20px;
   color: #4f4f4f;
@@ -9186,11 +9207,28 @@ form, select, textarea, input {
   .top-bar .logo {
     width: 140px; }
   .top-bar .time-remaining {
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center;
     color: #fff;
     font-weight: 700;
     font-size: 20px; }
     .top-bar .time-remaining .icon {
-      margin-right: 5px; }
+      margin-right: 10px; }
 
 .green-text {
   color: #0ebb73; }
@@ -9246,6 +9284,15 @@ form, select, textarea, input {
       line-height: 1.5;
       padding: 0;
       margin: 30px 0 30px 0; }
+      .popup-container .popup .popup-body input {
+        box-shadow: none;
+        color: #4f4f4f;
+        font-weight: 700; }
+        .popup-container .popup .popup-body input[type="time"] {
+          height: auto;
+          font-size: 20px;
+          padding: 10px;
+          height: 50px; }
       .popup-container .popup .popup-body .do-what-icons {
         margin-bottom: 15px;
         display: -webkit-box;
@@ -9334,13 +9381,18 @@ form, select, textarea, input {
             background: #0a8c56; }
 
 .icon {
-  display: -webkit-inline-box;
-  display: -moz-inline-box;
-  display: inline-box;
-  display: -webkit-inline-flex;
-  display: -moz-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex; }
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  align-items: center; }
 
 .ii-background {
   position: absolute;
@@ -9358,53 +9410,6 @@ form, select, textarea, input {
   height: 14px;
   display: inline-block; }
 
-.fixed-circle {
-  -webkit-transition: all 0.15s ease-in-out;
-  transition: all 0.15s ease-in-out;
-  position: fixed;
-  bottom: 80px;
-  right: 20px;
-  z-index: 100000;
-  display: -webkit-box;
-  display: -moz-box;
-  display: box;
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  -moz-justify-content: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
-  -moz-align-items: center;
-  align-items: center;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: none;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  text-transform: lowercase;
-  background: #0ebb73;
-  color: #fff;
-  font-size: 20px; }
-  .fixed-circle .icon {
-    display: -webkit-box;
-    display: -moz-box;
-    display: box;
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: -ms-flexbox;
-    display: flex; }
-  .fixed-circle:active {
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); }
-    .fixed-circle:active .icon {
-      -webkit-transform: rotate(45deg);
-      transform: rotate(45deg); }
-
 .btn {
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
   border: none;
@@ -9420,7 +9425,48 @@ form, select, textarea, input {
     background: #fff;
     color: #4f4f4f; }
     .btn.secondary:active {
-      background: #ccc; }
+      background: #999; }
+  .btn.disabled {
+    background: #ccc; }
+  .btn.fixed {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    z-index: 1000; }
+    .btn.fixed.circle {
+      -webkit-transition: all 0.15s ease-in-out;
+      transition: all 0.15s ease-in-out;
+      display: -webkit-box;
+      display: -moz-box;
+      display: box;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      -moz-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      -moz-align-items: center;
+      align-items: center;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 20px; }
+      .btn.fixed.circle .icon {
+        display: -webkit-box;
+        display: -moz-box;
+        display: box;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flexbox;
+        display: flex; }
+      .btn.fixed.circle:active {
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); }
 
 .editable-field {
   background: #fff;
@@ -9619,6 +9665,8 @@ form, select, textarea, input {
       -webkit-align-items: center;
       -moz-align-items: center;
       align-items: center; }
+    .onboarding-container .onboarding-input.half {
+      width: 50%; }
   .onboarding-container p {
     color: #fff; }
   .onboarding-container .title {
@@ -9657,8 +9705,10 @@ form, select, textarea, input {
     bottom: 30px;
     left: 30px;
     right: 30px;
-    height: 100px; }
+    height: auto;
+    pointer-events: none; }
     .onboarding-container .bottom-bar .btn {
+      pointer-events: all;
       padding: 8px 15px;
       font-weight: 700; }
   .onboarding-container.create-profile .profile-picture {
@@ -9701,7 +9751,7 @@ form, select, textarea, input {
       width: 0;
       height: 0;
       border-style: solid;
-      border-width: 10px 0 0 10px;
+      border-width: 10px 0px 0px 10px;
       border-color: transparent transparent transparent #fff;
       bottom: 0px;
       right: -10px; }
@@ -10032,7 +10082,10 @@ form, select, textarea, input {
       display: flex; }
 
 .available-users .title {
-  margin-bottom: 25px; }
+  margin: 40px 0 20px 0; }
+
+.available-users .your-post {
+  margin-top: 20px; }
 
 .available-users .user-card {
   display: -webkit-box;
@@ -10084,13 +10137,141 @@ form, select, textarea, input {
       border-radius: 50%;
       width: 70px;
       height: 70px; }
-  .available-users .user-card .card-right h2 {
-    font-weight: 700;
-    font-size: 16px;
-    margin: 0; }
-  .available-users .user-card .card-right .wants-to {
-    margin-bottom: 10px; }
-  .available-users .user-card .card-right .details {
+  .available-users .user-card .card-right {
+    -webkit-flex-grow: 1;
+    -moz-flex-grow: 1;
+    flex-grow: 1;
+    -ms-flex-positive: 1; }
+    .available-users .user-card .card-right h2 {
+      font-weight: 700;
+      font-size: 16px;
+      margin: 0; }
+    .available-users .user-card .card-right .wants-to {
+      margin-bottom: 10px; }
+    .available-users .user-card .card-right .details {
+      display: -webkit-box;
+      display: -moz-box;
+      display: box;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-direction: normal;
+      -webkit-box-orient: horizontal;
+      -webkit-flex-direction: row;
+      -moz-flex-direction: row;
+      -ms-flex-direction: row;
+      flex-direction: row; }
+      .available-users .user-card .card-right .details .icon {
+        display: -webkit-inline-box;
+        display: -moz-inline-box;
+        display: inline-box;
+        display: -webkit-inline-flex;
+        display: -moz-inline-flex;
+        display: -ms-inline-flexbox;
+        display: inline-flex; }
+      .available-users .user-card .card-right .details .distance {
+        margin-right: 15px; }
+  .available-users .user-card.your-card .card-x-out {
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    -webkit-align-items: flex-end;
+    -moz-align-items: flex-end;
+    align-items: flex-end;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    justify-content: center;
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-flex-shrink: 0;
+    -moz-flex-shrink: 0;
+    flex-shrink: 0;
+    -ms-flex-negative: 0; }
+    .available-users .user-card.your-card .card-x-out .x-btn {
+      display: -webkit-box;
+      display: -moz-box;
+      display: box;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      -moz-align-items: center;
+      align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      -moz-justify-content: center;
+      justify-content: center;
+      font-size: 18px;
+      cursor: pointer;
+      color: #fff;
+      background: #4f4f4f;
+      border-radius: 50%;
+      box-shadow: none;
+      width: 40px;
+      height: 40px; }
+      .available-users .user-card.your-card .card-x-out .x-btn:active {
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg); }
+
+.profile-container .item {
+  border: none;
+  padding: 10px 0;
+  background: none; }
+
+.profile-container input {
+  background: #f4f4f4; }
+
+.profile-container .profile-header {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -moz-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row; }
+  .profile-container .profile-header .profile-picture {
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    align-items: center;
+    width: 40%;
+    margin-right: 20px; }
+    .profile-container .profile-header .profile-picture img {
+      border-radius: 50%;
+      width: 100%;
+      height: 100%; }
+  .profile-container .profile-header .user-info {
     display: -webkit-box;
     display: -moz-box;
     display: box;
@@ -10099,28 +10280,68 @@ form, select, textarea, input {
     display: -ms-flexbox;
     display: flex;
     -webkit-box-direction: normal;
-    -webkit-box-orient: horizontal;
-    -webkit-flex-direction: row;
-    -moz-flex-direction: row;
-    -ms-flex-direction: row;
-    flex-direction: row; }
-    .available-users .user-card .card-right .details .distance {
-      margin-right: 15px; }
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    width: 60%; }
+    .profile-container .profile-header .user-info .item {
+      padding: 0;
+      margin-top: 5px;
+      border: none; }
+    .profile-container .profile-header .user-info .age {
+      display: -webkit-box;
+      display: -moz-box;
+      display: box;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-direction: normal;
+      -webkit-box-orient: horizontal;
+      -webkit-flex-direction: row;
+      -moz-flex-direction: row;
+      -ms-flex-direction: row;
+      flex-direction: row; }
+      .profile-container .profile-header .user-info .age input {
+        width: 50px;
+        padding: 10px; }
 
-.profile-container .profile-header img {
-  border-radius: 50%;
-  width: 35%;
-  margin-top: 30px;
-  height: auto; }
-
-.profile-container .profile-header div {
-  float: right;
+.profile-container .about .about-bubble {
   margin-top: 40px;
-  width: 56%; }
-  .profile-container .profile-header div .item {
-    padding: 0;
-    margin-top: 5px;
-    border: none; }
+  position: relative;
+  margin-right: 20%;
+  line-height: 1.5;
+  background: #f4f4f4;
+  color: #4f4f4f;
+  border-radius: 5px 5px 5px 0px;
+  font-style: italic;
+  -webkit-filter: drop-shadow(-3px 3px 5px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(-3px 3px 5px rgba(0, 0, 0, 0.2)); }
+  .profile-container .about .about-bubble:after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 10px 10px;
+    border-color: transparent transparent #e8e8e8 transparent;
+    bottom: 0px;
+    left: -10px; }
+  .profile-container .about .about-bubble textarea {
+    resize: none;
+    box-shadow: none;
+    width: 100%;
+    padding: 10px;
+    background: none;
+    font-size: 20px;
+    font-style: italic;
+    min-height: 100px;
+    height: 200px; }
+    .profile-container .about .about-bubble textarea:focus {
+      background: rgba(0, 0, 0, 0.1); }
 
 .post-button {
   height: calc(25vh - 25px);

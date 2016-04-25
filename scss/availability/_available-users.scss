@@ -1,6 +1,9 @@
 .available-users {
 	.title {
-		margin-bottom: 25px;
+		margin: 40px 0 20px 0;
+	}
+	.your-post {
+		margin-top: 20px;
 	}
 	.user-card {
 		@include display(flex);
@@ -28,6 +31,7 @@
 			}
 		}
 		.card-right {
+			@include flex-grow(1);
 			h2 {
 				font-weight: $bold;
 				font-size: $fs-body;
@@ -41,11 +45,39 @@
 				@include display(flex);
 				@include flex-direction(row);
 				//color: $text-secondary;
+				.icon {
+					@include display(inline-flex);
+				}
 				.distance {
 					margin-right: 15px;
 				}
 				.time-available {
 
+				}
+			}
+		}
+		&.your-card {
+			.card-x-out {
+				@include display(flex);
+				@include align-items(flex-end);
+				@include justify-content(center);
+				@include flex-direction(column);
+				@include flex-shrink(0);
+				.x-btn {
+					@include display(flex);
+					@include align-items(center);
+					@include justify-content(center);
+					font-size: 18px;
+					cursor: pointer;
+					color: $white;
+					background: $text-color;
+					border-radius: 50%;
+					box-shadow: none;
+					width: 40px;
+					height: 40px;
+					&:active {
+						@include transform(rotate(45deg));
+					}
 				}
 			}
 		}
