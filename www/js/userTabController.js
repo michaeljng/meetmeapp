@@ -47,12 +47,6 @@ angular.module('meetme.userTabController', [])
     // document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
   }
 
-  if ($scope.displayUser.nickName) {
-    $scope.displayName = $scope.displayUser.nickName;
-  } else {
-    $scope.displayName = $scope.displayUser.facebookName;
-  }
-
   if ($scope.currentUser.objectId == $scope.displayUser.objectId) {
     $scope.editable = true;
     $scope.$parent.$parent.$parent.hideBackButton();
