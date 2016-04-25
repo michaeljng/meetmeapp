@@ -194,14 +194,19 @@ angular.module('meetme', ['ionic',
         FacebookService.getUserFields(['id','name'],function(user) {
           ParseService.get('Users', {"facebookId":user.id}, function(results) {
 
-            var finishLogin = function() {
-              $state.go('app.onboarding', {'displayUserId':$scope.userId});
+            var finishLogin = function(isNewUser) {
+              if (isNewUser) {
+                $state.go('app.onboarding', {'displayUserId':$scope.userId});
+              }
+              else {
+                $state.go('app.logged-in.search-tab.unavailable', {"userId": $scope.userId});
+              }
             }
 
             if (results.length == 0) {
               ParseService.create('Users', {"facebookId":user.id,"facebookName":user.name}, function(response) {
                 $scope.userId = response.data.objectId;
-                finishLogin();
+                finishLogin(true);
               });
             }
             else {
@@ -210,7 +215,7 @@ angular.module('meetme', ['ionic',
 
               ParseService.update('Users', results[0].objectId, results[0], function(response) {
                 $scope.userId = response.config.data.objectId;
-                finishLogin();
+                finishLogin(false);
               });
             }
 
