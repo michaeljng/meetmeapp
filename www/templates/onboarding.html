@@ -67,8 +67,7 @@
 							<span class="location dynamic">{{ob.school}}.</span>
 						</div>
 						<div ng-show="ob.role=='work'">
-							<div class="check-grammar">Tap the "a" to change to "an".</div>
-							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}</span>, I work as 
+							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}</span>, I work as
 							<!-- Replace a with an (low priority) -->
 							<span class="connector as-an">a</span>
 							<span class="job dynamic"> {{ob.job}}</span>
@@ -93,11 +92,11 @@
 						<input placeholder="ex. discover new food" class="onboarding-input" ng-model="ob.activity1">
 					</div>
 
-					<div class="interest-hidden onboarding-form disabled">
+					<div class="interest-hidden onboarding-form" ng-class="{disabled : !ob.activity1 && !ob.activity3}">
 						<input placeholder="ex. hike" class="onboarding-input" ng-model="ob.activity2">
 					</div>
 
-					<div class="interest-hidden onboarding-form disabled">
+					<div class="interest-hidden onboarding-form" ng-class="{disabled : !ob.activity2 && !ob.activity3}">
 						<input placeholder="ex. play basketball" class="onboarding-input" ng-model="ob.activity3">
 					</div>
 
@@ -108,7 +107,7 @@
 							<span class="location">{{ob.school}}</span>.
 						</div>
 						<div ng-show="ob.role=='work'">
-							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}</span>, I work as a 
+							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}</span>, I work as a
 							<span class="job">{{ob.job}}</span> at
 							<span class="company">{{ob.company}}.</span>
 						</div>
