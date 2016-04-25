@@ -5,6 +5,7 @@
 	.item {
 		border: none;
 		padding: 10px 0;
+		overflow: visible;
 		background: none;
 	}
 	input {
@@ -27,6 +28,7 @@
 		.user-info {
 			@include display(flex);
 			@include flex-direction(column);
+			@include justify-content(center);
 			//@include align-items(center);
 			width: 60%;
 			.item{
@@ -46,10 +48,9 @@
 	}
 	.about {
 		.about-bubble {
-			margin-top: 40px;
 			position: relative;
 			//padding: 10px;
-			margin-right: 20%;
+			margin-right: 10%;
 			line-height: 1.5;
 			background: $lighter-gray;
 			color: $text-color;
@@ -64,7 +65,7 @@
 				height: 0;
 				border-style: solid;
 				border-width: 0 0 10px 10px;
-				border-color: transparent transparent $light-gray transparent;
+				border-color: transparent transparent $lighter-gray transparent;
 				bottom: 0px;
 				left: -10px;
 			}
