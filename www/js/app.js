@@ -76,9 +76,17 @@ angular.module('meetme', ['ionic',
         })
 
         .state('app.onboarding', {
-          url: '/home',
+          url: '/onboarding/:displayUserId',
           templateUrl: 'templates/onboarding.html',
-          controller: 'OnboardingController'
+          controller: 'OnboardingController',
+          resolve: {
+            currentUser: function(PreloadFunctions) {
+              return PreloadFunctions.currentUser();
+            },
+            displayUser: function(PreloadFunctions, $stateParams) {
+              return PreloadFunctions.userById($stateParams.displayUserId);
+            }
+          }
         })
 
         // if none of the above states are matched, use this as the fallback
@@ -121,7 +129,7 @@ angular.module('meetme', ['ionic',
         var minutesLeft = Math.ceil($scope.availableSecondsLeft/60);
 
         if (minutesLeft > 59) {
-          $scope.headerText = Math.ceil(minutesLeft/60) + " Hours Left";
+          $scope.headerText = Math.floor(minutesLeft/60) + "+ Hours Left";
         }
         else if (minutesLeft > 1) {
           $scope.headerText = minutesLeft + " Minutes Left";
@@ -186,14 +194,19 @@ angular.module('meetme', ['ionic',
         FacebookService.getUserFields(['id','name'],function(user) {
           ParseService.get('Users', {"facebookId":user.id}, function(results) {
 
-            var finishLogin = function() {
-              $state.go('app.onboarding');
+            var finishLogin = function(isNewUser) {
+              if (isNewUser) {
+                $state.go('app.onboarding', {'displayUserId':$scope.userId});
+              }
+              else {
+                $state.go('app.logged-in.search-tab.unavailable', {"userId": $scope.userId});
+              }
             }
 
             if (results.length == 0) {
               ParseService.create('Users', {"facebookId":user.id,"facebookName":user.name}, function(response) {
                 $scope.userId = response.data.objectId;
-                finishLogin();
+                finishLogin(true);
               });
             }
             else {
@@ -202,7 +215,7 @@ angular.module('meetme', ['ionic',
 
               ParseService.update('Users', results[0].objectId, results[0], function(response) {
                 $scope.userId = response.config.data.objectId;
-                finishLogin();
+                finishLogin(true); //TODO: Change this to false to hide onboarding
               });
             }
 
@@ -216,8 +229,51 @@ angular.module('meetme', ['ionic',
 
 })
 
-.controller('OnboardingController', function ($scope, $state, $interval, $stateParams) {
+.controller('OnboardingController', function ($scope, $state, $interval, $stateParams, $ionicSlideBoxDelegate, currentUser, displayUser, FacebookService, ParseService) {
+  $scope.currentUser = currentUser;
+  $scope.displayUser = displayUser;
+
+  $scope.ob = {nickname : "", age : 0, role : "school", school : "", job : "", company : "", activity1 : "", activity2 : "", activity3 : ""};
+
+  $scope.slideIndex = 0;
+
+  $scope.slideChanged = function(index) {
+    $scope.slideIndex = index;
+    if($scope.ob.nickname == "") {
+      $scope.ob.nickname = displayUser.facebookName.split(' ')[0];
+    }
+  };
+
+  $scope.next = function() {
+    if($scope.slideIndex != 2) {
+      $ionicSlideBoxDelegate.next();
+    } else {
+      $scope.completeOnboarding();
+    }
+  };
+  $scope.previous = function() {
+    $ionicSlideBoxDelegate.previous();
+  };
+
   $scope.completeOnboarding = function() {
+    totalDescription = "Hey, I'm " + $scope.ob.nickname;
+    if($scope.ob.role == "school") {
+      totalDescription += ", a student at " + $scope.ob.school + ".";
+    } else if($scope.ob.role == "work") {
+      totalDescription += ", I work as a " + $scope.ob.job + " at " + $scope.ob.company + ".";
+    } else {
+      totalDescription += ". Nice to meet you!";
+    }
+    totalDescription += " I like to " + $scope.ob.activity1 + ", " + $scope.ob.activity2 + ", and " + $scope.ob.activity3 + ".";
+
+    $scope.displayUser.nickName = $scope.ob.nickname;
+    $scope.displayUser.userAge = $scope.ob.age;
+    $scope.displayUser.userDescription = totalDescription;
+
+    ParseService.updateAndRetrieve('Users',$scope.currentUser.objectId,$scope.displayUser, function(user) {
+      $scope.displayUser = user;
+    });
+
     $state.go('app.logged-in.search-tab.unavailable', {"userId": $scope.userId});
   }
 })
