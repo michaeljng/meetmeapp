@@ -118,6 +118,11 @@
 			padding: 8px 15px;
 			font-weight: $bold;
 			&.secondary {
+
+			}
+			&.first-slide {
+				background: $gray;
+				text-decoration: line-through;
 			}
 		}
 	}

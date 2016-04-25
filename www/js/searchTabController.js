@@ -80,9 +80,9 @@ angular.module('meetme.searchTabController', [])
 
   $scope.showNewPost = function() {
     if (!$scope.data.postExpiresAt) {
-      $scope.showPopupWarning("Please set a time for when you are availability until");
+      $scope.showPopupWarning("Please set a time.");
     } else if (!$scope.data.postDescription && $scope.noCategoriesChosen()) {
-      $scope.showPopupWarning("Please add at least 1 activitiy");
+      $scope.showPopupWarning("Please add at least 1 activity.");
     } else {
       var expiresAt = new Date();
       expiresAt.setHours($scope.data.postExpiresAt.getHours());
@@ -117,7 +117,7 @@ angular.module('meetme.searchTabController', [])
       type: 'button-balanced',
       onTap: function(e) {
         if (!$scope.data.postExpiresAt) {
-          $scope.showPopupWarning("Please set a time for when you are availability until");
+          $scope.showPopupWarning("Please set a time.");
           e.preventDefault();
         } else {
           var expiresAt = new Date();
@@ -152,7 +152,7 @@ angular.module('meetme.searchTabController', [])
       var savedDescription = $scope.data.postDescription;
     }
     var myPopup = $ionicPopup.show({
-    template: '<div class="do-what-icons"><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[0][\'active\']}" ng-click="toggleCategory(1)"><i class="icon ion-fork"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[1][\'active\']}" ng-click="toggleCategory(2)"><i class="icon ion-ios-game-controller-a"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[2][\'active\']}" ng-click="toggleCategory(3)"><i class="icon ion-ios-people"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[3][\'active\']}" ng-click="toggleCategory(4)"><i class="icon ion-ios-basketball"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[4][\'active\']}" ng-click="toggleCategory(5)"><i class="icon ion-coffee"></i></div></div><p/><input id="description" class="other-box" ng-model="data.postDescription" placeholder="other...">',
+    template: '<div class="do-what-icons"><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[0][\'active\']}" ng-click="toggleCategory(1)"><i class="icon ion-fork"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[1][\'active\']}" ng-click="toggleCategory(2)"><i class="icon ion-ios-game-controller-a"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[2][\'active\']}" ng-click="toggleCategory(3)"><i class="icon ion-ios-people"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[3][\'active\']}" ng-click="toggleCategory(4)"><i class="icon ion-ios-basketball"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[4][\'active\']}" ng-click="toggleCategory(5)"><i class="icon ion-coffee"></i></div></div><p/><input id="description" class="other-box" ng-model="data.postDescription" placeholder="other..."><div class="icon-translation"></div>',
     title: 'to do what?',
     scope: $scope,
     buttons: [
