@@ -217,7 +217,7 @@ angular.module('meetme', ['ionic',
 
               ParseService.update('Users', results[0].objectId, results[0], function(response) {
                 $scope.userId = response.config.data.objectId;
-                finishLogin(true); //TODO: Change this to false to hide onboarding
+                finishLogin(false);
               });
             }
 
