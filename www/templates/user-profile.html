@@ -1,7 +1,7 @@
 <ion-view class="profile-container" title="user-profile">
 	<div class="ii-background right"></div>
 
-	<div class="bar bar-subheader bar-dark" id="saved-notification">Profile changes saved!</div>
+	<div class="bar bar-subheader bar-dark saved-notifcation" id="saved-notification">Profile changes saved!</div>
 
 	<div class="" id="option-notification" ng-hide="pageExtended || editable">
 
@@ -23,27 +23,30 @@
 					<div class="user-info">
 						<h1>{{displayUser.facebookName}}</h1>
 						<ion-item class="distance" id="distanceFrom" ng-hide="editable">
-							<i class="icon ion-android-pin"></i> <span id="distance"></span> mi.
+							<i class="icon ion-android-pin"></i>
+							<span id="distance"></span>
+							<span class="mi">&nbsp;mi</span>
 						</ion-item>
 						<ion-item class="age">
 							<input id="age" class="editable-field" ng-model="displayUser.userAge" type="number" ng-hide="!editable">
 							<span ng-hide="editable">{{displayUser.userAge}}</span>
-							 years old
+							<span class="years-old">&nbsp;years old</span>
 						</ion-item>
 					</div>
 				</ion-item>
-				<ion-item>
+				<ion-item class="nickname">
 					<div class="label">Nickname</div>
-					<input id="nickName" class="editable-field" ng-model="displayUser.nickName" ng-hide="!editable"><span ng-hide="editable">{{displayUser.nickName}}</span>
+					<input id="nickName" class="editable-field nickname-text" ng-model="displayUser.nickName" ng-hide="!editable">
+					<span class="nickname-text" ng-hide="editable">{{displayUser.nickName}}</span>
 				</ion-item>
 
 
 				<ion-item class="about">
-					<h1>about me</h1>
+					<div class="label">About Me</div>
 
 					<div class="about-bubble">
-					<textarea id="description" class="editable-field" ng-model="displayUser.userDescription" ng-hide="!editable"></textarea>
-						<div ng-hide="editable">{{displayUser.userDescription}}</div>
+						<textarea id="description" class="editable-field about-text" ng-model="displayUser.userDescription" ng-hide="!editable"></textarea>
+						<div class="about-text-no-edit" ng-hide="editable">{{displayUser.userDescription}}</div>
 					</div>
 
 				</ion-item>

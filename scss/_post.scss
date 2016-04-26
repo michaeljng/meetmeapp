@@ -4,13 +4,14 @@
   border: none;
   display: block;
   font-size: 18px;
-  color: $blue;
+  color: $secondary-color;
   background: $white;
-  font-weight:700;
+  font-weight: 700;
   @include box-sizing(border-box);
 
   i {
-    font-size:$fs-h1;
+    font-size: $fs-h1;
+    @include transition(none);
   }
 
 }
@@ -18,9 +19,9 @@
   @include display(flex);
   @include justify-content(center);
   @include align-items(center);
-  background-color: $primary-color;
+  background-color: $secondary-color;
   color: $white;
-  font-weight: 500;
+  font-weight: 700;
   margin-top: $bar-height;
   border: none;
 }
@@ -35,15 +36,23 @@
   height: 40px;
   width: 40px;
 }
+
+.find-button {
+  &:active {
+    background: $secondary-color;
+    color: $white;
+  }
+}
+
 .chosen-category {
   background-color: #333;
   color: $white;
 }
 .completed-container {
-  background-color: #87bfde;
+  background-color: $secondary-color;
   color: $white;
-  font-weight: 500;
+  font-weight: 700;
 }  
 .cool-icon{
-  fill: #FF0;
+  fill: #ff0;
 }
