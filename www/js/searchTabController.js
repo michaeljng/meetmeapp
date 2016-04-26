@@ -61,6 +61,7 @@ angular.module('meetme.searchTabController', [])
   $scope.onScreenCategories = "";
 
   $scope.$parent.$parent.$parent.hideBackButton();
+  $('.top-bar').css('visibility', 'visible');
 
   $scope.secondsUntil = function(time) {
     return Math.floor((time - moment())/1000);

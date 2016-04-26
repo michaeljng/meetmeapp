@@ -112,6 +112,8 @@ angular.module('meetme', ['ionic',
   $scope.showBack = false;
   $scope.backBlock = null;
 
+  $('.top-bar').css('visibility', 'hidden');
+
   $scope.clearTimer = function() {
     $interval.cancel($scope.timer);
     $scope.timer = null;
@@ -236,7 +238,6 @@ angular.module('meetme', ['ionic',
   $scope.ob = {nickname : "", age : 0, role : "school", school : "", job : "", company : "", activity1 : "", activity2 : "", activity3 : ""};
 
   $scope.slideIndex = 0;
-  $('.top-bar').css('visibility', 'hidden');
 
   $scope.slideChanged = function(index) {
     $scope.slideIndex = index;
@@ -257,7 +258,6 @@ angular.module('meetme', ['ionic',
   };
 
   $scope.completeOnboarding = function() {
-    $('.top-bar').css('visibility', 'visible');
     totalDescription = "Hey, I'm " + $scope.ob.nickname;
     if($scope.ob.role == "school") {
       totalDescription += ", a student at " + $scope.ob.school + ".";
