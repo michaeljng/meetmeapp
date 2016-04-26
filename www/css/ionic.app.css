@@ -9731,11 +9731,12 @@ input {
   .onboarding-container .title {
     color: #fff;
     font-size: 36px;
-    margin-bottom: 40px; }
+    margin-bottom: 30px; }
   .onboarding-container .subtitle {
     font-size: 24px;
     font-weight: 700;
-    margin-bottom: 20px; }
+    margin-bottom: 20px;
+    margin-top: 40px; }
   .onboarding-container .label {
     font-size: 16px;
     color: #fff;
@@ -9825,6 +9826,8 @@ input {
       color: #0ebb73; }
   .onboarding-container.create-profile .tell-us-about-yourself .add-another-interest {
     margin-top: 20px; }
+  .onboarding-container.create-profile .how-old-are-you, .onboarding-container.create-profile .profile-fill-in {
+    margin-bottom: 40px; }
   .onboarding-container.tutorial-and-login {
     display: -webkit-box;
     display: -moz-box;
@@ -9851,28 +9854,16 @@ input {
     height: 100vh;
     background: #0ebb73;
     z-index: 2; }
-    .onboarding-container.tutorial-and-login .what-is-quiikmeet {
-      display: -webkit-box;
-      display: -moz-box;
-      display: box;
-      display: -webkit-flex;
-      display: -moz-flex;
-      display: -ms-flexbox;
-      display: flex;
-      -webkit-box-pack: center;
-      -ms-flex-pack: center;
-      -webkit-justify-content: center;
-      -moz-justify-content: center;
-      justify-content: center;
-      -webkit-box-direction: normal;
-      -webkit-box-orient: vertical;
-      -webkit-flex-direction: column;
-      -moz-flex-direction: column;
-      -ms-flex-direction: column;
-      flex-direction: column;
-      height: 100vh; }
-      .onboarding-container.tutorial-and-login .what-is-quiikmeet h2 {
-        font-style: italic; }
+    .onboarding-container.tutorial-and-login .subtitle {
+      margin-top: 40px; }
+    .onboarding-container.tutorial-and-login h1 {
+      font-weight: 700;
+      color: #fff; }
+    .onboarding-container.tutorial-and-login h2 {
+      color: #fff; }
+    .onboarding-container.tutorial-and-login .what-is-quiikmeet p {
+      font-style: italic;
+      font-size: 20px; }
     .onboarding-container.tutorial-and-login #fb-login-instructions {
       background: #fff;
       height: 300px;
@@ -9889,12 +9880,8 @@ input {
         -webkit-transform: translateY(0%);
         transform: translateY(0%); }
       .onboarding-container.tutorial-and-login #fb-login-instructions .btn {
-        border-top: 1px solid #e8e8e8; }
-    .onboarding-container.tutorial-and-login h1 {
-      font-weight: 700;
-      color: #fff; }
-    .onboarding-container.tutorial-and-login h2 {
-      color: #fff; }
+        border-top: 1px solid #e8e8e8;
+        box-shadow: none; }
     .onboarding-container.tutorial-and-login .btn {
       width: 100%;
       font-weight: 700;
@@ -9904,7 +9891,8 @@ input {
       height: 50px;
       color: #4f4f4f;
       border-radius: 0;
-      position: absolute; }
+      position: absolute;
+      box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.2); }
       .onboarding-container.tutorial-and-login .btn:active {
         background: #fff;
         color: #0ebb73; }

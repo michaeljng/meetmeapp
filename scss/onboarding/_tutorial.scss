@@ -6,13 +6,24 @@
 	height: 100vh;
 	background: $primary-color;
 	z-index: 2;
+	.subtitle {
+		margin-top: 40px;
+	}
+	h1 {
+		font-weight: $bold;
+		color: $white;
+	}
+	h2 {
+		color: $white;
+	}
 	.what-is-quiikmeet {
-		@include display(flex);
-		@include justify-content(center);
-		@include flex-direction(column);
-		height: 100vh;
-		h2 {
+		// @include display(flex);
+		// @include justify-content(center);
+		// @include flex-direction(column);
+		// height: 100vh;
+		p {
 			font-style: italic;
+			font-size: $fs-h2;
 		}
 	}
 	#fb-login-instructions {
@@ -32,16 +43,9 @@
 		}
 		.btn{
 			border-top: 1px solid $light-gray;
+			box-shadow: none;
 		}
 	}
-	h1 {
-		font-weight: $bold;
-		color: $white;
-	}
-	h2 {
-		color: $white;
-	}
-
 	.btn {
 		width: 100%;
 		font-weight: $bold;
@@ -52,7 +56,7 @@
 		color: $text-color;
 		border-radius: 0;
 		position: absolute;
-		//box-shadow: 0 -2px 3px rgba(0,0,0,0.2);
+		box-shadow: 0 -2px 3px rgba(0,0,0,0.2);
 		&:active {
 			background: $white;
 			color: $primary-color;
