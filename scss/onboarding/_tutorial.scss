@@ -5,6 +5,7 @@
 	@include flex-grow(1);
 	height: 100vh;
 	background: $primary-color;
+	z-index: 2;
 	.what-is-quiikmeet {
 		@include display(flex);
 		@include justify-content(center);

@@ -1,6 +1,7 @@
 .available-users {
 	.title {
 		margin: 40px 0 20px 0;
+		color: $primary-color;
 	}
 	.your-post {
 		margin-top: 20px;
@@ -67,10 +68,10 @@
 					@include display(flex);
 					@include align-items(center);
 					@include justify-content(center);
-					font-size: 18px;
+					font-size: 24px;
 					cursor: pointer;
-					color: $white;
-					background: $text-color;
+					color: $text-color;
+					background: none;
 					border-radius: 50%;
 					box-shadow: none;
 					width: 40px;
