@@ -58,6 +58,7 @@ angular.module('meetme.searchTabController', [])
     {"category":"play sports",              "active":false},
     {"category":"grab coffee",              "active":false}];
   $scope.savedCategoryArray = JSON.parse(JSON.stringify($scope.categoryArray));
+  $scope.onScreenCategories = "";
 
   $scope.$parent.$parent.$parent.hideBackButton();
 
@@ -93,7 +94,7 @@ angular.module('meetme.searchTabController', [])
       }
 
       var seconds = $scope.secondsUntil(expiresAt);
-      var description = $scope.stringDescription();
+      var description = $scope.stringDescription(true);
       $scope.setAvailable(seconds, description);
     }
   };
@@ -148,11 +149,12 @@ angular.module('meetme.searchTabController', [])
   };
 
   $scope.editPostActivity = function() {
+    $scope.onScreenCategories = $scope.stringDescription(false);
     if($scope.data.postDescription != null) {
       var savedDescription = $scope.data.postDescription;
     }
     var myPopup = $ionicPopup.show({
-    template: '<div class="do-what-icons"><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[0][\'active\']}" ng-click="toggleCategory(1)"><i class="icon ion-fork"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[1][\'active\']}" ng-click="toggleCategory(2)"><i class="icon ion-ios-game-controller-a"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[2][\'active\']}" ng-click="toggleCategory(3)"><i class="icon ion-ios-people"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[3][\'active\']}" ng-click="toggleCategory(4)"><i class="icon ion-ios-basketball"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[4][\'active\']}" ng-click="toggleCategory(5)"><i class="icon ion-coffee"></i></div></div><p/><input id="description" class="other-box" ng-model="data.postDescription" placeholder="other..."><div class="icon-translation"></div>',
+    template: '<div class="do-what-icons"><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[0][\'active\']}" ng-click="toggleCategory(1)"><i class="icon ion-fork"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[1][\'active\']}" ng-click="toggleCategory(2)"><i class="icon ion-ios-game-controller-a"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[2][\'active\']}" ng-click="toggleCategory(3)"><i class="icon ion-ios-people"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[3][\'active\']}" ng-click="toggleCategory(4)"><i class="icon ion-ios-basketball"></i></div><div class="clickable-category" ng-class="{\'chosen-category\':categoryArray[4][\'active\']}" ng-click="toggleCategory(5)"><i class="icon ion-coffee"></i></div></div><p/><input id="description" class="other-box" ng-model="data.postDescription" placeholder="other..."><div class="icon-translation"></div><p/>{{onScreenCategories}}',
     title: 'to do what?',
     scope: $scope,
     buttons: [
@@ -169,7 +171,7 @@ angular.module('meetme.searchTabController', [])
         if ($scope.data.postDescription || !$scope.noCategoriesChosen()) {
           $scope.savedCategoryArray = JSON.parse(JSON.stringify($scope.categoryArray));
           $(".activity-container").addClass("completed-container");
-          $(".activity-container span").html("to " + $scope.stringDescription());
+          $(".activity-container span").html("to " + $scope.stringDescription(true));
         } else {
           $scope.showPopupWarning("Please add at least 1 activitiy");
           e.preventDefault();
@@ -180,14 +182,14 @@ angular.module('meetme.searchTabController', [])
     });
   };
 
-  $scope.stringDescription = function() {
+  $scope.stringDescription = function(isFull) {
     var finalString = "";
     for (i = 0; i < $scope.categoryArray.length; i++) {
       if($scope.categoryArray[i]["active"] == true) {
         finalString = finalString + $scope.categoryArray[i]["category"] + ", ";
       }
     }
-    if ($scope.data.postDescription == null || $scope.data.postDescription.length === 0) {
+    if ($scope.data.postDescription == null || $scope.data.postDescription.length === 0 || isFull == false) {
       finalString = finalString.slice(0, -2);
       var customDescription = "";
     } else {
@@ -198,6 +200,7 @@ angular.module('meetme.searchTabController', [])
 
   $scope.toggleCategory = function(category) {
     $scope.categoryArray[category-1]["active"] = !$scope.categoryArray[category-1]["active"];
+    $scope.onScreenCategories = $scope.stringDescription(false);
   }
 
   $scope.showPopupWarning = function(content) {
