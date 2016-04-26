@@ -236,6 +236,7 @@ angular.module('meetme', ['ionic',
   $scope.ob = {nickname : "", age : 0, role : "school", school : "", job : "", company : "", activity1 : "", activity2 : "", activity3 : ""};
 
   $scope.slideIndex = 0;
+  $('.top-bar').css('visibility', 'hidden');
 
   $scope.slideChanged = function(index) {
     $scope.slideIndex = index;
@@ -256,6 +257,7 @@ angular.module('meetme', ['ionic',
   };
 
   $scope.completeOnboarding = function() {
+    $('.top-bar').css('visibility', 'visible');
     totalDescription = "Hey, I'm " + $scope.ob.nickname;
     if($scope.ob.role == "school") {
       totalDescription += ", a student at " + $scope.ob.school + ".";
