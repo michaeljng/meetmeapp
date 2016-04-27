@@ -1,0 +1,58 @@
+.post-button{
+  height: $post-button-height;
+  width: 100%;
+  border: none;
+  display: block;
+  font-size: 18px;
+  color: $secondary-color;
+  background: $white;
+  font-weight: 700;
+  @include box-sizing(border-box);
+
+  i {
+    font-size: $fs-h1;
+    @include transition(none);
+  }
+
+}
+.edit-post-title {
+  @include display(flex);
+  @include justify-content(center);
+  @include align-items(center);
+  background-color: $secondary-color;
+  color: $white;
+  font-weight: 700;
+  margin-top: $bar-height;
+  border: none;
+}
+
+.clickable-category {
+  border: 2px solid;
+  display: inline-block;
+  font-size: 30px;
+  margin: 0 3px 10px 3px;
+  padding: 4px;
+  text-align: center;
+  height: 40px;
+  width: 40px;
+}
+
+.find-button {
+  &:active {
+    background: $secondary-color;
+    color: $white;
+  }
+}
+
+.chosen-category {
+  background-color: #333;
+  color: $white;
+}
+.completed-container {
+  background-color: $secondary-color;
+  color: $white;
+  font-weight: 700;
+}  
+.cool-icon{
+  fill: #ff0;
+}

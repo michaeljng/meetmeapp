@@ -1,5 +1,16 @@
 // Ionic Starter App
 
+//Non-ionic functions
+//IS THERE A BETTER PLACE FOR THESE?
+var showLogin = function(){
+  document.getElementById("fb-login-instructions").className += " open";
+  document.getElementById("login-overlay").className += " open";
+}
+var hideLogin = function(){
+  document.getElementById("fb-login-instructions").className -= " open";
+  document.getElementById("login-overlay").className = "overlay";
+}
+
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
@@ -64,16 +75,44 @@ angular.module('meetme', ['ionic',
           }
         })
 
+        .state('app.onboarding', {
+          url: '/onboarding/:displayUserId',
+          templateUrl: 'templates/onboarding.html',
+          controller: 'OnboardingController',
+          resolve: {
+            currentUser: function(PreloadFunctions) {
+              return PreloadFunctions.currentUser();
+            },
+            displayUser: function(PreloadFunctions, $stateParams) {
+              return PreloadFunctions.userById($stateParams.displayUserId);
+            }
+          }
+        })
+
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/app/home');
 
       })
+
+
+// iOS style bottom nav for both platforms.
+.config(function($ionicConfigProvider) {
+  $ionicConfigProvider.tabs.position("bottom");
+  $ionicConfigProvider.tabs.style("standard");
+})
+
 
 .controller('ApplicationController', function ($scope, $interval) {
 
   $scope.applicationName = 'QuiikMeet'
   $scope.availableSecondsLeft = 0;
   $scope.timer = null;
+  $scope.headerText = "";
+  $scope.showLogo = true;
+  $scope.showBack = false;
+  $scope.backBlock = null;
+
+  $('.top-bar').css('visibility', 'hidden');
 
   $scope.clearTimer = function() {
     $interval.cancel($scope.timer);
@@ -85,13 +124,14 @@ angular.module('meetme', ['ionic',
       $scope.clearTimer();
     }
 
+    $scope.showLogo = false;
     $scope.availableSecondsLeft = seconds;
 
     $scope.timer = $interval(function(){
         var minutesLeft = Math.ceil($scope.availableSecondsLeft/60);
 
         if (minutesLeft > 59) {
-          $scope.headerText = Math.ceil(minutesLeft/60) + " Hours Left";
+          $scope.headerText = Math.floor(minutesLeft/60) + "+ Hours Left";
         }
         else if (minutesLeft > 1) {
           $scope.headerText = minutesLeft + " Minutes Left";
@@ -109,8 +149,26 @@ angular.module('meetme', ['ionic',
   }
 
   $scope.showTitle = function() {
-    $scope.headerText = $scope.applicationName;
+    $scope.headerText = "";
+    $scope.showLogo = true;
     $scope.clearTimer();
+  }
+
+  $scope.showBackButton = function(args,block) {
+    $scope.backBlock = function () {
+       block.apply(this,args);
+    }
+    $scope.showBack = true;
+  }
+
+  $scope.hideBackButton = function() {
+    $scope.backBlock = null;
+    $scope.showBack = false;
+  }
+
+  $scope.back = function() {
+    $scope.backBlock();
+    $scope.hideBackButton();
   }
 
   $scope.showTitle();
@@ -130,6 +188,7 @@ angular.module('meetme', ['ionic',
     });
   });
 
+
   $scope.doLogin = function() {
     FacebookService.login(function(response) {
       if (response.status === 'connected') {
@@ -137,14 +196,19 @@ angular.module('meetme', ['ionic',
         FacebookService.getUserFields(['id','name'],function(user) {
           ParseService.get('Users', {"facebookId":user.id}, function(results) {
 
-            var finishLogin = function() {
-              $state.go('app.logged-in.search-tab.unavailable', {"userId": $scope.userId});
+            var finishLogin = function(isNewUser) {
+              if (isNewUser) {
+                $state.go('app.onboarding', {'displayUserId':$scope.userId});
+              }
+              else {
+                $state.go('app.logged-in.search-tab.unavailable', {"userId": $scope.userId});
+              }
             }
 
             if (results.length == 0) {
               ParseService.create('Users', {"facebookId":user.id,"facebookName":user.name}, function(response) {
                 $scope.userId = response.data.objectId;
-                finishLogin();
+                finishLogin(true);
               });
             }
             else {
@@ -153,7 +217,7 @@ angular.module('meetme', ['ionic',
 
               ParseService.update('Users', results[0].objectId, results[0], function(response) {
                 $scope.userId = response.config.data.objectId;
-                finishLogin();
+                finishLogin(false);
               });
             }
 
@@ -165,4 +229,53 @@ angular.module('meetme', ['ionic',
     })
   }
 
+})
+
+.controller('OnboardingController', function ($scope, $state, $interval, $stateParams, $ionicSlideBoxDelegate, currentUser, displayUser, FacebookService, ParseService) {
+  $scope.currentUser = currentUser;
+  $scope.displayUser = displayUser;
+
+  $scope.ob = {nickname : "", age : 0, role : "school", school : "", job : "", company : "", activity1 : "", activity2 : "", activity3 : ""};
+
+  $scope.slideIndex = 0;
+
+  $scope.slideChanged = function(index) {
+    $scope.slideIndex = index;
+    if($scope.ob.nickname == "") {
+      $scope.ob.nickname = displayUser.facebookName.split(' ')[0];
+    }
+  };
+
+  $scope.next = function() {
+    if($scope.slideIndex != 2) {
+      $ionicSlideBoxDelegate.next();
+    } else {
+      $scope.completeOnboarding();
+    }
+  };
+  $scope.previous = function() {
+    $ionicSlideBoxDelegate.previous();
+  };
+
+  $scope.completeOnboarding = function() {
+    totalDescription = "Hey, I'm " + $scope.ob.nickname;
+    if($scope.ob.role == "school") {
+      totalDescription += ", a student at " + $scope.ob.school + ".";
+    } else if($scope.ob.role == "work") {
+      totalDescription += ", I work as a " + $scope.ob.job + " at " + $scope.ob.company + ".";
+    } else {
+      totalDescription += ". Nice to meet you!";
+    }
+    totalDescription += " I like to " + $scope.ob.activity1 + ", " + $scope.ob.activity2 + ", and " + $scope.ob.activity3 + ".";
+
+    $scope.displayUser.nickName = $scope.ob.nickname;
+    $scope.displayUser.userAge = $scope.ob.age;
+    $scope.displayUser.userDescription = totalDescription;
+
+    ParseService.updateAndRetrieve('Users',$scope.currentUser.objectId,$scope.displayUser, function(user) {
+      $scope.displayUser = user;
+    });
+
+    $state.go('app.logged-in.search-tab.unavailable', {"userId": $scope.userId});
+  }
 })

@@ -1,18 +1,74 @@
+<div class="onboarding-top-bar">
+	<img class="logo" src="../img/quiikmeet-logo.svg" />
+</div>
+
 <ion-view title="logged-out">
-	<ion-content class="has-header padding">
 
-		<div style="height:125px"></div>
+	<div class="ii-background"></div>
 
-		<h2 class="text-center" style="line-height:1.5">Meet Up with People, Right Now!</h2>
+	<div class="tutorial-and-login onboarding-container">
+		<div class="overlay" id="login-overlay" onClick="hideLogin()"></div>
 
-		<div style="height:25px"></div>
+		<ion-slide-box on-slide-changed="slideHasChanged($index)" auto-play="false">
+			<ion-slide>
+				<ion-scroll zooming="false" direction="y" style="width: 100%; height: 100%;">
+					<div class="what-is-quiikmeet onboarding-slide">
 
-		<h5 class="text-center" style="line-height:1.4;margin-right:20px;margin-left:20px">Meet Me lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua! </h2>
+						<div class="subtitle">What is QuiikMeet?</div>
 
-		<div style="height:25px"></div>
 
-		<div style="text-align:center">
-			<button class="button" ng-click="doLogin()">Login with Facebook</button>
+						<p>
+							QuiikMeet is a realtime friend finding service that allows you to search for nearby people and do something together.
+						</p>
+						<p>
+							Have a break? Meet someone new over a cup of coffee! QuiikMeet fills gaps in your schedule with social interaction. 
+						</p>
+						<p>
+							Meet someone new today!
+						</p>
+					</div>
+				</ion-scroll>
+			</ion-slide>
+			<ion-slide>
+				<ion-scroll zooming="false" direction="y" style="width: 100%; height: 100%;">
+					<div class="create-a-post onboarding-slide">
+
+						<div class="subtitle">How to Use It</div>
+
+						<div class="step">
+							<div class="label">Create a post.</div>
+							<img class="screenshot" src="../img/create-a-post.png" />
+						</div>
+						
+						<div class="step">
+							<div class="label">Send an invitation to someone.</div>
+							<img class="screenshot" src="../img/invite-to-meet.png" />
+						</div>
+
+						<div class="step">
+							<div class="label">Chat with them and decide where to go.</div>
+							<img class="screenshot" src="../img/chat.png" />
+						</div>
+
+					</div>
+				</ion-scroll>
+			</ion-slide>
+		</ion-slide-box>
+
+		<button class="btn white" onClick="showLogin()">get started</button>
+
+		<div id="fb-login-instructions">
+			<h1>
+				Authenticate with Facebook.
+			</h1>
+
+			<p>
+				We need to pull your name and interests from Facebook. We promise we won&rsquo;t post anything on your behalf!
+			</p>
+
+
+			<button class="btn white" ng-click="doLogin()">continue with facebook</button>
+
 		</div>
-	</ion-content>
+	</div>
 </ion-view>

@@ -1,0 +1,43 @@
+$font-stack: 'Fira Sans', 'Roboto', sans-serif;
+
+$bar-height: 50px;
+$post-button-height: calc(25vh - 25px);
+
+// Colors
+$red: #d75346;
+$blue: #3794c8;
+$blue2: #4aa5d8;
+$light-blue: #87bfde;
+$green: #37c88f;
+$green2: #0ebb73;
+$balanced: #37c88f;
+
+$primary-color: $green2;
+$secondary-color: $blue2;
+
+$white: #fff;
+$lighter-gray: #f4f4f4;
+$light-gray: #e8e8e8;
+$gray: #ccc;
+$dark-gray: #999;
+$darker-gray: #4f4f4f;
+
+$text-color: $darker-gray;
+$text-secondary: $dark-gray;
+
+// Font Sizes
+$fs-big: 36px;
+$fs-h1: 24px;
+$fs-h2: 20px;
+$fs-body: 16px;
+$fs-small: 12px;
+
+// Font weights
+$normal: 400;
+$bold: 700;
+
+// Spacing
+$padding: 30px;
+
+// Forms
+$input-height: 50px;

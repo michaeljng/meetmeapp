@@ -1,0 +1,161 @@
+<div class="onboarding-top-bar">
+	<img class="logo" src="../img/quiikmeet-logo.svg" />
+</div>
+
+<ion-view class="onboarding-container create-profile">
+	
+	<div class="ii-background"></div>
+
+	<ion-slide-box disable-scroll="true" on-slide-changed="slideChanged(index)" auto-play="false">
+		<ion-slide>
+			<ion-scroll zooming="false" direction="y" style="width: 100%; height: 100%;">
+				<div class="user-and-nickname onboarding-slide">
+					<div class="title">Hey, it&rsquo;s you!</div>
+
+					<div class="profile-picture">
+						<img src="http://graph.facebook.com/{{displayUser.facebookId}}/picture?width=500&height=500" />
+					</div>
+
+					<div class="name-of-user">{{displayUser.facebookName}}</div>
+
+					<div class="do-you-have-nickname onboarding-form">
+						<div class="label">Do you have a nickname?</div>
+						<input placeholder="Enter it here! (not required)" class="onboarding-input nickname-input" ng-model="ob.nickname">
+					</div>
+
+					<div class="how-old-are-you onboarding-form">
+						<div class="label">How old are you?</div>
+						<input placeholder="" type="number" class="onboarding-input half"  ng-model="ob.age">
+					</div>
+				</div>
+			</ion-scroll>
+		</ion-slide>
+		<ion-slide>
+			<ion-scroll zooming="false" direction="y" style="width: 100%; height: 100%;">
+				<div class="tell-us-about-yourself onboarding-slide">
+					<div class="subtitle">Let's build your profile!</div>
+
+					<div class="what-do-you-do onboarding-form">
+						<div class="label">What do you currently do?</div>
+						<div class="onboarding-select-outer">
+							<select class="onboarding-select" name="work-school" ng-model="ob.role">
+								<option value="school">I&rsquo;m going to school.</option>
+								<option value="work">I&rsquo;m working.</option>
+								<option value="nothing">None of the above.</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="where onboarding-form" ng-show="ob.role=='school'">
+						<div class="label">Where?</div>
+						<input placeholder="Enter the name of your school." class="onboarding-input" ng-model="ob.school">
+					</div>
+
+					<!-- If "work" is selected -->
+					<div class="what-do-you-do onboarding-form" ng-show="ob.role=='work'">
+						<div class="label">What's your job title?</div>
+						<input placeholder="Enter your job title." class="onboarding-input" ng-model="ob.job">
+					</div>
+
+					<div class="where-company onboarding-form" ng-show="ob.role=='work'">
+						<div class="label">Where?</div>
+						<input placeholder="Enter the company name." class="onboarding-input" ng-model="ob.company">
+					</div>
+
+					<div class="profile-fill-in onboarding-form">
+
+						<div ng-show="ob.role=='school'">
+							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}},</span>
+							<!-- Add class of "none" to span to hide it (display: none). -->
+							<div class="dynamic-hide" ng-hide="!ob.school">
+								<span class="profession dynamic">a student</span>
+								<span class="connector"> at </span>
+								<span class="location dynamic">{{ob.school}}.</span>
+							</div>
+						</div>
+						<div ng-show="ob.role=='work'">
+							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}},</span>
+							<!-- Replace a with an (low priority) -->
+							<div class="dynamic-hide" ng-hide="!ob.job">
+								<span class="connector as-an">I work as a</span>
+								<span class="job dynamic"> {{ob.job}}</span>
+							</div>
+							<div class="dynamic-hide" ng-hide="!ob.company">
+								<span class="connector"> at </span>
+								<span class="company dynamic">{{ob.company}}</span>.
+							</div>
+						</div>
+						<div ng-show="ob.role=='nothing'">
+							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}.</span> Nice to meet you!
+						</div>
+					</div>
+				</div>
+			</ion-scroll>
+		</ion-slide>
+		<ion-slide>
+			<ion-scroll zooming="false" direction="y" style="width: 100%; height: 100%;">
+				<div class="tell-us-about-yourself onboarding-slide">
+					<div class="subtitle">What do you like to do?</div>
+
+					<!-- Add class of "disabled" to disable -->
+					<div class="interest-visible onboarding-form">
+						<div class="label">Enter 3 things you like to do.</div>
+						<input placeholder="ex. discover new food" class="onboarding-input" ng-model="ob.activity1">
+					</div>
+
+					<div class="interest-hidden onboarding-form" ng-class="{disabled : !ob.activity1 && !ob.activity3}">
+						<input placeholder="ex. hike" class="onboarding-input" ng-model="ob.activity2">
+					</div>
+
+					<div class="interest-hidden onboarding-form" ng-class="{disabled : !ob.activity2 && !ob.activity3}">
+						<input placeholder="ex. play basketball" class="onboarding-input" ng-model="ob.activity3">
+					</div>
+
+					<div class="profile-fill-in onboarding-form final-form">
+						<div ng-show="ob.role=='school'">
+							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}},</span>
+							<div class="dynamic-hide" ng-hide="!ob.school">
+								<span class="profession">a student</span> at
+								<span class="location">{{ob.school}}</span>.
+							</div>
+						</div>
+						<div ng-show="ob.role=='work'">
+							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}},</span>
+							<div class="dynamic-hide" ng-hide="!ob.job">
+								<span class="connector as-an">I work as a</span>
+								<span class="job dynamic"> {{ob.job}}</span>
+							</div>
+							<div class="dynamic-hide" ng-hide="!ob.company">
+								<span class="connector"> at </span>
+								<span class="company dynamic">{{ob.company}}</span>.
+							</div>
+						</div>
+						<div ng-show="ob.role=='nothing'">
+							Hey, I&rsquo;m <span class="first-name">{{ob.nickname}}</span>. Nice to meet you!
+						</div>
+						<span class="connector">I like to </span>
+						<div class="dynamic-hide" ng-hide="!ob.activity1">
+							<span class="an-interest dynamic">{{ob.activity1}},</span>
+						</div>
+						<div class="dynamic-hide" ng-hide="!ob.activity2">
+							<span class="an-interest dynamic">{{ob.activity2}},</span>
+						</div>
+						<div class="dynamic-hide" ng-hide="!ob.activity3">
+							<span class="connector"> and </span>
+							<span class="an-interest dynamic">{{ob.activity3}}.</span>
+						</div>
+					</div>
+				</div>
+			</ion-scroll>
+		</ion-slide>
+	</ion-slide-box>
+
+
+		<div class="bottom-bar">
+			<button class="btn secondary first-slide" ng-show="slideIndex==0">back</button>
+			<button class="btn secondary" ng-click="previous()" ng-show="slideIndex>0">back</button>
+			<button class="btn secondary" ng-click="next()" ng-show="slideIndex!=2">next</button>
+			<button class="btn secondary last-slide" ng-click="next()" ng-show="slideIndex==2">finish</button>
+		</div>
+
+</ion-view>

@@ -1,0 +1,121 @@
+.profile-container {
+	.container {
+		//background: $primary-color;
+	}
+	.item {
+		border: none;
+		padding: 20px 0;
+		overflow: visible;
+		background: none;
+	}
+	input {
+		background: $lighter-gray;
+	}
+	#saved-notification {
+		@include box-shadow-1();
+		font-weight: bold;
+		border: none;
+		display: none;
+		text-align: center;
+		height: auto;
+		padding: 10px;
+	}
+	.label {
+		font-style: italic;
+		margin-bottom: 5px;
+	}
+	.profile-header {
+		@include display(flex);
+		@include flex-direction(column);
+		@include align-items(center);
+		.profile-picture {
+			@include display(flex);
+			@include align-items(center);
+			width: 40%;
+			//margin-right: 20px;
+			img {
+				border-radius: 50%;
+				border: 6px solid $primary-color;
+				@include box-shadow-1();
+				width: 100%;
+				height: 100%;
+			}
+		}
+		.user-info {
+			@include display(flex);
+			@include flex-direction(column);
+			@include justify-content(center);
+			@include align-items(center);
+			width: 60%;
+			h1 {
+				color: $primary-color;
+				margin: 0;
+				margin-top: 10px;
+				font-weight: 700;
+			}
+			.item{
+				padding: 0;
+				margin-top: 5px;
+				border: none;
+			}
+			.age {
+				@include display(flex);
+				@include flex-direction(row);
+				input {
+					width: 50px;
+					padding: 0 10px;
+					font-size: $fs-body;
+				}
+				span {
+					@include display(flex);
+					@include flex-direction(column);
+					@include justify-content(center);
+				}
+			}
+			.distance {
+				@include display(flex);
+				@include flex-direction(row);
+				@include align-items(baseline);
+				.icon {
+					margin-right: 5px;
+				}
+			}
+		}
+	}
+	.nickname {
+		.nickname-text {
+
+		}
+	}
+	.about {
+		margin-bottom: 40px;
+		.about-bubble {
+			position: relative;
+			//margin-right: 10%;
+			line-height: 1.5;
+			color: $text-color;
+			font-style: italic;
+			.about-text, .about-text-no-edit {
+				width: 100%;
+				height: 100%;
+				background: none;
+				font-size: $fs-body;
+				font-style: normal;
+				min-height: 100px;
+				max-height: 200px;
+				white-space: normal;
+			}
+			.about-text {
+				resize: none;
+				box-shadow: none;
+				padding: 10px;
+				border: 5px;
+				background: $lighter-gray;
+				@include box-shadow-1();
+			}
+			.about-text-no-edit {
+				
+			}
+		}
+	}
+}

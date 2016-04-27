@@ -1,0 +1,69 @@
+&.create-profile {
+	.profile-picture {
+		text-align: center;
+		img {
+			border-radius: 50%;
+			width: 50%;
+			border: 5px solid $white;
+			@include box-shadow-1();
+		}
+	}
+	.name-of-user {
+		font-size: $fs-h2;
+		text-align: center;
+		font-weight: $bold;
+		color: $white;
+	}
+	.user-and-nickname {
+		.title {
+			text-align: center;
+		}
+	}
+	.profile-fill-in {
+		margin-top: 40px;
+		font-size: $fs-h2;
+		position: relative;
+		padding: 10px;
+		margin-left: 20%;
+		line-height: 1.5;
+		background: $white;
+		color: $text-color;
+		border-radius: 5px 5px 0px 5px;
+		font-style: italic;
+		@include filter(drop-shadow(3px 3px 5px rgba(0,0,0,0.2)));
+		&:after {
+			content: '';
+			display: inline-block;
+			position: absolute;
+			width: 0;
+			height: 0;
+			border-style: solid;
+			border-width: 10px 0px 0px 10px;
+			border-color: transparent transparent transparent $white;
+			bottom: 0px;
+			right: -10px;
+		}
+		.check-grammar {
+			position: absolute;
+			color: $white;
+			font-size: 12px;
+			width: 100%;
+			top: 0;
+			left: 0;
+			@include transform(translateY(-100%));
+		}
+		.dynamic {
+			color: $primary-color;
+		}
+	}
+
+	.tell-us-about-yourself {
+		.add-another-interest {
+			margin-top: 20px;
+		}
+	}
+	.how-old-are-you, .profile-fill-in  {
+		margin-bottom: 40px;
+	}
+
+}

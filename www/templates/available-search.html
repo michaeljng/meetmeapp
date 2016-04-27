@@ -1,16 +1,67 @@
 <ion-view>
-	<ion-content class="has-header has-footer">
+
+	<div class="ii-background left"></div>
+
+	<ion-content class="has-header has-footer container available-users">
+		
+
 		<div class="extended-all" ng-show="pageExtended"></div>
+
+		<!-- <h1 class="title">Your Post</h1> -->
+
+		<div class="your-post">
+			<ion-list ng-repeat="matchedUser in selfUser">
+				<a class="user-card your-card">
+					<div class="card-left">
+						<img class="profile-picture" src="http://graph.facebook.com/{{matchedUser.facebookId}}/picture?width=270&height=270"/>
+					</div>
+					<div class="card-right">
+						<h2 ng-show="!matchedUser.nickName">{{matchedUser.facebookName}}</h2>
+						<h2 ng-show="matchedUser.nickName">{{matchedUser.nickName}}</h2>
+						<div class="wants-to">
+							<img class="icon-ii" src="../img/ii.svg" />
+							{{matchedUser.activePost.description}}
+						</div>
+						<div class="details">
+							<div class="time-available">
+								<i class="icon ion-android-stopwatch"></i> {{matchedUser.minutesLeftAvailable}}
+							</div>
+						</div>
+					</div>
+					<div class="card-x-out" >
+						<div class="x-btn" ng-click="setUnavailable()">
+							<i class="icon ion-close"></i>
+						</div>
+					</div>
+				</a>
+			</ion-list>
+		</div>
+
+
+		<h1 class="title">Available Users</h1>
+
 		<ion-list ng-repeat="matchedUser in matchedUsers">
-			<a class="item item-thumbnail-left" href="#/app/logged-in/user-tab/user-detail/{{matchedUser.objectId}}">
-				<img src="http://graph.facebook.com/{{matchedUser.facebookId}}/picture?width=270&height=270"/>
-				<h2>{{matchedUser.facebookName}}</h2>
-				<p>Available for {{matchedUser.minutesLeftAvailable}} mins</p>
-				<p>Interested in {{matchedUser.activePost.description}}</p>
+			<a class="user-card" ng-click="tapUser(matchedUser.objectId)">
+				<div class="card-left">
+					<img class="profile-picture" src="http://graph.facebook.com/{{matchedUser.facebookId}}/picture?width=270&height=270"/>
+				</div>
+				<div class="card-right">
+					<h2 ng-show="!matchedUser.nickName">{{matchedUser.facebookName}}</h2>
+					<h2 ng-show="matchedUser.nickName">{{matchedUser.nickName}}</h2>
+					<div class="wants-to">
+						<img class="icon-ii" src="../img/ii.svg" />
+						{{matchedUser.activePost.description}}
+					</div>
+					<div class="details">
+						<div class="distance">
+							<i class="icon ion-android-pin"></i> {{matchedUser.searchDistance}} mi
+						</div>
+						<div class="time-available">
+							<i class="icon ion-android-stopwatch"></i> {{matchedUser.minutesLeftAvailable}}
+						</div>
+					</div>
+				</div>
 			</a>
 		</ion-list>
-		<div>
-			<button ng-click="setUnavailable()">Unavailable</button>
-		</div>
 	</ion-content>
 </ion-view>

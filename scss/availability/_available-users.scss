@@ -1,0 +1,87 @@
+.available-users {
+	.title {
+		margin: 40px 0 20px 0;
+		color: $primary-color;
+	}
+	.your-post {
+		margin-top: 20px;
+	}
+	.user-card {
+		@include display(flex);
+		@include flex-direction(row);
+		background: $lighter-gray;
+		border-radius: 3px;
+		@include box-shadow-1();
+		margin-bottom: 8px;
+		padding: 12px;
+		&:active {
+			background: $light-gray;
+		}
+		.card-left, .card-right {
+			@include display(flex);
+			@include flex-direction(column);
+		}
+		.card-left {
+			@include flex-shrink(0);
+			@include justify-content(center);
+			margin-right: 12px;
+			.profile-picture {
+				border-radius: 50%;
+				width: 70px;
+				height: 70px;
+			}
+		}
+		.card-right {
+			@include flex-grow(1);
+			h2 {
+				font-weight: $bold;
+				font-size: $fs-body;
+				margin: 0;
+			}
+			.wants-to {
+				margin-bottom: 10px;
+				//color: $text-secondary;
+			}
+			.details {
+				@include display(flex);
+				@include flex-direction(row);
+				//color: $text-secondary;
+				.icon {
+					@include display(inline-flex);
+				}
+				.distance {
+					margin-right: 15px;
+				}
+				.time-available {
+
+				}
+			}
+		}
+		&.your-card {
+			.card-x-out {
+				@include display(flex);
+				@include align-items(flex-end);
+				@include justify-content(center);
+				@include flex-direction(column);
+				@include flex-shrink(0);
+				.x-btn {
+					@include display(flex);
+					@include align-items(center);
+					@include justify-content(center);
+					font-size: 24px;
+					cursor: pointer;
+					color: $text-color;
+					background: none;
+					border-radius: 50%;
+					box-shadow: none;
+					width: 40px;
+					height: 40px;
+					&:active {
+						@include transform(rotate(45deg));
+					}
+				}
+			}
+		}
+	}
+}
+
